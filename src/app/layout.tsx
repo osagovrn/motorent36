@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
-import { SEO_CONFIG } from "@/config/seo";
+import { SEO_CONFIG, yandexVerification } from "@/config/seo";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { YandexMetrika } from "@/components/YandexMetrika";
 import "./globals.css";
@@ -19,6 +19,8 @@ const display = Manrope({
   display: "swap",
 });
 
+const ogImage = "/products/jk902-1.jpg";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SEO_CONFIG.siteUrl),
   title: {
@@ -27,11 +29,15 @@ export const metadata: Metadata = {
   },
   description: SEO_CONFIG.defaultDescription,
   applicationName: SEO_CONFIG.brandName,
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "аренда мотошлемов Воронеж",
     "прокат шлема Воронеж",
     "мотоэкипировка напрокат",
     "JIEKAI JK902",
+    "размер мотошлема",
     SEO_CONFIG.brandName,
   ],
   openGraph: {
@@ -40,7 +46,25 @@ export const metadata: Metadata = {
     siteName: SEO_CONFIG.brandName,
     title: SEO_CONFIG.defaultTitle,
     description: SEO_CONFIG.defaultDescription,
+    url: "/",
+    images: [
+      {
+        url: ogImage,
+        width: 1000,
+        height: 1000,
+        alt: "Мотошлем JIEKAI JK902 чёрный матовый — аренда в Воронеже",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: SEO_CONFIG.defaultTitle,
+    description: SEO_CONFIG.defaultDescription,
+    images: [ogImage],
+  },
+  verification: yandexVerification
+    ? { yandex: yandexVerification }
+    : undefined,
   robots: { index: true, follow: true },
   manifest: "/manifest.webmanifest",
   appleWebApp: {

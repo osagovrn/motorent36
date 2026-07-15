@@ -1,68 +1,71 @@
 ВЫКЛАДКА MotoRent36 (инструкция)
 ================================
-Дата: 15.07.2026
+Дата: 15.07.2026 (обновлено)
 
-Сайт — Next.js + API + SQLite. GitHub Pages НЕ подойдёт (нет серверных API).
-Рекомендуется: Vercel (проще всего) или VPS/Beget с Node.js.
+Сайт — Next.js + API + SQLite.
+GitHub Pages — НЕТ. Vercel+SQLite — НЕ рекомендуется.
+Рекомендуется: VPS/Beget + Docker (или Node напрямую).
 
-─────────────────────────────────
-A) VERCEL (рекомендую)
-─────────────────────────────────
-1. Завести аккаунт на vercel.com (через GitHub удобно)
-2. Залить репозиторий на GitHub (или импорт с диска через CLI)
-3. New Project → выберите папку проекта
-4. Environment Variables:
-     DATABASE_URL=file:./prod.db
-     TELEGRAM_BOT_TOKEN=...
-     TELEGRAM_CHAT_ID=...
-     NEXT_PUBLIC_SITE_URL=https://ВАШ-ДОМЕН.vercel.app
-     NEXT_PUBLIC_YANDEX_METRIKA_ID=...   (по желанию)
-5. Build Command: npm run build
-6. После деплоя один раз выполнить сид (см. ниже) ИЛИ закоммитить
-   готовую sqlite нельзя надёжно на serverless — для прода лучше Postgres.
-
-ВАЖНО про БД на Vercel:
-  SQLite на serverless часто ломается (read-only FS).
-  Для прода: перейти на Supabase/Postgres (Prisma datasource postgresql).
-  Для теста/малого трафика можно VPS вместо Vercel.
+Чеклист перед Директом:
+  [ ] TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID
+  [ ] NEXT_PUBLIC_SITE_URL=https://ваш-домен.ru
+  [ ] NEXT_PUBLIC_YANDEX_METRIKA_ID + цель booking_ok
+  [ ] NEXT_PUBLIC_YANDEX_VERIFICATION
+  [ ] npm run preflight  (с NODE_ENV=production)
+  [ ] GET /api/health → readyForAds: true
 
 ─────────────────────────────────
-B) VPS / Beget (Node) — стабильнее для SQLite
+A) DOCKER на VPS (рекомендую)
 ─────────────────────────────────
-1. На сервере: Node 20+, git, npm
+1. На сервере: Docker + docker compose, домен → сервер
+2. Залить проект, cp .env.example .env → заполнить критичные ключи
+3. docker compose up -d --build
+4. Nginx + HTTPS (пример: ПРОЧЕЕ/nginx.example.conf)
+5. Открыть https://домен/api/health
+
+SQLite хранится в volume motorent_data.
+
+─────────────────────────────────
+B) VPS / Beget без Docker
+─────────────────────────────────
+1. Node 20+, git, npm
 2. git clone / залить файлы
 3. cp .env.example .env → заполнить
-4. npm ci
-5. npm run db:setup
-6. npm run build
-7. npm run start   (или pm2 start npm -- start)
-8. Nginx → reverse proxy на порт 3000 + HTTPS (Let's Encrypt)
-9. NEXT_PUBLIC_SITE_URL=https://ваш-домен.ru
+4. npm ci && npm run db:setup && npm run build
+5. NODE_ENV=production npm run preflight
+6. npm run start:prod   (или pm2)
+7. Nginx → :3000 + Let's Encrypt
+8. NEXT_PUBLIC_SITE_URL=https://ваш-домен.ru
 
 ─────────────────────────────────
-C) TELEGRAM-БОТ (делает владелец)
+C) TELEGRAM-БОТ (делает владелец — без этого реклама бессмысленна)
 ─────────────────────────────────
-1. @BotFather → /newbot → получить TOKEN
+1. @BotFather → /newbot → TOKEN
 2. Написать боту любое сообщение
-3. Открыть https://api.telegram.org/botTOKEN/getUpdates
-   → найти "chat":{"id": ЧИСЛО }
-4. В .env:
-     TELEGRAM_BOT_TOKEN=...
-     TELEGRAM_CHAT_ID=...
-5. Перезапустить сайт, отправить тестовую заявку
+3. https://api.telegram.org/botTOKEN/getUpdates → chat.id
+4. В .env: TELEGRAM_BOT_TOKEN=...  TELEGRAM_CHAT_ID=...
+5. Перезапуск → тестовая заявка с сайта
+
+На ПРОДЕ без токена форма → 503.
+Заявки в таблице Booking; пересечение дат размера → 409.
+Антиспам: IP/телефон + honeypot.
 
 ─────────────────────────────────
-D) СВОЁ ФОТО ШЛЕМА
+D) ФОТО (сделано в коде)
 ─────────────────────────────────
-1. Положить файл: public/products/jk902.jpg (или .png)
-2. В prisma/seed.ts заменить HELMET_IMAGE на "/products/jk902.jpg"
-3. npm run db:seed
-4. Обновить деплой
+public/products/jk902-1.jpg и jk902-2.jpg
+Своё фото: заменить файлы + npm run db:seed при смене путей.
 
 ─────────────────────────────────
-E) РЕКЛАМА
+E) РЕКЛАМА / МЕТРИКА / ВЕБМАСТЕР
 ─────────────────────────────────
-После HTTPS-домена:
-- Яндекс.Вебмастер + sitemap.xml
-- Метрика (ID в NEXT_PUBLIC_YANDEX_METRIKA_ID)
-- Директ → сайт https://домен/ и /catalog/jiekai-jk902-black-matt
+- Вебмастер: NEXT_PUBLIC_YANDEX_VERIFICATION + sitemap.xml
+- Метрика: NEXT_PUBLIC_YANDEX_METRIKA_ID
+  Цель: booking_ok
+- Директ → https://домен/ и /catalog/jiekai-jk902-black-matt
+- FAQ: /faq
+
+─────────────────────────────────
+F) VERCEL (только если готовы к Postgres)
+─────────────────────────────────
+SQLite на serverless ломается. Без миграции на Postgres не используйте.

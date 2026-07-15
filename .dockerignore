@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.gitignore
+*.db
+*.db-journal
+.env
+.env.*
+!.env.example
+ПРОЧЕЕ
+agent-transcripts
+README.md
+AGENTS.md
+CLAUDE.md

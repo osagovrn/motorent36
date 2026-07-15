@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { BookingPanel } from "@/components/BookingPanel";
 import { ProductImage } from "@/components/ProductImage";
 import { productMeta, SEO_CONFIG } from "@/config/seo";
@@ -19,12 +20,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     model: product.model ?? product.title,
     price: product.pricePerDay,
   });
+  const images = parseImageUrls(product.imageUrls);
   return {
     title: meta.title,
     description: meta.description,
+    alternates: { canonical: `/catalog/${slug}` },
     openGraph: {
       title: meta.title,
       description: meta.description,
+      url: `/catalog/${slug}`,
+      images: images[0]
+        ? [
+            {
+              url: images[0],
+              alt: product.title,
+            },
+          ]
+        : undefined,
     },
   };
 }
@@ -43,6 +55,13 @@ export default async function ProductPage({ params }: Props) {
     .filter((a) => a.attributeName === "size" && a.stockQuantity > 0)
     .map((a) => a.attributeValue);
 
+  const productUrl = `${SEO_CONFIG.siteUrl.replace(/\/$/, "")}/catalog/${product.slug}`;
+  const absoluteImages = images.map((src) =>
+    src.startsWith("http")
+      ? src
+      : `${SEO_CONFIG.siteUrl.replace(/\/$/, "")}${src}`,
+  );
+
   const productLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -51,18 +70,22 @@ export default async function ProductPage({ params }: Props) {
     brand: product.brand
       ? { "@type": "Brand", name: product.brand }
       : undefined,
-    image: images,
+    image: absoluteImages,
     offers: {
-      "@type": "AggregateOffer",
+      "@type": "Offer",
       priceCurrency: "RUB",
-      lowPrice: product.pricePerDay,
-      highPrice: product.marketValue,
-      offerCount: availableSizes.length,
+      price: product.pricePerDay,
+      priceValidUntil: "2027-12-31",
+      description: `Аренда за сутки. При получении передаётся ${product.marketValue} ₽ (прокат + возвратный залог).`,
       availability:
         availableSizes.length > 0
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
-      url: `${SEO_CONFIG.siteUrl}/catalog/${product.slug}`,
+      url: productUrl,
+      seller: {
+        "@type": "Organization",
+        name: SEO_CONFIG.brandName,
+      },
     },
   };
 
@@ -96,8 +119,31 @@ export default async function ProductPage({ params }: Props) {
               />
             )}
           </div>
+          {images.length > 1 && (
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              {images.slice(1).map((src, i) => (
+                <div
+                  key={src}
+                  className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-zinc-900"
+                >
+                  <ProductImage
+                    src={src}
+                    alt={`${product.title} — ракурс ${i + 2}`}
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="mt-6 space-y-3 text-sm leading-relaxed text-zinc-300">
+            <p className="rounded-xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-amber-50">
+              <strong className="font-semibold">
+                При встрече — {formatRub(product.marketValue)} ₽
+              </strong>
+              . Из них прокат за выбранные сутки, остальное — залог. Залог
+              возвращаем при сдаче шлема в порядке.
+            </p>
             <p>{product.description}</p>
             <ul className="list-disc space-y-1 pl-5 text-zinc-400">
               <li>Прокат: {formatRub(product.pricePerDay)} ₽ / сутки</li>
@@ -111,6 +157,14 @@ export default async function ProductPage({ params }: Props) {
                 залог
               </li>
             </ul>
+            <p className="pt-1">
+              <Link
+                href="/faq"
+                className="text-amber-400 underline-offset-2 hover:underline"
+              >
+                FAQ: размеры, залог, встреча →
+              </Link>
+            </p>
           </div>
         </div>
 

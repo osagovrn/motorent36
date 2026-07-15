@@ -2,7 +2,10 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const HELMET_IMAGE = "/products/jiekai-jk902.svg";
+const HELMET_IMAGES = [
+  "/products/jk902-1.jpg",
+  "/products/jk902-2.jpg",
+];
 
 async function main() {
   const category = await prisma.category.upsert({
@@ -22,7 +25,7 @@ async function main() {
       brand: "JIEKAI",
       model: "JK902",
       color: "Черный матовый",
-      imageUrls: JSON.stringify([HELMET_IMAGE]),
+      imageUrls: JSON.stringify(HELMET_IMAGES),
       categoryId: category.id,
     },
     create: {
@@ -36,7 +39,7 @@ async function main() {
       brand: "JIEKAI",
       model: "JK902",
       color: "Черный матовый",
-      imageUrls: JSON.stringify([HELMET_IMAGE]),
+      imageUrls: JSON.stringify(HELMET_IMAGES),
     },
   });
 

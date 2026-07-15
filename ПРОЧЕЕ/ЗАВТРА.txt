@@ -1,0 +1,26 @@
+ЗАВТРА — MotoRent36 (15→16.07.2026)
+====================================
+
+Цель завтра: выложить сайт и принять первую живую заявку в Telegram.
+
+1) Бот
+   BotFather → token + chat_id → .env
+
+2) Хостинг
+   VPS + Docker: docker compose up -d --build
+   Домен HTTPS + Nginx (ПРОЧЕЕ/nginx.example.conf)
+
+3) Env на сервере
+   NEXT_PUBLIC_SITE_URL=https://...
+   TELEGRAM_*
+   NEXT_PUBLIC_YANDEX_METRIKA_ID + цель booking_ok
+   NEXT_PUBLIC_YANDEX_VERIFICATION
+
+4) Проверки
+   npm run preflight
+   /api/health → readyForAds: true
+   Тест-бронь с телефона
+
+Готово в коде: витрина, калькулятор, бронь+БД, FAQ, SEO, Docker, fail-closed Telegram.
+Подробный статус: ПРОЧЕЕ_СТАТУС.txt
+Инструкция деплоя: ПРОЧЕЕ/ВЫКЛАДКА.txt

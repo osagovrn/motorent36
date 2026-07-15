@@ -104,9 +104,9 @@ function HelmetPlaceholder({ alt, className }: { alt: string; className?: string
  */
 export function ProductImage({ src, alt, className, priority }: Props) {
   const usePlaceholder =
-    src.includes("jiekai-jk902.svg") ||
-    src.includes("/products/jiekai-jk902") ||
-    (!isRaster(src) && !isRemote(src) && src.toLowerCase().endsWith(".svg"));
+    !isRaster(src) &&
+    !isRemote(src) &&
+    (src.toLowerCase().endsWith(".svg") || !src);
 
   if (usePlaceholder) {
     return <HelmetPlaceholder alt={alt} className={className} />;
@@ -120,7 +120,7 @@ export function ProductImage({ src, alt, className, priority }: Props) {
       loading={priority ? "eager" : "lazy"}
       decoding="async"
       className={cn(
-        "absolute inset-0 h-full w-full object-cover object-center",
+        "absolute inset-0 h-full w-full bg-zinc-100 object-contain object-center",
         className,
       )}
     />

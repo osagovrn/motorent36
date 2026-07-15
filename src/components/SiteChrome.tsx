@@ -57,6 +57,12 @@ export function SiteHeader() {
           >
             Каталог
           </AnchorNav>
+          <Link
+            href="/faq"
+            className="hidden min-h-11 items-center hover:text-amber-300 sm:inline-flex"
+          >
+            FAQ
+          </Link>
           <a
             href={`tel:${SEO_CONFIG.phoneE164}`}
             className="inline-flex min-h-11 items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-3 text-amber-200 hover:bg-amber-500/20"
@@ -109,6 +115,12 @@ export function SiteFooter() {
           >
             MAX {SEO_CONFIG.maxDisplay}
           </a>
+          <Link
+            href="/faq"
+            className="inline-flex min-h-11 items-center hover:text-amber-300"
+          >
+            Частые вопросы
+          </Link>
           <Link
             href="/offer"
             className="inline-flex min-h-11 items-center hover:text-amber-300"

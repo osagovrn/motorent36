@@ -1,4 +1,5 @@
 type BookingTelegramPayload = {
+  bookingId?: number;
   clientName: string;
   phone: string;
   contactMethod: string;
@@ -28,6 +29,7 @@ export async function sendBookingTelegram(
 
   const text = [
     "🔔 *НОВАЯ ЗАЯВКА НА АРЕНДУ!*",
+    payload.bookingId ? `🆔 №${payload.bookingId}` : "",
     `👤 Клиент: ${escapeMd(payload.clientName)}`,
     `📞 Связь: ${escapeMd(payload.phone)} (Предпочитает: ${escapeMd(payload.contactMethod)})`,
     `🪖 Товар: ${escapeMd(payload.productTitle)}`,
@@ -38,7 +40,9 @@ export async function sendBookingTelegram(
     `— Стоимость проката: ${payload.totalRentalPrice} руб.`,
     `— Возвратный залог: ${payload.refundableDeposit} руб.`,
     `— ИТОГО К ПОЛУЧЕНИЮ ПРИ ВСТРЕЧЕ: ${payload.totalDueAtPickup} руб.`,
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",

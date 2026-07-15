@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { calculateRental, formatRub, parseLocalDate } from "@/lib/rental";
 import { HELMET_SIZE_OPTIONS, SEO_CONFIG } from "@/config/seo";
+import { HelmetSizeChart } from "@/components/HelmetSizeChart";
 import { cn } from "@/lib/utils";
 
 type SizeOption = {
@@ -73,6 +74,7 @@ export function BookingPanel({
     "Телефон" | "Telegram" | "MAX"
   >("Телефон");
   const [terms, setTerms] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -124,6 +126,7 @@ export function BookingPanel({
           phone,
           contactMethod,
           termsAccepted: true,
+          website: honeypot,
         }),
       });
       const data = (await res.json()) as { error?: string };
@@ -132,6 +135,14 @@ export function BookingPanel({
         return;
       }
       setSuccess(true);
+      if (typeof window !== "undefined" && SEO_CONFIG.yandexMetrikaId) {
+        const ym = (
+          window as unknown as {
+            ym?: (id: string, method: string, goal: string) => void;
+          }
+        ).ym;
+        ym?.(SEO_CONFIG.yandexMetrikaId, "reachGoal", "booking_ok");
+      }
     } catch {
       setError("Сеть недоступна. Позвоните или напишите в Telegram.");
     } finally {
@@ -149,6 +160,12 @@ export function BookingPanel({
           Бронирование
         </h2>
         <p className="mt-1 text-sm text-zinc-400">{productTitle}</p>
+
+        <p className="mt-4 rounded-xl border border-amber-500/35 bg-amber-500/10 px-3.5 py-3 text-sm leading-snug text-amber-50">
+          При получении передаёте{" "}
+          <strong className="font-bold">{formatRub(marketValue)} ₽</strong>{" "}
+          (прокат + возвратный залог). Онлайн-оплаты нет — расчёт при встрече.
+        </p>
 
         <div className="mt-5">
           <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500">
@@ -180,6 +197,11 @@ export function BookingPanel({
           <p className="mt-2 text-xs text-zinc-500">
             В наличии сейчас: {availableSizes.join(", ") || "нет"}
           </p>
+          <HelmetSizeChart
+            inStock={availableSizes}
+            compact
+            className="mt-3 rounded-xl border border-white/5 bg-zinc-950/50 p-3"
+          />
         </div>
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -233,7 +255,21 @@ export function BookingPanel({
           руб.).
         </p>
 
-        <form onSubmit={onSubmit} className="mt-6 space-y-3">
+        <form onSubmit={onSubmit} className="relative mt-6 space-y-3">
+          <div
+            className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+            aria-hidden
+          >
+            <label>
+              Сайт
+              <input
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </label>
+          </div>
           <label className="block text-sm">
             <span className="mb-1 block text-zinc-400">Имя</span>
             <input
@@ -301,9 +337,33 @@ export function BookingPanel({
           </label>
 
           {error && (
-            <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">
-              {error}
-            </p>
+            <div className="space-y-3 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-3 text-sm text-red-200">
+              <p>{error}</p>
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                <a
+                  href={`tel:${SEO_CONFIG.phoneE164}`}
+                  className="inline-flex min-h-11 items-center justify-center rounded-lg bg-amber-500 px-3 text-center text-xs font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400"
+                >
+                  Позвонить
+                </a>
+                <a
+                  href={SEO_CONFIG.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center justify-center rounded-lg border border-amber-500/40 px-3 text-center text-xs font-semibold text-amber-100 hover:bg-amber-500/10"
+                >
+                  Telegram
+                </a>
+                <a
+                  href={SEO_CONFIG.maxUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center justify-center rounded-lg border border-amber-500/40 px-3 text-center text-xs font-semibold text-amber-100 hover:bg-amber-500/10"
+                >
+                  MAX
+                </a>
+              </div>
+            </div>
           )}
 
           <button

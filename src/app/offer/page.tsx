@@ -5,6 +5,7 @@ import { LEGAL_CONFIG, SEO_CONFIG } from "@/config/seo";
 export const metadata: Metadata = {
   title: "Договор-оферта проката",
   description: `Публичная оферта проката ${SEO_CONFIG.brandName} ${SEO_CONFIG.cityInFormat}.`,
+  alternates: { canonical: "/offer" },
   robots: { index: true, follow: true },
 };
 
