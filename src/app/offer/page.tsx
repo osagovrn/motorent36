@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SEO_CONFIG } from "@/config/seo";
+import { LEGAL_CONFIG, SEO_CONFIG, legalIdentityLine } from "@/config/seo";
 
 export const metadata: Metadata = {
   title: "Договор-оферта проката",
@@ -9,65 +9,134 @@ export const metadata: Metadata = {
 };
 
 export default function OfferPage() {
+  const missingRequisites =
+    !LEGAL_CONFIG.fullName.trim() || !LEGAL_CONFIG.inn.trim();
+
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <Link href="/" className="text-sm text-amber-400 hover:underline">
         ← На главную
       </Link>
-      <h1 className="font-display mt-4 text-4xl text-amber-50">
+      <h1 className="font-display mt-4 text-3xl font-extrabold text-amber-50 sm:text-4xl">
         Договор-оферта проката
       </h1>
       <p className="mt-2 text-sm text-zinc-500">
-        Редакция для самозанятого · г. {SEO_CONFIG.city}
+        Публичная оферта · редакция от {LEGAL_CONFIG.offerRevision} ·{" "}
+        {SEO_CONFIG.city}
       </p>
 
-      <div className="prose prose-invert mt-8 max-w-none space-y-4 text-sm leading-relaxed text-zinc-300">
-        <p>
-          Настоящий документ является публичной офертой (предложением) самозанятого
-          лица, ведущего деятельность под брендом {SEO_CONFIG.brandName}, заключить
-          договор проката движимого имущества на условиях, изложенных ниже.
+      {missingRequisites && (
+        <p className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+          Перед публикацией заполните ФИО и ИНН в файле{" "}
+          <code className="text-amber-50">src/config/seo.ts</code> → блок{" "}
+          <code className="text-amber-50">LEGAL_CONFIG</code>.
         </p>
-        <h2 className="text-lg font-semibold text-amber-50">1. Предмет</h2>
-        <p>
-          Арендодатель передаёт Арендатору имущество (мотошлем / иное оборудование из
-          каталога) во временное владение и пользование за плату (прокат), а
-          Арендатор обязуется вернуть имущество в согласованный срок в надлежащем
-          состоянии.
-        </p>
-        <h2 className="text-lg font-semibold text-amber-50">2. Стоимость и обеспечение</h2>
-        <p>
-          Минимальный срок проката — 1 сутки. Стоимость суток указывается в карточке
-          товара. При получении Арендатор вносит сумму, равную полной рыночной
-          стоимости предмета (обеспечительный платёж). При возврате исправной вещи
-          Арендодатель возвращает разницу между рыночной стоимостью и начисленной
-          платой за прокат (возвратный залог). При просрочке возврата начисляется
-          стоимость следующих суток.
-        </p>
-        <h2 className="text-lg font-semibold text-amber-50">3. Идентификация</h2>
-        <p>
-          Для оформления договора Арендатор предъявляет паспорт или водительское
-          удостоверение. Допускается фотофиксация документов на месте встречи.
-        </p>
-        <h2 className="text-lg font-semibold text-amber-50">4. Ответственность</h2>
-        <p>
-          В случае утраты, повреждения или порчи имущества Арендатор возмещает ущерб
-          в пределах рыночной стоимости предмета и иных убытков, предусмотренных
-          законом. Онлайн-оплата на сайте не производится — все расчёты происходят
-          при личной встрече или по согласованию в мессенджере.
-        </p>
-        <h2 className="text-lg font-semibold text-amber-50">5. Персональные данные</h2>
-        <p>
-          Отправляя заявку, вы соглашаетесь на обработку персональных данных
-          (имя, телефон, сведения о бронировании) для связи и исполнения договора.
-        </p>
-        <h2 className="text-lg font-semibold text-amber-50">6. Контакты</h2>
-        <p>
-          Телефон: {SEO_CONFIG.phoneDisplay}. Город: {SEO_CONFIG.city}. Email:{" "}
-          {SEO_CONFIG.email}.
-        </p>
+      )}
+
+      <div className="mt-8 space-y-5 text-sm leading-relaxed text-zinc-300">
+        <section>
+          <h2 className="text-lg font-semibold text-amber-50">1. Арендодатель</h2>
+          <p className="mt-2">
+            Арендодатель: {legalIdentityLine()}. Коммерческое обозначение:{" "}
+            {SEO_CONFIG.brandName}. Арендодатель не является плательщиком НДС и не
+            применяет контрольно-кассовую технику онлайн на сайте; по доходам
+            выдаёт чек через приложение «Мой налог» (при необходимости — при
+            расчёте на встрече).
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-amber-50">2. Предмет оферты</h2>
+          <p className="mt-2">
+            Настоящий документ — публичная оферта заключить договор проката
+            движимого имущества (мотошлем и иное оборудование из каталога сайта).
+            Акцепт оферты: отправка заявки на сайте с согласием с условиями и
+            последующее получение имущества на согласованной встрече{" "}
+            {SEO_CONFIG.cityInFormat}.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-amber-50">
+            3. Стоимость, обеспечительный платёж и сроки
+          </h2>
+          <ul className="mt-2 list-disc space-y-2 pl-5">
+            <li>Минимальный срок проката — 1 сутки.</li>
+            <li>
+              Стоимость суток указана в карточке товара. Любое превышение срока
+              округляется вверх до полных суток.
+            </li>
+            <li>
+              При получении Арендатор передаёт сумму, равную полной рыночной
+              стоимости предмета (обеспечительный платёж / обеспечение
+              исполнения обязательств).
+            </li>
+            <li>
+              При своевременном возврате исправной вещи Арендодатель возвращает
+              разницу между рыночной стоимостью и начисленной платой за прокат
+              (возвратный залог).
+            </li>
+            <li>
+              Онлайн-оплата на сайте отсутствует. Расчёты — наличными или иным
+              согласованным способом при встрече / в мессенджере.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-amber-50">
+            4. Идентификация Арендатора
+          </h2>
+          <p className="mt-2">
+            Для заключения договора Арендатор предъявляет паспорт гражданина РФ
+            или водительское удостоверение. Допускается фотофиксация документов
+            на месте встречи исключительно для целей договора и возврата
+            имущества.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-amber-50">5. Ответственность</h2>
+          <p className="mt-2">
+            При утрате, повреждении или порче имущества Арендатор возмещает ущерб
+            в пределах рыночной стоимости предмета и иных убытков по закону.
+            Обеспечительный платёж может быть удержан полностью или частично в
+            счёт возмещения.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-amber-50">
+            6. Персональные данные
+          </h2>
+          <p className="mt-2">
+            Отправляя заявку, вы соглашаетесь на обработку персональных данных
+            (имя, телефон, сведения о бронировании) для связи, исполнения
+            договора и выдачи чека НПД. Подробнее:{" "}
+            <Link href="/privacy" className="text-amber-400 hover:underline">
+              Политика обработки персональных данных
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-amber-50">7. Контакты</h2>
+          <p className="mt-2">
+            Тел.: {SEO_CONFIG.phoneDisplay}
+            <br />
+            Email: {SEO_CONFIG.email}
+            <br />
+            Telegram: {SEO_CONFIG.telegram}
+            <br />
+            Адрес встреч: {SEO_CONFIG.address}
+          </p>
+        </section>
+
         <p className="text-zinc-500">
-          Текст оферты носит шаблонный характер и может быть уточнён перед стартом
-          публичной деятельности. При необходимости обратитесь к юристу.
+          Документ является шаблоном для режима НПД и не заменяет индивидуальную
+          юридическую консультацию. Перед стартом деятельности заполните
+          реквизиты и при необходимости уточните формулировки у юриста.
         </p>
       </div>
     </article>

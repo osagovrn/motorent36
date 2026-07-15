@@ -5,6 +5,16 @@ export type RentalCalculation = {
   totalDueAtPickup: number;
 };
 
+/** Парсинг YYYY-MM-DD в локальную дату (Safari не ломает timezone на UTC). */
+export function parseLocalDate(iso: string): Date {
+  const parts = iso.split("-").map(Number);
+  const y = parts[0];
+  const m = parts[1];
+  const d = parts[2];
+  if (!y || !m || !d) return new Date(NaN);
+  return new Date(y, m - 1, d);
+}
+
 /**
  * Округление в большую сторону. Минимум 1 сутки.
  * Итого при получении всегда = marketValue (полная стоимость товара).

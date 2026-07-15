@@ -4,6 +4,11 @@
   --background: #09090b;
   --foreground: #fafafa;
   --accent: #f59e0b;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --header-offset: calc(4.75rem + var(--safe-top));
 }
 
 @theme inline {
@@ -13,18 +18,94 @@
   --font-display: var(--font-display);
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: var(--header-offset);
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  overflow-x: clip;
+  min-height: 100dvh;
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+  -webkit-tap-highlight-color: transparent;
+}
+
+#kak-eto-rabotaet,
+#katalog,
+#bron {
+  scroll-margin-top: var(--header-offset);
 }
 
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .hero-grid {
   background-image:
     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245, 158, 11, 0.18), transparent),
     linear-gradient(to bottom, #09090b, #18181b);
+}
+
+/* iOS / Safari: inputs don't zoom, date picker readable in dark UI */
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  touch-action: manipulation;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="date"],
+textarea {
+  font-size: 16px;
+  line-height: 1.4;
+  border-radius: 0.75rem;
+  color-scheme: dark;
+}
+
+input[type="date"] {
+  min-height: 2.75rem;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* Safari sticky / overscroll glue */
+  .ios-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.safe-px {
+  padding-left: max(1rem, var(--safe-left));
+  padding-right: max(1rem, var(--safe-right));
+}
+
+@media (min-width: 640px) {
+  .safe-px {
+    padding-left: max(1.5rem, var(--safe-left));
+    padding-right: max(1.5rem, var(--safe-right));
+  }
 }

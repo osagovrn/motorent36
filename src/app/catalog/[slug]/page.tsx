@@ -67,18 +67,18 @@ export default async function ProductPage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
       />
 
-      <div className="grid gap-10 lg:grid-cols-2">
-        <div>
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start">
+        <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.2em] text-amber-500/80">
             {product.category?.name ?? "Товар"} · {SEO_CONFIG.city}
           </p>
-          <h1 className="font-display mt-3 text-4xl leading-none text-amber-50 sm:text-5xl">
+          <h1 className="font-display mt-3 text-3xl font-extrabold leading-tight text-amber-50 sm:text-4xl lg:text-5xl lg:leading-none">
             {product.title}
           </h1>
           <p className="mt-4 text-zinc-400">
@@ -116,13 +116,15 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </div>
 
-        <BookingPanel
-          productSlug={product.slug}
-          productTitle={product.title}
-          pricePerDay={product.pricePerDay}
-          marketValue={product.marketValue}
-          availableSizes={availableSizes}
-        />
+        <div className="min-w-0 lg:sticky lg:top-[calc(4.75rem+env(safe-area-inset-top))] lg:self-start">
+          <BookingPanel
+            productSlug={product.slug}
+            productTitle={product.title}
+            pricePerDay={product.pricePerDay}
+            marketValue={product.marketValue}
+            availableSizes={availableSizes}
+          />
+        </div>
       </div>
     </div>
   );

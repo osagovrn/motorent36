@@ -43,9 +43,9 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><path d=%22M0 40L40 0H20L0 20zm40 0V20L20 40z%22 fill=%22%23ffffff%22 fill-opacity=%220.02%22/></svg>')]" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-400/90">
-            {SEO_CONFIG.city} · самозанятый
+            Прокат · {SEO_CONFIG.city}
           </p>
-          <h1 className="font-display mt-4 max-w-3xl text-5xl leading-[0.95] text-amber-50 sm:text-7xl">
+          <h1 className="font-display mt-4 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight text-amber-50 xs:text-5xl sm:text-6xl sm:leading-[0.95] lg:text-7xl">
             Аренда мотошлемов
             <span className="block text-amber-400">в Воронеже</span>
           </h1>
@@ -54,18 +54,18 @@ export default async function HomePage() {
             Старт каталога: JIEKAI JK902, размеры M и L, от{" "}
             <strong className="text-amber-100">500 ₽/сутки</strong>.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/#katalog"
-              className="rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400"
+          <div className="mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
+            <a
+              href="#katalog"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400 sm:w-auto"
             >
               Смотреть каталог
-            </Link>
+            </a>
             <a
               href={SEO_CONFIG.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-zinc-100 hover:border-amber-500/50"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/15 px-5 py-3 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/50 sm:w-auto"
             >
               Написать в Telegram
             </a>

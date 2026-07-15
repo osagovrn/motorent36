@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { NextResponse } from "next/server";
-import { calculateRental } from "@/lib/rental";
+import { calculateRental, parseLocalDate } from "@/lib/rental";
 import { prisma } from "@/lib/prisma";
 import { sendBookingTelegram } from "@/lib/telegram";
 
@@ -10,7 +10,12 @@ const bookingSchema = z.object({
   startDate: z.string().min(1),
   endDate: z.string().min(1),
   name: z.string().min(2, "Укажите имя"),
-  phone: z.string().min(10, "Укажите телефон"),
+  phone: z
+    .string()
+    .refine(
+      (v) => v.replace(/\D/g, "").length >= 11,
+      "Укажите телефон полностью, например +7 (950) 767-85-75",
+    ),
   contactMethod: z.enum(["Телефон", "Telegram", "Мессенджер"]),
   termsAccepted: z.literal(true),
 });
@@ -43,8 +48,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const start = new Date(data.startDate);
-    const end = new Date(data.endDate);
+    const start = parseLocalDate(data.startDate);
+    const end = parseLocalDate(data.endDate);
     if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || end < start) {
       return NextResponse.json({ error: "Некорректные даты" }, { status: 400 });
     }
