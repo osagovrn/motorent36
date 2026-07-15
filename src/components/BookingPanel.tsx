@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { calculateRental, formatRub, parseLocalDate } from "@/lib/rental";
-import { HELMET_SIZE_OPTIONS } from "@/config/seo";
+import { HELMET_SIZE_OPTIONS, SEO_CONFIG } from "@/config/seo";
 import { cn } from "@/lib/utils";
 
 type SizeOption = {
@@ -70,7 +70,7 @@ export function BookingPanel({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("+7");
   const [contactMethod, setContactMethod] = useState<
-    "Телефон" | "Telegram" | "Мессенджер"
+    "Телефон" | "Telegram" | "MAX"
   >("Телефон");
   const [terms, setTerms] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -262,7 +262,7 @@ export function BookingPanel({
               Предпочитаемый способ связи
             </legend>
             <div className="flex flex-wrap gap-2">
-              {(["Телефон", "Telegram", "Мессенджер"] as const).map((m) => (
+              {(["Телефон", "Telegram", "MAX"] as const).map((m) => (
                 <button
                   key={m}
                   type="button"
@@ -325,8 +325,9 @@ export function BookingPanel({
           <div className="w-full max-w-md rounded-2xl border border-amber-500/30 bg-zinc-900 p-6 text-center shadow-2xl">
             <p className="font-display text-2xl font-bold text-amber-50">Спасибо!</p>
             <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-              Заявка принята. Менеджер свяжется с вами в течение 15 минут для
-              подтверждения бронирования и согласования встречи в Воронеже.
+              Заявка принята. {SEO_CONFIG.contactName} свяжется с вами в течение
+              15 минут для подтверждения бронирования и согласования встречи в
+              Воронеже.
             </p>
             <button
               type="button"

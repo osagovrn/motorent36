@@ -2,8 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const HELMET_IMAGE =
-  "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1200&q=80";
+const HELMET_IMAGE = "/products/jiekai-jk902.svg";
 
 async function main() {
   const category = await prisma.category.upsert({

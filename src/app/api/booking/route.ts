@@ -16,7 +16,7 @@ const bookingSchema = z.object({
       (v) => v.replace(/\D/g, "").length >= 11,
       "Укажите телефон полностью, например +7 (950) 767-85-75",
     ),
-  contactMethod: z.enum(["Телефон", "Telegram", "Мессенджер"]),
+  contactMethod: z.enum(["Телефон", "Telegram", "MAX"]),
   termsAccepted: z.literal(true),
 });
 

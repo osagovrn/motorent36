@@ -79,9 +79,10 @@ export function SiteFooter() {
           <p className="font-display text-base font-bold text-amber-50">
             {SEO_CONFIG.brandName}
           </p>
+          <p className="mt-1">Контакт: {SEO_CONFIG.contactName}</p>
           <p className="mt-1">Посуточная аренда {SEO_CONFIG.cityInFormat}</p>
           <p className="mt-1">
-            Плательщик НПД (самозанятый)
+            {LEGAL_CONFIG.statusShort}
             {LEGAL_CONFIG.notVatPayer ? " · без НДС" : ""}
           </p>
         </div>
@@ -99,6 +100,14 @@ export function SiteFooter() {
             className="inline-flex min-h-11 items-center hover:text-amber-300"
           >
             Telegram
+          </a>
+          <a
+            href={SEO_CONFIG.maxUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center hover:text-amber-300"
+          >
+            MAX {SEO_CONFIG.maxDisplay}
           </a>
           <Link
             href="/offer"

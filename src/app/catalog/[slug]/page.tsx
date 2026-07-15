@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BookingPanel } from "@/components/BookingPanel";
+import { ProductImage } from "@/components/ProductImage";
 import { productMeta, SEO_CONFIG } from "@/config/seo";
 import { parseImageUrls, prisma } from "@/lib/prisma";
 import { formatRub } from "@/lib/rental";
@@ -88,11 +88,9 @@ export default async function ProductPage({ params }: Props) {
 
           <div className="relative mt-6 aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900">
             {images[0] && (
-              <Image
+              <ProductImage
                 src={images[0]}
                 alt={product.title}
-                fill
-                className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
               />

@@ -1,7 +1,7 @@
 # Сайт Аренды — MotoRent36
 
-Премиальная витрина посуточной аренды (этап 1: мотошлемы) для г. Воронеж.
-Стек: Next.js (App Router) · Tailwind CSS · Prisma (SQLite) · Telegram Bot API.
+Витрина посуточной аренды мотошлемов (Воронеж).  
+Стек: **Next.js** · Tailwind · Prisma (SQLite) · Telegram Bot API.
 
 ## Быстрый старт
 
@@ -12,36 +12,49 @@ npm run db:setup
 npm run dev
 ```
 
-Откройте http://localhost:3000
+→ http://localhost:3000  
+Карточка: `/catalog/jiekai-jk902-black-matt`  
+Оферта: `/offer` · Политика: `/privacy`
 
-## Telegram-уведомления
+## Что уже сделано
 
-В `.env` укажите:
+- Каталог + JIEKAI JK902 (размеры M / L)
+- Калькулятор проката / залога (итог = рыночная цена)
+- Форма заявки → API → Telegram (если заданы ключи)
+- Оферта НПД без публикации ФИО на сайте
+- Контакты: Евгений, телефон, Telegram, MAX
+- Адаптив + Safari/iOS, sitemap/robots, заготовка Метрики
+- Локальный плейсхолдер фото (замените на своё)
+
+## Ваши шаги
+
+См. `ПРОЧЕЕ/ВЫКЛАДКА.txt` и `ПРОЧЕЕ_СТАТУС.txt`.
+
+Кратко:
+1. `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` в `.env`
+2. Своё фото шлема в `public/products/`
+3. Хостинг (Vercel / VPS) + `NEXT_PUBLIC_SITE_URL`
+
+## Env (пример)
+
+Скопируйте `.env.example` → `.env`:
 
 ```
-TELEGRAM_BOT_TOKEN=...
-TELEGRAM_CHAT_ID=...
+DATABASE_URL="file:./dev.db"
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_YANDEX_METRIKA_ID=
 ```
-
-Без них заявки всё равно принимаются (успех в UI), текст заявки пишется в лог сервера.
 
 ## Команды
 
 | Команда | Описание |
 |---------|----------|
 | `npm run dev` | Разработка |
-| `npm run db:setup` | Создать БД + сид JIEKAI JK902 |
+| `npm run db:setup` | БД + сид |
+| `npm run db:seed` | Только сид |
 | `npm run build` | Сборка |
-| `npm run start` | Прод-режим |
+| `npm run start` | Прод |
 
-## Что реализовано по ТЗ
-
-- Универсальная схема: categories / products / product_attributes
-- Сид: JIEKAI JK902, размеры M и L в наличии (XS/S/XL/XXL недоступны в UI)
-- Калькулятор суток с округлением вверх, min 1 сутки
-- Разбивка: прокат / возвратный залог / итого = marketValue
-- Форма лида + checkbox оферты + API → Telegram
-- SEO Воронеж, Schema.org LocalBusiness + Product
-- Страница `/offer`, PWA-ready manifest
-
-Контакты и SEO: `src/config/seo.ts`
+Контакты и тексты: `src/config/seo.ts`

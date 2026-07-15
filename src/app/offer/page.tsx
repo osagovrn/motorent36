@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LEGAL_CONFIG, SEO_CONFIG, legalIdentityLine } from "@/config/seo";
+import { LEGAL_CONFIG, SEO_CONFIG } from "@/config/seo";
 
 export const metadata: Metadata = {
   title: "Договор-оферта проката",
@@ -9,9 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function OfferPage() {
-  const missingRequisites =
-    !LEGAL_CONFIG.fullName.trim() || !LEGAL_CONFIG.inn.trim();
-
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <Link href="/" className="text-sm text-amber-400 hover:underline">
@@ -25,23 +22,20 @@ export default function OfferPage() {
         {SEO_CONFIG.city}
       </p>
 
-      {missingRequisites && (
-        <p className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-          Перед публикацией заполните ФИО и ИНН в файле{" "}
-          <code className="text-amber-50">src/config/seo.ts</code> → блок{" "}
-          <code className="text-amber-50">LEGAL_CONFIG</code>.
-        </p>
-      )}
-
       <div className="mt-8 space-y-5 text-sm leading-relaxed text-zinc-300">
         <section>
           <h2 className="text-lg font-semibold text-amber-50">1. Арендодатель</h2>
           <p className="mt-2">
-            Арендодатель: {legalIdentityLine()}. Коммерческое обозначение:{" "}
-            {SEO_CONFIG.brandName}. Арендодатель не является плательщиком НДС и не
-            применяет контрольно-кассовую технику онлайн на сайте; по доходам
-            выдаёт чек через приложение «Мой налог» (при необходимости — при
-            расчёте на встрече).
+            Арендодатель — физическое лицо, {LEGAL_CONFIG.statusLabel},
+            осуществляющее деятельность под коммерческим обозначением{" "}
+            {SEO_CONFIG.brandName}. Арендодатель не является плательщиком НДС.
+            Онлайн-ККТ на сайте не применяется; при расчёте чек может быть выдан
+            через приложение «Мой налог».
+          </p>
+          <p className="mt-2">
+            ФИО и ИНН Арендодателя сообщаются при заключении договора и
+            указываются в акте приёма-передачи имущества при встрече. На данном
+            сайте они намеренно не публикуются.
           </p>
         </section>
 
@@ -68,8 +62,7 @@ export default function OfferPage() {
             </li>
             <li>
               При получении Арендатор передаёт сумму, равную полной рыночной
-              стоимости предмета (обеспечительный платёж / обеспечение
-              исполнения обязательств).
+              стоимости предмета (обеспечительный платёж).
             </li>
             <li>
               При своевременном возврате исправной вещи Арендодатель возвращает
@@ -77,21 +70,23 @@ export default function OfferPage() {
               (возвратный залог).
             </li>
             <li>
-              Онлайн-оплата на сайте отсутствует. Расчёты — наличными или иным
-              согласованным способом при встрече / в мессенджере.
+              Онлайн-оплата на сайте отсутствует. Расчёты — при встрече или иным
+              согласованным способом.
             </li>
           </ul>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-amber-50">
-            4. Идентификация Арендатора
+            4. Заключение договора и акт передачи
           </h2>
           <p className="mt-2">
-            Для заключения договора Арендатор предъявляет паспорт гражданина РФ
-            или водительское удостоверение. Допускается фотофиксация документов
-            на месте встречи исключительно для целей договора и возврата
-            имущества.
+            При встрече стороны оформляют акт приёма-передачи имущества, в котором
+            указываются: ФИО Арендодателя, данные Арендатора (паспорт или
+            водительское удостоверение), предмет проката, срок, стоимость суток,
+            сумма обеспечительного платежа и состояние вещи. Допускается
+            фотофиксация документов Арендатора исключительно для целей договора и
+            возврата имущества.
           </p>
         </section>
 
@@ -123,11 +118,15 @@ export default function OfferPage() {
         <section>
           <h2 className="text-lg font-semibold text-amber-50">7. Контакты</h2>
           <p className="mt-2">
+            Контактное лицо: {SEO_CONFIG.contactName}
+            <br />
             Тел.: {SEO_CONFIG.phoneDisplay}
             <br />
             Email: {SEO_CONFIG.email}
             <br />
             Telegram: {SEO_CONFIG.telegram}
+            <br />
+            MAX: {SEO_CONFIG.maxDisplay} ({SEO_CONFIG.maxUrl})
             <br />
             Адрес встреч: {SEO_CONFIG.address}
           </p>
@@ -135,8 +134,8 @@ export default function OfferPage() {
 
         <p className="text-zinc-500">
           Документ является шаблоном для режима НПД и не заменяет индивидуальную
-          юридическую консультацию. Перед стартом деятельности заполните
-          реквизиты и при необходимости уточните формулировки у юриста.
+          юридическую консультацию. При необходимости уточните формулировки у
+          юриста.
         </p>
       </div>
     </article>

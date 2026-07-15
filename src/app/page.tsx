@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { prisma, parseImageUrls } from "@/lib/prisma";
 import { SEO_CONFIG } from "@/config/seo";
 import { formatRub } from "@/lib/rental";
+import { ProductImage } from "@/components/ProductImage";
 
 export const dynamic = "force-dynamic";
 
@@ -138,11 +138,10 @@ export default async function HomePage() {
                 <Link href={`/catalog/${product.slug}`} className="block">
                   <div className="relative aspect-[4/3] overflow-hidden bg-zinc-800">
                     {images[0] ? (
-                      <Image
+                      <ProductImage
                         src={images[0]}
                         alt={product.title}
-                        fill
-                        className="object-cover transition duration-500 group-hover:scale-105"
+                        className="transition duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 33vw"
                         priority
                       />

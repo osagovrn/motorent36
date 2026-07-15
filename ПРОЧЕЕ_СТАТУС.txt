@@ -1,25 +1,25 @@
 ПРОЕКТ «Сайт Аренды» / MotoRent36 — статус
 ==========================================
-Обновлено: 15.07.2026 ~21:25
+Обновлено: 15.07.2026 ~21:45
 Путь: C:\Users\2020y\Projects\Сайт Аренды
 
-ГОТОВО (сделано агентом)
-  [x] Витрина Next.js + калькулятор + заявка + Telegram API
-  [x] Адаптив + Safari/iOS
-  [x] Оферта НПД (структура); privacy; robots/sitemap
-  [x] «Самозанятый» убран с героя → в подвале/оферте
-  [x] Заготовка Метрики (NEXT_PUBLIC_YANDEX_METRIKA_ID)
+ГОТОВО АГЕНТОМ
+  [x] Витрина, калькулятор, заявка, API Telegram
+  [x] Адаптив / Safari-iOS
+  [x] Оферта НПД без ФИО на сайте + privacy
+  [x] Контакты: Евгений, тел, Telegram, MAX +7 (919) 183-14-07
+  [x] robots/sitemap, заготовка Метрики
+  [x] Локальный плейсхолдер фото шлема (public/products/)
+  [x] Инструкция выкладки: ПРОЧЕЕ/ВЫКЛАДКА.txt
+  [x] README обновлён
 
-ВАМ ОСТАЛОСЬ (нужны ваши данные)
-  [ ] LEGAL_CONFIG.fullName + LEGAL_CONFIG.inn в src/config/seo.ts
+ВАМ
   [ ] TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID в .env
-  [ ] Свои фото шлема (файл в public/ + imageUrls в seed)
-  [ ] NEXT_PUBLIC_SITE_URL на проде + выкладка
-  [ ] NEXT_PUBLIC_YANDEX_METRIKA_ID (по желанию)
+  [ ] Своё фото шлема → public/products/ + seed
+  [ ] Хостинг + NEXT_PUBLIC_SITE_URL
+  [ ] Метрика ID (по желанию)
+  [ ] Директ после HTTPS
 
 ЗАПУСК
-  npm run db:setup
-  npm run dev
+  npm run db:setup && npm run dev
   → http://localhost:3000
-  Оферта: /offer   Политика: /privacy
-  Карточка: /catalog/jiekai-jk902-black-matt
