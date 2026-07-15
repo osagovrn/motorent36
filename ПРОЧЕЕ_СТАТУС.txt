@@ -1,0 +1,31 @@
+ПРОЕКТ «Сайт Аренды» / MotoRent36 — статус
+==========================================
+Сохранено: 15.07.2026 ~18:52
+Путь: C:\Users\2020y\Projects\Сайт Аренды
+
+ГОТОВО ПО ТЗ
+  [x] Next.js App Router + Tailwind (тёмный moto-стиль)
+  [x] Prisma + SQLite: categories / products / product_attributes
+  [x] Сид JIEKAI JK902, размеры M и L
+  [x] Калькулятор суток + разбивка залога
+  [x] Форма заявки + /api/booking → Telegram (если заданы env)
+  [x] Оферта /offer, SEO Воронеж, Schema.org, PWA manifest
+  [x] Проект сохранён в git (локальный коммит)
+
+ЗАПУСК
+  npm run db:setup
+  npm run dev
+  → http://localhost:3000
+  Карточка: /catalog/jiekai-jk902-black-matt
+
+ДАЛЬШЕ
+  [ ] TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID в .env
+  [ ] Свои фото шлема вместо Unsplash
+  [ ] Контакты в src/config/seo.ts
+  [ ] Миграция на Supabase/PostgreSQL при выкладке
+  [ ] Юридическая вычитка оферты
+  [ ] Этап 2: другие категории товаров
+
+СОХРАНЕНИЕ
+  Локальный git-коммит на ветке main
+  (файл .env в git не входит)
