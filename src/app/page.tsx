@@ -180,6 +180,61 @@ export default function HomePage() {
             </article>
           ))}
         </div>
+
+        <div
+          id="kogda-nuzhen"
+          className="mt-14 border-t border-white/10 pt-12"
+        >
+          <h3 className="font-display text-2xl text-amber-50 sm:text-3xl">
+            Когда нужна аренда шлема
+          </h3>
+          <p className="mt-2 max-w-2xl text-zinc-400">
+            Посуточный прокат — когда свой шлем ещё не купили, он не подошёл
+            по размеру или нужен только на короткий срок.
+          </p>
+          <ol className="mt-8 max-w-3xl space-y-6">
+            {[
+              {
+                title: "Экзамен в ГИБДД на категорию A",
+                text: "На площадке и в городе требуется закрытый шлем. Аренда на день экзамена — проще и дешевле, чем покупать экипировку «на всякий случай».",
+              },
+              {
+                title: "Поездка вдвоём — шлем для пассажира",
+                text: "Выезд с девушкой, другом или родственником: у водителя свой шлем есть, а второму нужен только на эту поездку. Взяли на сутки — и оба в защите.",
+              },
+              {
+                title: "Первые километры без своей экипировки",
+                text: "Только получили права или сели на мотоцикл впервые. Пока выбираете модель «навсегда», удобно покататься в прокатном шлеме и понять размер.",
+              },
+              {
+                title: "Гости и короткие визиты в город",
+                text: "Друзья приехали в Воронеж и хотят проехаться с вами. Не обязательно дарить им шлем — достаточно аренды на выходные.",
+              },
+              {
+                title: "Свой шлем недоступен",
+                text: "Забыли дома, отдали в чистку или ремонт, разбили визор перед выездом. Аренда выручает, чтобы не отменять запланированную поездку.",
+              },
+              {
+                title: "Однодневный выезд или мотопрогулка",
+                text: "Загородная дорога, фотосессия, встреча клуба — когда шлем нужен на часы или сутки, а не как постоянная покупка.",
+              },
+            ].map((item, i) => (
+              <li key={item.title} className="flex gap-4 sm:gap-5">
+                <span className="font-display w-8 shrink-0 text-xl text-amber-500/90 sm:w-10 sm:text-2xl">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="min-w-0 border-l border-amber-500/25 pl-4 sm:pl-5">
+                  <p className="text-base font-semibold text-amber-50 sm:text-lg">
+                    {item.title}
+                  </p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
+                    {item.text}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
       <section id="faq" className="border-t border-white/5 bg-zinc-900/40">
