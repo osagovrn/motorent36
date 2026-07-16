@@ -1,32 +1,33 @@
 import { SEO_CONFIG } from "@/config/seo";
 
-/** Кросс-реклама ОСАГО на сайте аренды */
+/** Ненавязчивая кросс-реклама ОСАГО на сайте аренды */
 export function OsagoPromo() {
   return (
-    <aside
-      className="border-t border-white/5 bg-zinc-900/60"
-      aria-label="Реклама ОСАГО"
-    >
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-10">
-        <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-500/80">
-            Также от нас
-          </p>
-          <h2 className="font-display mt-2 text-xl text-amber-50 sm:text-2xl">
-            Оформить ОСАГО и КАСКО онлайн
-          </h2>
-          <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400">
-            Расчёт за минуты, электронный полис, помощь по телефону — тот же
-            контакт, что и для аренды шлема.
-          </p>
-        </div>
+    <aside className="border-t border-white/5" aria-label="Также: ОСАГО">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
         <a
           href={SEO_CONFIG.osagoUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-xl border border-amber-500/40 bg-amber-500/10 px-5 py-3 text-center text-sm font-semibold text-amber-100 hover:bg-amber-500/20"
+          className="group flex flex-col gap-3 rounded-2xl border border-white/[0.07] bg-zinc-900/40 px-5 py-5 transition hover:border-amber-500/25 hover:bg-zinc-900/70 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6"
         >
-          {SEO_CONFIG.osagoLabel} →
+          <div className="min-w-0 border-l-2 border-amber-500/50 pl-4">
+            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+              Полезно знать
+            </p>
+            <p className="mt-1.5 text-base font-medium text-zinc-100 sm:text-lg">
+              Нужен полис ОСАГО или КАСКО?
+            </p>
+            <p className="mt-1 text-sm leading-relaxed text-zinc-500">
+              Онлайн-расчёт и оформление — тот же контакт, что и для аренды.
+            </p>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-amber-400/90 transition group-hover:text-amber-300 sm:self-center">
+            Перейти
+            <span aria-hidden className="transition group-hover:translate-x-0.5">
+              →
+            </span>
+          </span>
         </a>
       </div>
     </aside>

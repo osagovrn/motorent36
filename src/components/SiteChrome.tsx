@@ -146,9 +146,9 @@ export function SiteFooter() {
             href={SEO_CONFIG.osagoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center hover:text-amber-300"
+            className="inline-flex min-h-11 items-center text-zinc-500 hover:text-amber-300"
           >
-            {SEO_CONFIG.osagoLabel}
+            ОСАГО / КАСКО
           </a>
         </div>
       </div>
