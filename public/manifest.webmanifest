@@ -2,14 +2,15 @@
   "name": "MotoRent36",
   "short_name": "MotoRent36",
   "description": "Аренда мотошлемов в Воронеже",
-  "start_url": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#09090b",
   "theme_color": "#09090b",
   "lang": "ru",
   "icons": [
     {
-      "src": "/icon.svg",
+      "src": "icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

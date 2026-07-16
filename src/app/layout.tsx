@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import { SEO_CONFIG, yandexVerification } from "@/config/seo";
-import { absoluteAssetUrl } from "@/lib/assets";
+import { assetUrl, absoluteAssetUrl } from "@/lib/assets";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { YandexMetrika } from "@/components/YandexMetrika";
 import "./globals.css";
@@ -21,6 +21,8 @@ const display = Manrope({
 });
 
 const ogImage = absoluteAssetUrl("/products/jk902-1.jpg");
+const iconUrl = assetUrl("/icon.svg");
+const manifestUrl = assetUrl("/manifest.webmanifest");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SEO_CONFIG.siteUrl),
@@ -68,15 +70,15 @@ export const metadata: Metadata = {
     ? { yandex: yandexVerification }
     : undefined,
   robots: { index: true, follow: true },
-  manifest: "/manifest.webmanifest",
+  manifest: manifestUrl,
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: SEO_CONFIG.brandName,
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/icon.svg" }],
+    icon: [{ url: iconUrl, type: "image/svg+xml" }],
+    apple: [{ url: iconUrl }],
   },
   formatDetection: {
     telephone: true,

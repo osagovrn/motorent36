@@ -122,7 +122,7 @@ export function ProductImage({ src, alt, className, priority }: Props) {
       loading={priority ? "eager" : "lazy"}
       decoding="async"
       className={cn(
-        "absolute inset-0 h-full w-full bg-zinc-100 object-contain object-center",
+        "absolute inset-0 h-full w-full bg-zinc-900 object-contain object-center",
         className,
       )}
     />
