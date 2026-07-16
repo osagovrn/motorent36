@@ -6,6 +6,32 @@
  * exit 0 + warnings — можно поднимать, но Метрика/Вебмастер ещё желательны
  */
 
+import fs from "node:fs";
+import path from "node:path";
+
+/** Подтянуть .env в process.env (tsx сам dotenv не грузит). */
+function loadDotEnv() {
+  const envPath = path.join(process.cwd(), ".env");
+  if (!fs.existsSync(envPath)) return;
+  for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
+    const t = line.trim();
+    if (!t || t.startsWith("#")) continue;
+    const i = t.indexOf("=");
+    if (i < 1) continue;
+    const key = t.slice(0, i).trim();
+    let val = t.slice(i + 1).trim();
+    if (
+      (val.startsWith('"') && val.endsWith('"')) ||
+      (val.startsWith("'") && val.endsWith("'"))
+    ) {
+      val = val.slice(1, -1);
+    }
+    if (process.env[key] === undefined) process.env[key] = val;
+  }
+}
+
+loadDotEnv();
+
 const isProd = process.env.NODE_ENV === "production";
 const allowSkip = process.env.ALLOW_TELEGRAM_SKIP === "1";
 

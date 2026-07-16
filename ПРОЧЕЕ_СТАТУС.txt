@@ -1,58 +1,28 @@
 ПРОЕКТ «Сайт Аренды» / MotoRent36 — статус
 ==========================================
-Сохранено: 15.07.2026 ~22:40
+Сохранено: 16.07.2026 ~08:25
 Путь: C:\Users\2020y\Projects\Сайт Аренды
-Бренд: MotoRent36 · Воронеж · этап 1: JIEKAI JK902 (M/L)
 
-════════════════════════════════════════
-СДЕЛАНО (код готов)
-════════════════════════════════════════
-  [x] Витрина, каталог, карточка товара, фото JK902
-  [x] Калькулятор: сутки × 500, залог = 6000 − прокат, итого при встрече = 6000
-  [x] Форма брони → /api/booking → Telegram (если ключи) + сохранение в Booking
-  [x] Пересечение дат одного размера → 409; антиспам IP/телефон + honeypot
-  [x] На проде без Telegram → 503 (не «фейковый успех»)
-  [x] Оферта НПД без ФИО на сайте + privacy (+ cookies/Метрика)
-  [x] Контакты: Евгений, тел, Telegram, MAX +7 (919) 183-14-07
-  [x] FAQ /faq + таблица размеров в форме + блок FAQ на главной
-  [x] 404, canonical, OG/Twitter, Schema Product Offer + FAQPage
-  [x] sitemap (+/faq), robots, цель Метрики booking_ok
-  [x] Акцент «при получении N ₽» + CTA звонок/TG/MAX при ошибке
-  [x] Docker + docker-compose + entrypoint (SQLite в volume)
-  [x] npm run preflight, /api/health (readyForAds), instrumentation warn
-  [x] Адаптив / Safari-iOS
-  [x] Инструкции: README.md, ПРОЧЕЕ/ВЫКЛАДКА.txt, nginx.example.conf
+РЕЖИМ: статика (GitHub Pages) — без онлайн-заявок, бронь по телефону/мессенджерам
 
-════════════════════════════════════════
-ЗАВТРА — ВАШИ ШАГИ (блокеры рекламы)
-════════════════════════════════════════
-  [ ] 1. Telegram-бот (@BotFather) → TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID в .env
-  [ ] 2. VPS/Beget + Docker (или Node) + HTTPS-домен
-       docker compose up -d --build   ИЛИ см. ПРОЧЕЕ/ВЫКЛАДКА.txt
-  [ ] 3. NEXT_PUBLIC_SITE_URL=https://ваш-домен.ru
-  [ ] 4. Яндекс.Метрика → NEXT_PUBLIC_YANDEX_METRIKA_ID
-       + создать цель с именем: booking_ok
-  [ ] 5. Яндекс.Вебмастер → NEXT_PUBLIC_YANDEX_VERIFICATION + sitemap
-  [ ] 6. Проверить: npm run preflight (NODE_ENV=production)
-                   GET https://домен/api/health → readyForAds: true
-  [ ] 7. Тестовая заявка с сайта → сообщение в Telegram
-  [ ] 8. (опционально) своё фото шлема; следующий размер в парк — XL
+СДЕЛАНО
+  [x] Витрина, каталог, фото JK902, калькулятор
+  [x] ContactPanel: размеры/даты/суммы + Позвонить / Telegram / MAX
+  [x] output: "export" → папка out/
+  [x] API бронирования убран в archive/api/ (на будущее)
+  [x] GitHub Actions workflow для Pages
+  [x] FAQ/тексты: бронь по звонку
+  [x] Telegram-бот @motorent36_bot настроен (пригодится при возврате API)
 
-════════════════════════════════════════
-ЗАВТРА — ЕСЛИ НУЖЕН КОД (не блокеры)
-════════════════════════════════════════
-  - Админка / просмотр Booking из БД
-  - Письмо на email при заявке (запасной канал)
-  - Postgres вместо SQLite (если уйдёте на serverless)
-  - Cookie-баннер под Метрику (по желанию)
+ВАМ СЕЙЧАС
+  [ ] Репозиторий на GitHub + Pages (Actions)
+  [ ] Домен (~150–400 ₽/год) + NEXT_PUBLIC_SITE_URL
+  [ ] Метрика / Вебмастер (по желанию, бесплатно)
 
-════════════════════════════════════════
-ЗАПУСК ЛОКАЛЬНО
-════════════════════════════════════════
-  npm run db:setup && npm run dev
-  → http://localhost:3000
-  Карточка: /catalog/jiekai-jk902-black-matt
-  FAQ: /faq · health: /api/health
+ПОЗЖЕ (когда будет ~300 ₽/мес на VPS)
+  [ ] Вернуть API из archive/ + Docker
+  [ ] Онлайн-заявки снова в Telegram
 
-Ключи НЕ коммитить (.env в gitignore).
-Продолжение: открыть этот файл + ПРОЧЕЕ/ВЫКЛАДКА.txt
+ЗАПУСК
+  npm run dev          → localhost:3000
+  npm run build        → out/ для Pages

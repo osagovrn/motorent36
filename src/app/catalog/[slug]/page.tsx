@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { BookingPanel } from "@/components/BookingPanel";
+import { ContactPanel } from "@/components/ContactPanel";
 import { ProductImage } from "@/components/ProductImage";
+import { getAllProducts, getProductBySlug } from "@/data/catalog";
 import { productMeta, SEO_CONFIG } from "@/config/seo";
-import { parseImageUrls, prisma } from "@/lib/prisma";
 import { formatRub } from "@/lib/rental";
-
-export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ slug: string }> };
 
+export function generateStaticParams() {
+  return getAllProducts().map((p) => ({ slug: p.slug }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({ where: { slug } });
+  const product = getProductBySlug(slug);
   if (!product) return { title: "Товар не найден" };
   const meta = productMeta({
-    brand: product.brand ?? "шлем",
-    model: product.model ?? product.title,
+    brand: product.brand,
+    model: product.model,
     price: product.pricePerDay,
   });
-  const images = parseImageUrls(product.imageUrls);
   return {
     title: meta.title,
     description: meta.description,
@@ -29,13 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: meta.title,
       description: meta.description,
       url: `/catalog/${slug}`,
-      images: images[0]
-        ? [
-            {
-              url: images[0],
-              alt: product.title,
-            },
-          ]
+      images: product.images[0]
+        ? [{ url: product.images[0], alt: product.title }]
         : undefined,
     },
   };
@@ -43,18 +39,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    include: { attributes: true, category: true },
-  });
-
+  const product = getProductBySlug(slug);
   if (!product) notFound();
 
-  const images = parseImageUrls(product.imageUrls);
-  const availableSizes = product.attributes
-    .filter((a) => a.attributeName === "size" && a.stockQuantity > 0)
-    .map((a) => a.attributeValue);
-
+  const images = product.images;
+  const availableSizes = product.sizes;
   const productUrl = `${SEO_CONFIG.siteUrl.replace(/\/$/, "")}/catalog/${product.slug}`;
   const absoluteImages = images.map((src) =>
     src.startsWith("http")
@@ -67,16 +56,14 @@ export default async function ProductPage({ params }: Props) {
     "@type": "Product",
     name: product.title,
     description: product.description,
-    brand: product.brand
-      ? { "@type": "Brand", name: product.brand }
-      : undefined,
+    brand: { "@type": "Brand", name: product.brand },
     image: absoluteImages,
     offers: {
       "@type": "Offer",
       priceCurrency: "RUB",
       price: product.pricePerDay,
       priceValidUntil: "2027-12-31",
-      description: `Аренда за сутки. При получении передаётся ${product.marketValue} ₽ (прокат + возвратный залог).`,
+      description: `Аренда за сутки. При получении передаётся ${product.marketValue} ₽ (прокат + возвратный залог). Бронь по телефону.`,
       availability:
         availableSizes.length > 0
           ? "https://schema.org/InStock"
@@ -99,7 +86,7 @@ export default async function ProductPage({ params }: Props) {
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start">
         <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.2em] text-amber-500/80">
-            {product.category?.name ?? "Товар"} · {SEO_CONFIG.city}
+            {product.categoryName} · {SEO_CONFIG.city}
           </p>
           <h1 className="font-display mt-3 text-3xl font-extrabold leading-tight text-amber-50 sm:text-4xl lg:text-5xl lg:leading-none">
             {product.title}
@@ -156,6 +143,7 @@ export default async function ProductPage({ params }: Props) {
                 {formatRub(product.marketValue)} ₽ — разница возвращается как
                 залог
               </li>
+              <li>Бронь по телефону, Telegram или MAX</li>
             </ul>
             <p className="pt-1">
               <Link
@@ -169,8 +157,7 @@ export default async function ProductPage({ params }: Props) {
         </div>
 
         <div className="min-w-0 lg:sticky lg:top-[calc(4.75rem+env(safe-area-inset-top))] lg:self-start">
-          <BookingPanel
-            productSlug={product.slug}
+          <ContactPanel
             productTitle={product.title}
             pricePerDay={product.pricePerDay}
             marketValue={product.marketValue}

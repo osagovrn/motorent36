@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
-    "start": "next start",
-    "start:prod": "prisma db push && next start",
+    "build": "next build",
+    "start": "npx serve out",
     "preflight": "tsx scripts/preflight.ts",
+    "telegram:setup": "tsx scripts/telegram-setup.ts",
     "lint": "eslint",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",

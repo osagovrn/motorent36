@@ -1,33 +1,23 @@
 import Link from "next/link";
-import { prisma, parseImageUrls } from "@/lib/prisma";
+import {
+  getAllProducts,
+  lowestPricePerDay,
+} from "@/data/catalog";
 import { SEO_CONFIG } from "@/config/seo";
 import { formatRub } from "@/lib/rental";
 import { ProductImage } from "@/components/ProductImage";
 import { FaqSection } from "@/components/FaqSection";
 
-export const dynamic = "force-dynamic";
-
-export default async function HomePage() {
-  const products = await prisma.product.findMany({
-    include: {
-      category: true,
-      attributes: true,
-    },
-    orderBy: { createdAt: "desc" },
-  });
-
-  const fromPrice = products.reduce(
-    (min, p) => Math.min(min, p.pricePerDay),
-    products[0]?.pricePerDay ?? 500,
-  );
+export default function HomePage() {
+  const products = getAllProducts();
+  const fromPrice = lowestPricePerDay();
   const sample = products[0];
   const sampleMarket = sample?.marketValue ?? 6000;
-  const sampleDayDeposit = Math.max(0, sampleMarket - (sample?.pricePerDay ?? 500));
-  const sampleSizes = sample
-    ? sample.attributes
-        .filter((a) => a.attributeName === "size" && a.stockQuantity > 0)
-        .map((a) => a.attributeValue)
-    : ["M", "L"];
+  const sampleDayDeposit = Math.max(
+    0,
+    sampleMarket - (sample?.pricePerDay ?? 500),
+  );
+  const sampleSizes = sample?.sizes ?? ["M", "L"];
 
   const localBusinessLd = {
     "@context": "https://schema.org",
@@ -65,8 +55,9 @@ export default async function HomePage() {
             <span className="block text-amber-400">в Воронеже</span>
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg">
-            Витрина и онлайн-бронирование. Оплата и залог — при личной встрече.
-            Старт каталога: JIEKAI JK902, размеры {sampleSizes.join(" и ")}, от{" "}
+            Витрина и расчёт стоимости. Бронь — по телефону или в мессенджере.
+            Оплата и залог при встрече. JIEKAI JK902, размеры{" "}
+            {sampleSizes.join(" и ")}, от{" "}
             <strong className="text-amber-100">
               {formatRub(fromPrice)} ₽/сутки
             </strong>
@@ -80,12 +71,10 @@ export default async function HomePage() {
               Смотреть каталог
             </a>
             <a
-              href={SEO_CONFIG.telegram}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`tel:${SEO_CONFIG.phoneE164}`}
               className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/15 px-5 py-3 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/50 sm:w-auto"
             >
-              Написать в Telegram
+              Позвонить
             </a>
           </div>
         </div>
@@ -102,8 +91,8 @@ export default async function HomePage() {
           <ol className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               {
-                title: "Бронирование",
-                text: `Выбираете шлем, размер (${sampleSizes.join(" или ") || "доступный"}) и даты на сайте. Мы связываемся с вами по телефону, в Telegram или MAX.`,
+                title: "Звонок или сообщение",
+                text: `Выбираете шлем и размер (${sampleSizes.join(" или ")}), считаете даты на сайте. Звоните или пишите в Telegram / MAX — подтвердим бронь.`,
               },
               {
                 title: "Встреча",
@@ -138,56 +127,49 @@ export default async function HomePage() {
           Каталог
         </h2>
         <p className="mt-2 text-zinc-400">
-          Этап 1 — мотошлемы. Каталог расширяется без смены структуры данных.
+          Этап 1 — мотошлемы. Каталог расширяется по мере появления техники.
         </p>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product, index) => {
-            const images = parseImageUrls(product.imageUrls);
-            const sizes = product.attributes
-              .filter((a) => a.attributeName === "size" && a.stockQuantity > 0)
-              .map((a) => a.attributeValue);
-
-            return (
-              <article
-                key={product.id}
-                className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50"
-              >
-                <Link href={`/catalog/${product.slug}`} className="block">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-zinc-800">
-                    {images[0] ? (
-                      <ProductImage
-                        src={images[0]}
-                        alt={product.title}
-                        className="transition duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        priority={index === 0}
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-zinc-500">
-                        Нет фото
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    <p className="text-xs uppercase tracking-wider text-amber-500/80">
-                      {product.category?.name ?? "Каталог"}
-                    </p>
-                    <h3 className="mt-1 text-lg font-semibold text-amber-50">
-                      {product.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-zinc-400">
-                      от {formatRub(product.pricePerDay)} ₽/сутки · размеры{" "}
-                      {sizes.join(", ") || "—"}
-                    </p>
-                    <span className="mt-4 inline-block text-sm font-semibold text-amber-400 group-hover:underline">
-                      Забронировать →
-                    </span>
-                  </div>
-                </Link>
-              </article>
-            );
-          })}
+          {products.map((product, index) => (
+            <article
+              key={product.slug}
+              className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50"
+            >
+              <Link href={`/catalog/${product.slug}`} className="block">
+                <div className="relative aspect-[4/3] overflow-hidden bg-zinc-800">
+                  {product.images[0] ? (
+                    <ProductImage
+                      src={product.images[0]}
+                      alt={product.title}
+                      className="transition duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      priority={index === 0}
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-zinc-500">
+                      Нет фото
+                    </div>
+                  )}
+                </div>
+                <div className="p-5">
+                  <p className="text-xs uppercase tracking-wider text-amber-500/80">
+                    {product.categoryName}
+                  </p>
+                  <h3 className="mt-1 text-lg font-semibold text-amber-50">
+                    {product.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    от {formatRub(product.pricePerDay)} ₽/сутки · размеры{" "}
+                    {product.sizes.join(", ") || "—"}
+                  </p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-amber-400 group-hover:underline">
+                    Узнать и позвонить →
+                  </span>
+                </div>
+              </Link>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -197,7 +179,7 @@ export default async function HomePage() {
             Частые вопросы
           </h2>
           <p className="mt-2 max-w-2xl text-zinc-400">
-            Размер, залог, встреча и документы — коротко перед бронированием.
+            Размер, залог, встреча и документы — коротко перед звонком.
           </p>
           <div className="mt-8 max-w-3xl">
             <FaqSection withMoreLink limit={4} />

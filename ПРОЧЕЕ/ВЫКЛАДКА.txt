@@ -1,71 +1,43 @@
-ВЫКЛАДКА MotoRent36 (инструкция)
-================================
-Дата: 15.07.2026 (обновлено)
+ВЫКЛАДКА MotoRent36
+==================
+Обновлено: 16.07.2026
 
-Сайт — Next.js + API + SQLite.
-GitHub Pages — НЕТ. Vercel+SQLite — НЕ рекомендуется.
-Рекомендуется: VPS/Beget + Docker (или Node напрямую).
-
-Чеклист перед Директом:
-  [ ] TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID
-  [ ] NEXT_PUBLIC_SITE_URL=https://ваш-домен.ru
-  [ ] NEXT_PUBLIC_YANDEX_METRIKA_ID + цель booking_ok
-  [ ] NEXT_PUBLIC_YANDEX_VERIFICATION
-  [ ] npm run preflight  (с NODE_ENV=production)
-  [ ] GET /api/health → readyForAds: true
+РЕЖИМ СЕЙЧАС: статический сайт (без сервера, без онлайн-заявок)
+Бронь: телефон / Telegram / MAX. Калькулятор на сайте остаётся.
+Хостинг: GitHub Pages + домен (~как ОСАГО, ~0 ₽/мес + домен в год).
 
 ─────────────────────────────────
-A) DOCKER на VPS (рекомендую)
+A) GITHUB PAGES (рекомендуется сейчас)
 ─────────────────────────────────
-1. На сервере: Docker + docker compose, домен → сервер
-2. Залить проект, cp .env.example .env → заполнить критичные ключи
-3. docker compose up -d --build
-4. Nginx + HTTPS (пример: ПРОЧЕЕ/nginx.example.conf)
-5. Открыть https://домен/api/health
+1. Залить репозиторий на GitHub
+2. Settings → Pages → Build: GitHub Actions
+3. Repository variables (Settings → Secrets and variables → Actions → Variables):
+     NEXT_PUBLIC_SITE_URL = https://ваш-домен.ru
+     NEXT_PUBLIC_YANDEX_METRIKA_ID = ...   (когда будет)
+     NEXT_PUBLIC_YANDEX_VERIFICATION = ...
+4. Push в main — workflow .github/workflows/pages.yml соберёт out/ и выложит
+5. Домен: в Pages → Custom domain; DNS как у вашего ОСАГО-сайта
+6. Проверка: открыть сайт, карточку шлема, кнопки «Позвонить» / Telegram
 
-SQLite хранится в volume motorent_data.
-
-─────────────────────────────────
-B) VPS / Beget без Docker
-─────────────────────────────────
-1. Node 20+, git, npm
-2. git clone / залить файлы
-3. cp .env.example .env → заполнить
-4. npm ci && npm run db:setup && npm run build
-5. NODE_ENV=production npm run preflight
-6. npm run start:prod   (или pm2)
-7. Nginx → :3000 + Let's Encrypt
-8. NEXT_PUBLIC_SITE_URL=https://ваш-домен.ru
+Локально: npm run build → папка out/
 
 ─────────────────────────────────
-C) TELEGRAM-БОТ (делает владелец — без этого реклама бессмысленна)
+B) ПОЗЖЕ: VPS + онлайн-заявки (когда будет бюджет ~300 ₽/мес)
 ─────────────────────────────────
-1. @BotFather → /newbot → TOKEN
-2. Написать боту любое сообщение
-3. https://api.telegram.org/botTOKEN/getUpdates → chat.id
-4. В .env: TELEGRAM_BOT_TOKEN=...  TELEGRAM_CHAT_ID=...
-5. Перезапуск → тестовая заявка с сайта
-
-На ПРОДЕ без токена форма → 503.
-Заявки в таблице Booking; пересечение дат размера → 409.
-Антиспам: IP/телефон + honeypot.
+1. Вернуть archive/api/booking и health в src/app/api/
+2. Убрать output: "export" из next.config.ts
+3. Docker / Node — см. старые разделы ниже / docker-compose.yml
+4. TELEGRAM_* в .env на сервере
 
 ─────────────────────────────────
-D) ФОТО (сделано в коде)
+C) TELEGRAM
 ─────────────────────────────────
-public/products/jk902-1.jpg и jk902-2.jpg
-Своё фото: заменить файлы + npm run db:seed при смене путей.
+Бот @motorent36_bot настроен локально для будущего API.
+На статическом сайте заявки в бота с формы НЕ идут — клиент пишет вам в личку
+или звонит. Токен в .env не нужен для GitHub Pages.
 
 ─────────────────────────────────
-E) РЕКЛАМА / МЕТРИКА / ВЕБМАСТЕР
+D) РЕКЛАМА
 ─────────────────────────────────
-- Вебмастер: NEXT_PUBLIC_YANDEX_VERIFICATION + sitemap.xml
-- Метрика: NEXT_PUBLIC_YANDEX_METRIKA_ID
-  Цель: booking_ok
-- Директ → https://домен/ и /catalog/jiekai-jk902-black-matt
-- FAQ: /faq
-
-─────────────────────────────────
-F) VERCEL (только если готовы к Postgres)
-─────────────────────────────────
-SQLite на serverless ломается. Без миграции на Postgres не используйте.
+После HTTPS-домена: Вебмастер + Метрика + Директ на витрину.
+Цель booking_ok — когда снова включите онлайн-форму.
