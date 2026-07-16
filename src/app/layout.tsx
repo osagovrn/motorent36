@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import { SEO_CONFIG, yandexVerification } from "@/config/seo";
+import { absoluteAssetUrl } from "@/lib/assets";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { YandexMetrika } from "@/components/YandexMetrika";
 import "./globals.css";
@@ -19,7 +20,7 @@ const display = Manrope({
   display: "swap",
 });
 
-const ogImage = "/products/jk902-1.jpg";
+const ogImage = absoluteAssetUrl("/products/jk902-1.jpg");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SEO_CONFIG.siteUrl),
@@ -33,11 +34,12 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   keywords: [
-    "аренда мотошлемов Воронеж",
+    "аренда мотошлема Воронеж",
     "прокат шлема Воронеж",
-    "мотоэкипировка напрокат",
+    "аренда мотошлемов Воронеж",
+    "взять шлем напрокат",
     "JIEKAI JK902",
-    "размер мотошлема",
+    "мотоэкипировка напрокат",
     SEO_CONFIG.brandName,
   ],
   openGraph: {

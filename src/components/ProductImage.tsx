@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -103,6 +104,7 @@ function HelmetPlaceholder({ alt, className }: { alt: string; className?: string
  * JPG/PNG/WebP/http — обычный <img>; локальный svg-placeholder — inline.
  */
 export function ProductImage({ src, alt, className, priority }: Props) {
+  const resolvedSrc = assetUrl(src);
   const usePlaceholder =
     !isRaster(src) &&
     !isRemote(src) &&
@@ -115,7 +117,7 @@ export function ProductImage({ src, alt, className, priority }: Props) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={src}
+      src={resolvedSrc}
       alt={alt}
       loading={priority ? "eager" : "lazy"}
       decoding="async"

@@ -26,15 +26,15 @@ jobs:
       - run: npm ci
       - name: Build static site
         env:
-          # Project Pages: https://osagovrn.github.io/motorent36/
-          # Со своим доменом: задайте vars NEXT_PUBLIC_BASE_PATH="" и SITE_URL=https://домен
+          # Живой URL: https://yvwvy.ru/motorent36/
+          # Свой домен на корне: vars NEXT_PUBLIC_BASE_PATH="" и NEXT_PUBLIC_SITE_URL=https://домен
           NEXT_PUBLIC_BASE_PATH: ${{ vars.NEXT_PUBLIC_BASE_PATH }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
           NEXT_PUBLIC_YANDEX_METRIKA_ID: ${{ vars.NEXT_PUBLIC_YANDEX_METRIKA_ID }}
           NEXT_PUBLIC_YANDEX_VERIFICATION: ${{ vars.NEXT_PUBLIC_YANDEX_VERIFICATION }}
         run: |
           export NEXT_PUBLIC_BASE_PATH="${NEXT_PUBLIC_BASE_PATH:-/motorent36}"
-          export NEXT_PUBLIC_SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://osagovrn.github.io/motorent36}"
+          export NEXT_PUBLIC_SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://yvwvy.ru/motorent36}"
           echo "BASE_PATH=$NEXT_PUBLIC_BASE_PATH"
           echo "SITE_URL=$NEXT_PUBLIC_SITE_URL"
           npm run build

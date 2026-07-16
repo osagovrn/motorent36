@@ -142,6 +142,14 @@ export function SiteFooter() {
           >
             Персональные данные
           </Link>
+          <a
+            href={SEO_CONFIG.osagoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center hover:text-amber-300"
+          >
+            {SEO_CONFIG.osagoLabel}
+          </a>
         </div>
       </div>
     </footer>

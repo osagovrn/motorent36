@@ -4,9 +4,11 @@ import {
   lowestPricePerDay,
 } from "@/data/catalog";
 import { SEO_CONFIG } from "@/config/seo";
+import { absoluteAssetUrl } from "@/lib/assets";
 import { formatRub } from "@/lib/rental";
 import { ProductImage } from "@/components/ProductImage";
 import { FaqSection } from "@/components/FaqSection";
+import { OsagoPromo } from "@/components/OsagoPromo";
 
 export default function HomePage() {
   const products = getAllProducts();
@@ -27,7 +29,7 @@ export default function HomePage() {
     url: SEO_CONFIG.siteUrl,
     telephone: SEO_CONFIG.phoneE164,
     email: SEO_CONFIG.email,
-    image: `${SEO_CONFIG.siteUrl.replace(/\/$/, "")}/products/jk902-1.jpg`,
+    image: absoluteAssetUrl("/products/jk902-1.jpg"),
     address: {
       "@type": "PostalAddress",
       addressLocality: SEO_CONFIG.city,
@@ -48,20 +50,19 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><path d=%22M0 40L40 0H20L0 20zm40 0V20L20 40z%22 fill=%22%23ffffff%22 fill-opacity=%220.02%22/></svg>')]" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-400/90">
-            Прокат · {SEO_CONFIG.city}
+            {SEO_CONFIG.brandName} · {SEO_CONFIG.city}
           </p>
           <h1 className="font-display mt-4 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight text-amber-50 xs:text-5xl sm:text-6xl sm:leading-[0.95] lg:text-7xl">
-            Аренда мотошлемов
+            Аренда мотошлема
             <span className="block text-amber-400">в Воронеже</span>
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg">
-            Витрина и расчёт стоимости. Бронь — по телефону или в мессенджере.
-            Оплата и залог при встрече. JIEKAI JK902, размеры{" "}
-            {sampleSizes.join(" и ")}, от{" "}
+            JIEKAI JK902, размеры {sampleSizes.join(" и ")}, от{" "}
             <strong className="text-amber-100">
               {formatRub(fromPrice)} ₽/сутки
             </strong>
-            .
+            . Считаете стоимость на сайте — бронируете по телефону или в
+            Telegram. Оплата и залог при встрече.
           </p>
           <div className="mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
             <a
@@ -194,6 +195,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <OsagoPromo />
     </>
   );
 }

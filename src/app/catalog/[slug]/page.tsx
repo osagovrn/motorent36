@@ -5,6 +5,7 @@ import { ContactPanel } from "@/components/ContactPanel";
 import { ProductImage } from "@/components/ProductImage";
 import { getAllProducts, getProductBySlug } from "@/data/catalog";
 import { productMeta, SEO_CONFIG } from "@/config/seo";
+import { absoluteAssetUrl } from "@/lib/assets";
 import { formatRub } from "@/lib/rental";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: meta.description,
       url: `/catalog/${slug}`,
       images: product.images[0]
-        ? [{ url: product.images[0], alt: product.title }]
+        ? [{ url: absoluteAssetUrl(product.images[0]), alt: product.title }]
         : undefined,
     },
   };
@@ -45,11 +46,7 @@ export default async function ProductPage({ params }: Props) {
   const images = product.images;
   const availableSizes = product.sizes;
   const productUrl = `${SEO_CONFIG.siteUrl.replace(/\/$/, "")}/catalog/${product.slug}`;
-  const absoluteImages = images.map((src) =>
-    src.startsWith("http")
-      ? src
-      : `${SEO_CONFIG.siteUrl.replace(/\/$/, "")}${src}`,
-  );
+  const absoluteImages = images.map((src) => absoluteAssetUrl(src));
 
   const productLd = {
     "@context": "https://schema.org",

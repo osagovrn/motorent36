@@ -25,9 +25,9 @@ npm run build
 
 1. Репозиторий на GitHub  
 2. Settings → Pages → Source: **GitHub Actions**  
-3. (опционально) Variables: `NEXT_PUBLIC_SITE_URL=https://ваш-домен.ru`  
+3. Variables: `NEXT_PUBLIC_SITE_URL=https://yvwvy.ru/motorent36` (уже задано)  
 4. Push в `main` → workflow `Deploy GitHub Pages`  
-5. Домен: A/CNAME как у ОСАГО + в Pages указать custom domain  
+5. Сайт: https://yvwvy.ru/motorent36/ 
 
 Подробно: `ПРОЧЕЕ/ВЫКЛАДКА.txt`
 

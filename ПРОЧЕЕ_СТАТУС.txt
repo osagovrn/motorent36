@@ -15,9 +15,12 @@
   [x] Telegram-бот @motorent36_bot настроен (пригодится при возврате API)
 
 ВАМ СЕЙЧАС
-  [ ] Репозиторий на GitHub + Pages (Actions)
-  [ ] Домен (~150–400 ₽/год) + NEXT_PUBLIC_SITE_URL
-  [ ] Метрика / Вебмастер (по желанию, бесплатно)
+  [x] Репозиторий: https://github.com/osagovrn/motorent36
+  [x] Код запушен, Pages через Actions — success
+  [x] Сайт: https://yvwvy.ru/motorent36/  (и github.io/motorent36 → редирект)
+  [x] ОСАГО https://yvwvy.ru/ — без изменений (свой репо)
+  [ ] Позже: отдельный домен для аренды (по желанию)
+  [ ] Метрика / Вебмастер для аренды
 
 ПОЗЖЕ (когда будет ~300 ₽/мес на VPS)
   [ ] Вернуть API из archive/ + Docker
