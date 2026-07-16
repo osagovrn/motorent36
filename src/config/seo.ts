@@ -10,7 +10,9 @@ export const SEO_CONFIG = {
   contactName: "Евгений",
   phoneDisplay: "+7 (950) 767-85-75",
   phoneE164: "+79507678575",
+  /** Личный Telegram — сюда пишут клиенты */
   telegram: "https://t.me/+79507678575",
+  telegramLabel: "Telegram",
   maxDisplay: "+7 (919) 183-14-07",
   maxE164: "+79191831407",
   maxUrl: "https://max.ru/+79191831407",
@@ -98,4 +100,12 @@ export function productMeta({
     title: `Аренда мотошлема ${brand} ${model}${sizePart} в Воронеже — прокат экипировки`,
     description: `Ищете, где взять напрокат шлем ${brand} в Воронеже? Стоимость аренды всего ${price} руб/сутки. Полный возвратный залог. Посуточный прокат мотоэкипировки.`,
   };
+}
+
+/** Ссылка «написать в Telegram», опционально с готовым текстом */
+export function telegramWriteUrl(prefill?: string): string {
+  const base = SEO_CONFIG.telegram;
+  if (!prefill?.trim()) return base;
+  const sep = base.includes("?") ? "&" : "?";
+  return `${base}${sep}text=${encodeURIComponent(prefill.trim())}`;
 }

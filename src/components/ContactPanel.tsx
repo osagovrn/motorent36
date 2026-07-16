@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { calculateRental, formatRub, parseLocalDate } from "@/lib/rental";
-import { HELMET_SIZE_OPTIONS, SEO_CONFIG } from "@/config/seo";
+import { HELMET_SIZE_OPTIONS, SEO_CONFIG, telegramWriteUrl } from "@/config/seo";
 import { HelmetSizeChart } from "@/components/HelmetSizeChart";
 import { cn } from "@/lib/utils";
 
@@ -74,9 +74,7 @@ export function ContactPanel({
     .filter(Boolean)
     .join(". ");
 
-  const telegramHref = `${SEO_CONFIG.telegram}${
-    SEO_CONFIG.telegram.includes("?") ? "&" : "?"
-  }text=${encodeURIComponent(prefill)}`;
+  const telegramHref = telegramWriteUrl(prefill);
 
   return (
     <section
@@ -184,18 +182,18 @@ export function ContactPanel({
 
       <div className="mt-6 flex flex-col gap-3">
         <a
+          href={telegramHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-sky-500 px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-sky-400"
+        >
+          Написать в Telegram
+        </a>
+        <a
           href={`tel:${SEO_CONFIG.phoneE164}`}
           className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-amber-500 px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400"
         >
           Позвонить {SEO_CONFIG.phoneDisplay}
-        </a>
-        <a
-          href={telegramHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-center text-sm font-semibold text-amber-50 hover:bg-amber-500/20"
-        >
-          Написать в Telegram (с расчётом)
         </a>
         <a
           href={SEO_CONFIG.maxUrl}

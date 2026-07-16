@@ -65,16 +65,24 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
             <a
-              href="#katalog"
+              href={`tel:${SEO_CONFIG.phoneE164}`}
               className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400 sm:w-auto"
             >
-              Смотреть каталог
+              Позвонить
             </a>
             <a
-              href={`tel:${SEO_CONFIG.phoneE164}`}
+              href={SEO_CONFIG.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-sky-500/40 bg-sky-500/10 px-5 py-3 text-center text-sm font-semibold text-sky-100 hover:bg-sky-500/20 sm:w-auto"
+            >
+              Написать в Telegram
+            </a>
+            <a
+              href="#katalog"
               className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/15 px-5 py-3 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/50 sm:w-auto"
             >
-              Позвонить
+              Смотреть каталог
             </a>
           </div>
         </div>

@@ -64,6 +64,15 @@ export function SiteHeader() {
             FAQ
           </Link>
           <a
+            href={SEO_CONFIG.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center rounded-full border border-sky-500/40 bg-sky-500/10 px-3 text-sky-200 hover:bg-sky-500/20"
+            aria-label="Написать в Telegram"
+          >
+            TG
+          </a>
+          <a
             href={`tel:${SEO_CONFIG.phoneE164}`}
             className="inline-flex min-h-11 items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-3 text-amber-200 hover:bg-amber-500/20"
             aria-label={`Позвонить ${SEO_CONFIG.phoneDisplay}`}
