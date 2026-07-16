@@ -1,10 +1,10 @@
-# Сайт Аренды — MotoRent36
+# MotoRent36 — аренда мотошлемов (Воронеж)
 
-Витрина проката мотошлемов (Воронеж).  
-Сейчас: **статический сайт** (GitHub Pages) — калькулятор + бронь по телефону / Telegram / MAX.  
-Онлайн-форма заявок отключена (код API лежит в `archive/api/` на будущее).
+Статический сайт (GitHub Pages): каталог, калькулятор, бронь по телефону / Telegram / MAX.
 
-## Быстрый старт
+**Сайт:** https://yvwvy.ru/motorent36/
+
+## Запуск
 
 ```bash
 npm install
@@ -13,26 +13,23 @@ npm run dev
 
 → http://localhost:3000
 
-## Сборка статики
-
 ```bash
 npm run build
 ```
 
-Папка `out/` — готовый сайт для GitHub Pages / любого хостинга файлов.
+Папка `out/` — статика для GitHub Pages.
 
-## Выкладка (бюджет ≈ домен ~150–400 ₽/год)
+## Выкладка
 
-1. Репозиторий на GitHub  
-2. Settings → Pages → Source: **GitHub Actions**  
-3. Variables: `NEXT_PUBLIC_SITE_URL=https://yvwvy.ru/motorent36` (уже задано)  
-4. Push в `main` → workflow `Deploy GitHub Pages`  
-5. Сайт: https://yvwvy.ru/motorent36/ 
+Push в `main` → Actions `Deploy GitHub Pages`.  
+Variable: `NEXT_PUBLIC_SITE_URL=https://yvwvy.ru/motorent36`, `NEXT_PUBLIC_BASE_PATH=/motorent36`.
 
-Подробно: `ПРОЧЕЕ/ВЫКЛАДКА.txt`
+## Структура репозитория
 
-## Когда появятся деньги на VPS
+- `src/` — страницы и компоненты
+- `public/` — фото и иконки
+- `.github/workflows/` — деплой
 
-Можно вернуть онлайн-заявки + Telegram из `archive/api/` (см. README там) и Docker.
+Локальные заметки, Docker, Prisma и архив API лежат в папке `ПРОЧЕЕ/` на диске и **не попадают в GitHub**.
 
 Контакты и тексты: `src/config/seo.ts` · каталог: `src/data/catalog.ts`
