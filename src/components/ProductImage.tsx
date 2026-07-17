@@ -97,7 +97,8 @@ function HelmetPlaceholder({ alt, className }: { alt: string; className?: string
 
 /**
  * Фото товара без next/image (static export).
- * JPEG + WebP srcset через <picture>.
+ * JPEG + WebP srcset через <picture>. Картинка всегда absolute inset-0
+ * внутри родителя с relative + aspect/высотой.
  */
 export function ProductImage({ src, alt, className, priority, sizes }: Props) {
   const resolvedSrc = assetUrl(src);
@@ -137,8 +138,9 @@ export function ProductImage({ src, alt, className, priority, sizes }: Props) {
     `${assetUrl(`${base}.webp`)} 1600w`,
   ].join(", ");
 
+  // Не display:contents — иначе absolute у img ломается в части браузеров.
   return (
-    <picture className="contents">
+    <picture className="absolute inset-0 block h-full w-full">
       <source type="image/webp" srcSet={srcSet} sizes={sizes} />
       {img}
     </picture>
