@@ -109,7 +109,7 @@ export function SiteHeader() {
             href={SEO_CONFIG.telegram}
             target="_blank"
             rel="noopener noreferrer"
-            className="focus-ring inline-flex min-h-11 items-center rounded-full border border-white/20 bg-white/5 px-3 text-zinc-200 hover:border-amber-500/40 hover:text-amber-100"
+            className="focus-ring inline-flex min-h-11 items-center rounded-full border border-amber-500/50 bg-amber-500/15 px-3 font-semibold text-amber-100 hover:border-amber-400 hover:bg-amber-500/25"
             aria-label="Написать в Telegram"
           >
             TG
@@ -124,6 +124,15 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-1.5 md:hidden">
+          <a
+            href={SEO_CONFIG.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focus-ring inline-flex min-h-11 items-center rounded-full border border-amber-500/50 bg-amber-500/15 px-3 text-sm font-semibold text-amber-100"
+            aria-label="Написать в Telegram"
+          >
+            TG
+          </a>
           <a
             href={`tel:${SEO_CONFIG.phoneE164}`}
             className="focus-ring inline-flex min-h-11 items-center rounded-full bg-amber-500 px-3 text-sm font-semibold text-zinc-950"
@@ -177,7 +186,7 @@ export function SiteHeader() {
               href={SEO_CONFIG.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring rounded-lg px-3 py-3 text-zinc-200 hover:bg-white/5"
+              className="focus-ring rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-3 font-semibold text-amber-100 hover:bg-amber-500/20"
             >
               Telegram
             </a>

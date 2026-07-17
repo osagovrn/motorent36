@@ -20,7 +20,7 @@ export function MobileBookBar({ bookHref = "#bron" }: Props) {
           href={SEO_CONFIG.telegram}
           target="_blank"
           rel="noopener noreferrer"
-          className="focus-ring inline-flex min-h-12 flex-1 items-center justify-center rounded-xl border border-white/20 bg-white/5 text-sm font-semibold text-zinc-100"
+          className="focus-ring inline-flex min-h-12 flex-1 items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 text-sm font-bold uppercase tracking-wide text-amber-100"
         >
           Telegram
         </a>

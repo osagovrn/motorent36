@@ -96,7 +96,7 @@ export default function HomePage() {
             <strong className="font-semibold text-amber-100">
               {formatRub(fromPrice)} ₽/сутки
             </strong>
-            . Рассчитайте даты на сайте — бронь по телефону, в Telegram или MAX.
+            . Рассчитайте даты на сайте — удобно написать в Telegram или позвонить.
           </p>
           <div className="reveal reveal-4 mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
             <a
@@ -109,7 +109,7 @@ export default function HomePage() {
               href={SEO_CONFIG.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/50 hover:bg-amber-500/10 sm:w-auto"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 px-5 py-3 text-center text-sm font-bold uppercase tracking-wide text-amber-100 hover:border-amber-400 hover:bg-amber-500/25 sm:w-auto"
             >
               Telegram
             </a>
@@ -300,8 +300,8 @@ export default function HomePage() {
               Готовы взять шлем?
             </h2>
             <p className="mt-2 max-w-xl text-sm text-zinc-400">
-              Посчитайте даты на карточке товара и позвоните — или напишите в
-              Telegram / MAX.
+              Посчитайте даты на карточке товара — удобнее всего написать в
+              Telegram или позвонить.
             </p>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
@@ -311,9 +311,17 @@ export default function HomePage() {
             >
               Позвонить
             </a>
+            <a
+              href={SEO_CONFIG.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focus-ring flex min-h-12 w-full items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 px-5 text-center text-sm font-bold uppercase tracking-wide text-amber-100 hover:border-amber-400 hover:bg-amber-500/25 sm:w-auto"
+            >
+              Telegram
+            </a>
             <Link
               href={bookHref}
-              className="focus-ring inline-flex min-h-12 items-center justify-center rounded-xl border border-white/20 px-5 text-sm font-semibold text-zinc-100 hover:border-amber-500/50"
+              className="focus-ring flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 px-5 text-center text-sm font-semibold uppercase tracking-wide text-zinc-100 hover:border-amber-500/50 sm:w-auto"
             >
               К бронированию
             </Link>

@@ -310,7 +310,7 @@ export function ContactPanel({
           href={telegramHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/50 hover:bg-amber-500/10"
+          className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-amber-100 hover:border-amber-400 hover:bg-amber-500/25"
         >
           Написать в Telegram
         </a>
