@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ContactPanel } from "@/components/ContactPanel";
-import { ProductImage } from "@/components/ProductImage";
+import { ProductGallery } from "@/components/ProductGallery";
+import { MobileBookBar } from "@/components/MobileBookBar";
 import { getAllProducts, getProductBySlug } from "@/data/catalog";
-import { productMeta, SEO_CONFIG } from "@/config/seo";
+import { canonicalPath, productMeta, SEO_CONFIG } from "@/config/seo";
 import { absoluteAssetUrl } from "@/lib/assets";
 import { formatRub } from "@/lib/rental";
 
@@ -22,18 +23,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     brand: product.brand,
     model: product.model,
     price: product.pricePerDay,
+    sizes: product.sizes,
   });
+  const path = canonicalPath(`/catalog/${slug}`);
   return {
     title: meta.title,
     description: meta.description,
-    alternates: { canonical: `/catalog/${slug}` },
+    alternates: { canonical: path },
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: `/catalog/${slug}`,
-      images: product.images[0]
-        ? [{ url: absoluteAssetUrl(product.images[0]), alt: product.title }]
-        : undefined,
+      url: path,
+      images: [
+        {
+          url: absoluteAssetUrl("/og.jpg"),
+          width: 1200,
+          height: 630,
+          alt: product.title,
+        },
+      ],
     },
   };
 }
@@ -45,8 +53,10 @@ export default async function ProductPage({ params }: Props) {
 
   const images = product.images;
   const availableSizes = product.sizes;
-  const productUrl = `${SEO_CONFIG.siteUrl.replace(/\/$/, "")}/catalog/${product.slug}`;
+  const base = SEO_CONFIG.siteUrl.replace(/\/$/, "");
+  const productUrl = `${base}/catalog/${product.slug}/`;
   const absoluteImages = images.map((src) => absoluteAssetUrl(src));
+  const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
 
   const productLd = {
     "@context": "https://schema.org",
@@ -54,12 +64,21 @@ export default async function ProductPage({ params }: Props) {
     name: product.title,
     description: product.description,
     brand: { "@type": "Brand", name: product.brand },
+    category: product.categoryName,
+    color: product.color,
     image: absoluteImages,
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Размеры в наличии",
+        value: availableSizes.join(", "),
+      },
+    ],
     offers: {
       "@type": "Offer",
       priceCurrency: "RUB",
       price: product.pricePerDay,
-      priceValidUntil: "2027-12-31",
+      priceValidUntil,
       description: `Аренда за сутки. При получении передаётся ${product.marketValue} ₽ (прокат + возвратный залог). Бронь по телефону.`,
       availability:
         availableSizes.length > 0
@@ -73,12 +92,62 @@ export default async function ProductPage({ params }: Props) {
     },
   };
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Главная",
+        item: `${base}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Каталог",
+        item: `${base}/#katalog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.title,
+        item: productUrl,
+      },
+    ],
+  };
+
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-14">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 pb-28 sm:px-6 sm:py-14 lg:pb-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+
+      <nav aria-label="Хлебные крошки" className="mb-6 text-sm text-zinc-500">
+        <ol className="flex flex-wrap items-center gap-1.5">
+          <li>
+            <Link href="/" className="focus-ring rounded-sm hover:text-amber-300">
+              Главная
+            </Link>
+          </li>
+          <li aria-hidden>/</li>
+          <li>
+            <Link
+              href="/#katalog"
+              className="focus-ring rounded-sm hover:text-amber-300"
+            >
+              Каталог
+            </Link>
+          </li>
+          <li aria-hidden>/</li>
+          <li className="text-zinc-400">{product.model}</li>
+        </ol>
+      </nav>
 
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start">
         <div className="min-w-0">
@@ -93,32 +162,9 @@ export default async function ProductPage({ params }: Props) {
             {product.color ? ` · ${product.color}` : ""}
           </p>
 
-          <div className="relative mt-6 aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900">
-            {images[0] && (
-              <ProductImage
-                src={images[0]}
-                alt={product.title}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
-            )}
+          <div className="mt-6">
+            <ProductGallery images={images} alt={product.title} />
           </div>
-          {images.length > 1 && (
-            <div className="mt-3 grid grid-cols-2 gap-3">
-              {images.slice(1).map((src, i) => (
-                <div
-                  key={src}
-                  className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-zinc-900"
-                >
-                  <ProductImage
-                    src={src}
-                    alt={`${product.title} — ракурс ${i + 2}`}
-                    sizes="(max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
 
           <div className="mt-6 space-y-3 text-sm leading-relaxed text-zinc-300">
             <p className="rounded-xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-amber-50">
@@ -145,7 +191,7 @@ export default async function ProductPage({ params }: Props) {
             <p className="pt-1">
               <Link
                 href="/faq"
-                className="text-amber-400 underline-offset-2 hover:underline"
+                className="focus-ring rounded-sm text-amber-400 underline-offset-2 hover:underline"
               >
                 FAQ: размеры, залог, встреча →
               </Link>
@@ -162,6 +208,8 @@ export default async function ProductPage({ params }: Props) {
           />
         </div>
       </div>
+
+      <MobileBookBar />
     </div>
   );
 }

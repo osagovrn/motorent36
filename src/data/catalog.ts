@@ -18,14 +18,14 @@ export type CatalogProduct = {
 export const CATALOG: CatalogProduct[] = [
   {
     slug: "jiekai-jk902-black-matt",
-    title: "Закрытый шлем JIEKAI JK902 (черный матовый)",
+    title: "Закрытый шлем JIEKAI JK902 (чёрный матовый)",
     description:
-      "Мотошлем JIEKAI JK902 модулярного типа позволяет носить его различными способами, компонуя поднятие забрала, визора и солнцезащитных очков. Корпус из ударопрочного ABS-пластика. Отличный выбор для поездок по Воронежу.",
+      "Модульный JIEKAI JK902 для экзамена в ГИБДД, поездки с пассажиром или короткого выезда. ABS-корпус, поднимаемый визор и солнцезащитные очки. Размеры M и L — примерите на встрече перед оплатой.",
     pricePerDay: 500,
     marketValue: 6000,
     brand: "JIEKAI",
     model: "JK902",
-    color: "Черный матовый",
+    color: "Чёрный матовый",
     categoryName: "Мотошлемы",
     images: ["/products/jk902-1.jpg", "/products/jk902-2.jpg"],
     sizes: ["M", "L"],
@@ -41,5 +41,8 @@ export function getProductBySlug(slug: string): CatalogProduct | undefined {
 }
 
 export function lowestPricePerDay(): number {
-  return CATALOG.reduce((min, p) => Math.min(min, p.pricePerDay), CATALOG[0]?.pricePerDay ?? 500);
+  return CATALOG.reduce(
+    (min, p) => Math.min(min, p.pricePerDay),
+    CATALOG[0]?.pricePerDay ?? 500,
+  );
 }

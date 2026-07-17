@@ -5,7 +5,7 @@ import { SEO_CONFIG } from "@/config/seo";
 export const metadata: Metadata = {
   title: "Политика обработки персональных данных",
   description: `Политика обработки персональных данных ${SEO_CONFIG.brandName}.`,
-  alternates: { canonical: "/privacy" },
+  alternates: { canonical: "/privacy/" },
   robots: { index: true, follow: true },
 };
 
@@ -23,8 +23,8 @@ export default function PrivacyPage() {
       <div className="mt-8 space-y-4 text-sm leading-relaxed text-zinc-300">
         <p>
           Оператор обрабатывает персональные данные пользователей сайта{" "}
-          {SEO_CONFIG.brandName} в объёме, необходимом для связи по заявке на
-          прокат и исполнения договора.
+          {SEO_CONFIG.brandName} в объёме, необходимом для связи по брони
+          проката (телефон, Telegram, MAX) и исполнения договора.
         </p>
         <h2 className="text-lg font-semibold text-amber-50">Какие данные</h2>
         <ul className="list-disc space-y-1 pl-5">
@@ -42,8 +42,8 @@ export default function PrivacyPage() {
         <h2 className="text-lg font-semibold text-amber-50">Передача третьим лицам</h2>
         <p>
           Данные не продаются. Могут передаваться сервисам связи (Telegram /
-          телефон) и инфраструктуре хостинга в объёме, нужном для работы сайта и
-          уведомлений о заявках.
+          телефон / MAX) и инфраструктуре хостинга в объёме, нужном для работы
+          сайта и связи по брони.
         </p>
         <h2 className="text-lg font-semibold text-amber-50">
           Cookies и веб-аналитика
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
         <p>
           При подключении Яндекс.Метрики на сайте могут использоваться файлы
           cookie и похожие технологии для статистики посещений (просмотры
-          страниц, источники трафика, конверсии по заявкам). Данные обрабатываются
+          страниц, источники трафика, действия на сайте). Данные обрабатываются
           в обезличенном или агрегированном виде в рамках работы сервиса
           аналитики. Отключить cookie можно в настройках браузера; при этом часть
           функций сайта может работать ограниченно.

@@ -17,12 +17,18 @@ function isRemote(src: string): boolean {
   return /^https?:\/\//i.test(src);
 }
 
+function jpegBase(src: string): string | null {
+  const m = src.match(/^(.*)\.(jpe?g)(\?.*)?$/i);
+  return m ? m[1] : null;
+}
+
 /** Заглушка шлема — inline SVG (файл .svg как <img> глючил). */
 function HelmetPlaceholder({ alt, className }: { alt: string; className?: string }) {
   return (
     <div
       role="img"
-      aria-label={alt}
+      aria-label={alt || undefined}
+      aria-hidden={alt ? undefined : true}
       className={cn(
         "absolute inset-0 flex items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950",
         className,
@@ -75,24 +81,14 @@ function HelmetPlaceholder({ alt, className }: { alt: string; className?: string
         />
         <text
           x="200"
-          y="235"
-          textAnchor="middle"
-          fill="#fafafa"
-          fontFamily="system-ui,sans-serif"
-          fontSize="16"
-          fontWeight="700"
-        >
-          JIEKAI JK902
-        </text>
-        <text
-          x="200"
-          y="258"
+          y="250"
           textAnchor="middle"
           fill="#a1a1aa"
           fontFamily="system-ui,sans-serif"
-          fontSize="11"
+          fontSize="14"
+          fontWeight="600"
         >
-          Замените на своё фото
+          Фото скоро
         </text>
       </svg>
     </div>
@@ -100,10 +96,10 @@ function HelmetPlaceholder({ alt, className }: { alt: string; className?: string
 }
 
 /**
- * Фото товара без next/image (SVG-файл как img давал битую картинку).
- * JPG/PNG/WebP/http — обычный <img>; локальный svg-placeholder — inline.
+ * Фото товара без next/image (static export).
+ * JPEG + WebP srcset через <picture>.
  */
-export function ProductImage({ src, alt, className, priority }: Props) {
+export function ProductImage({ src, alt, className, priority, sizes }: Props) {
   const resolvedSrc = assetUrl(src);
   const usePlaceholder =
     !isRaster(src) &&
@@ -114,17 +110,37 @@ export function ProductImage({ src, alt, className, priority }: Props) {
     return <HelmetPlaceholder alt={alt} className={className} />;
   }
 
-  return (
+  const base = !isRemote(src) ? jpegBase(src) : null;
+  const imgClass = cn(
+    "absolute inset-0 h-full w-full bg-zinc-900 object-contain object-center",
+    className,
+  );
+
+  const img = (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={resolvedSrc}
       alt={alt}
       loading={priority ? "eager" : "lazy"}
+      {...(priority ? { fetchPriority: "high" as const } : {})}
       decoding="async"
-      className={cn(
-        "absolute inset-0 h-full w-full bg-zinc-900 object-contain object-center",
-        className,
-      )}
+      sizes={sizes}
+      className={imgClass}
     />
+  );
+
+  if (!base) return img;
+
+  const srcSet = [
+    `${assetUrl(`${base}-800.webp`)} 800w`,
+    `${assetUrl(`${base}-1200.webp`)} 1200w`,
+    `${assetUrl(`${base}.webp`)} 1600w`,
+  ].join(", ");
+
+  return (
+    <picture className="contents">
+      <source type="image/webp" srcSet={srcSet} sizes={sizes} />
+      {img}
+    </picture>
   );
 }

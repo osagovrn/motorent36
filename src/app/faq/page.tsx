@@ -7,11 +7,11 @@ import { FAQ_ITEMS, SEO_CONFIG } from "@/config/seo";
 export const metadata: Metadata = {
   title: "Частые вопросы об аренде мотошлемов",
   description: `Ответы про размеры, залог, встречу и бронирование проката шлемов ${SEO_CONFIG.cityInFormat} — ${SEO_CONFIG.brandName}.`,
-  alternates: { canonical: "/faq" },
+  alternates: { canonical: "/faq/" },
   openGraph: {
     title: `FAQ — аренда мотошлемов ${SEO_CONFIG.cityInFormat}`,
     description: `Размеры, залог, встреча, документы. ${SEO_CONFIG.brandName}.`,
-    url: "/faq",
+    url: "/faq/",
   },
 };
 

@@ -1,27 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope, Unbounded } from "next/font/google";
 import { SEO_CONFIG, yandexVerification } from "@/config/seo";
 import { assetUrl, absoluteAssetUrl } from "@/lib/assets";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { YandexMetrika } from "@/components/YandexMetrika";
 import "./globals.css";
 
-/* Manrope с кириллицей — стабильно на Safari / iOS (Bebas без кириллицы давал «битые» заголовки) */
 const body = Manrope({
   subsets: ["latin", "cyrillic"],
   variable: "--font-body",
   display: "swap",
 });
 
-const display = Manrope({
+const display = Unbounded({
   subsets: ["latin", "cyrillic"],
   weight: ["700", "800"],
   variable: "--font-display",
   display: "swap",
 });
 
-const ogImage = absoluteAssetUrl("/products/jk902-1.jpg");
-const iconUrl = assetUrl("/icon.svg");
+const ogImage = absoluteAssetUrl("/og.jpg");
+const iconSvg = assetUrl("/icon.svg");
+const icon192 = assetUrl("/icon-192.png");
+const icon512 = assetUrl("/icon-512.png");
+const appleIcon = assetUrl("/apple-touch-icon.png");
+const favicon32 = assetUrl("/favicon-32.png");
 const manifestUrl = assetUrl("/manifest.webmanifest");
 
 export const metadata: Metadata = {
@@ -54,9 +57,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        width: 1000,
-        height: 1000,
-        alt: "Мотошлем JIEKAI JK902 чёрный матовый — аренда в Воронеже",
+        width: 1200,
+        height: 630,
+        alt: "MotoRent36 — аренда мотошлема в Воронеже",
       },
     ],
   },
@@ -77,8 +80,13 @@ export const metadata: Metadata = {
     title: SEO_CONFIG.brandName,
   },
   icons: {
-    icon: [{ url: iconUrl, type: "image/svg+xml" }],
-    apple: [{ url: iconUrl }],
+    icon: [
+      { url: favicon32, sizes: "32x32", type: "image/png" },
+      { url: iconSvg, type: "image/svg+xml" },
+      { url: icon192, sizes: "192x192", type: "image/png" },
+      { url: icon512, sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: appleIcon, sizes: "180x180", type: "image/png" }],
   },
   formatDetection: {
     telephone: true,
@@ -109,8 +117,13 @@ export default function RootLayout({
       className={`${body.variable} ${display.variable} h-full`}
     >
       <body className="flex min-h-dvh flex-col antialiased">
+        <a href="#main-content" className="skip-link">
+          Перейти к содержимому
+        </a>
         <SiteHeader />
-        <main className="flex-1 w-full min-w-0">{children}</main>
+        <main id="main-content" className="flex-1 w-full min-w-0">
+          {children}
+        </main>
         <SiteFooter />
         <YandexMetrika />
       </body>

@@ -2,6 +2,10 @@
  * Публичные константы сайта.
  * ФИО и ИНН на сайте не публикуются — указываются при заключении договора / в акте передачи.
  */
+import { lowestPricePerDay } from "@/data/catalog";
+
+const fromPrice = lowestPricePerDay();
+
 export const SEO_CONFIG = {
   city: "Воронеж",
   cityInFormat: "в Воронеже",
@@ -18,10 +22,8 @@ export const SEO_CONFIG = {
   maxUrl: "https://max.ru/+79191831407",
   email: "2020yvwvy2020@gmail.com",
   address: "г. Воронеж (встреча по согласованию)",
-  defaultTitle:
-    "Аренда мотошлема в Воронеже от 500 ₽/сутки — прокат JIEKAI JK902",
-  defaultDescription:
-    "Прокат мотошлема в Воронеже: JIEKAI JK902, размеры M и L, от 500 ₽/сутки. Считаете даты на сайте — бронь по телефону или в Telegram. Оплата и залог при встрече.",
+  defaultTitle: `Аренда мотошлема в Воронеже от ${fromPrice} ₽/сутки — прокат JIEKAI JK902`,
+  defaultDescription: `Прокат мотошлема в Воронеже: JIEKAI JK902, размеры M и L, от ${fromPrice} ₽/сутки. Считаете даты на сайте — бронь по телефону, в Telegram или MAX. Оплата и залог при встрече.`,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   /** Сайт ОСАГО / КАСКО (кросс-реклама) */
   osagoUrl: "https://yvwvy.ru/",
@@ -36,7 +38,7 @@ export const LEGAL_CONFIG = {
     "плательщик налога на профессиональный доход (самозанятый)",
   statusShort: "Плательщик НПД (самозанятый)",
   notVatPayer: true,
-  offerRevision: "15.07.2026",
+  offerRevision: "17.07.2026",
 } as const;
 
 export const HELMET_SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"] as const;
@@ -92,16 +94,22 @@ export function productMeta({
   model,
   size,
   price,
+  sizes,
 }: {
   brand: string;
   model: string;
   size?: string;
   price: number;
+  sizes?: string[];
 }) {
   const sizePart = size ? ` (размер ${size})` : "";
+  const sizesText =
+    sizes && sizes.length > 0
+      ? `Размеры ${sizes.join(" и ")}.`
+      : "";
   return {
-    title: `Аренда мотошлема ${brand} ${model}${sizePart} в Воронеже — от ${price} ₽/сутки`,
-    description: `Взять напрокат шлем ${brand} ${model} в Воронеже: ${price} ₽/сутки, возвратный залог, бронь по телефону или в Telegram. Размеры M и L.`,
+    title: `Аренда мотошлема ${brand} ${model}${sizePart} ${SEO_CONFIG.cityInFormat} — от ${price} ₽/сутки`,
+    description: `Взять напрокат шлем ${brand} ${model} ${SEO_CONFIG.cityInFormat}: ${price} ₽/сутки, возвратный залог, бронь по телефону, в Telegram или MAX. ${sizesText}`.trim(),
   };
 }
 
@@ -111,4 +119,11 @@ export function telegramWriteUrl(prefill?: string): string {
   if (!prefill?.trim()) return base;
   const sep = base.includes("?") ? "&" : "?";
   return `${base}${sep}text=${encodeURIComponent(prefill.trim())}`;
+}
+
+/** Canonical path with trailing slash (static export). */
+export function canonicalPath(path: string): string {
+  if (!path || path === "/") return "/";
+  const withSlash = path.endsWith("/") ? path : `${path}/`;
+  return withSlash.startsWith("/") ? withSlash : `/${withSlash}`;
 }

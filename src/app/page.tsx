@@ -9,6 +9,7 @@ import { formatRub } from "@/lib/rental";
 import { ProductImage } from "@/components/ProductImage";
 import { FaqSection } from "@/components/FaqSection";
 import { OsagoPromo } from "@/components/OsagoPromo";
+import { HeroPreload } from "@/components/HeroPreload";
 
 export default function HomePage() {
   const products = getAllProducts();
@@ -20,54 +21,86 @@ export default function HomePage() {
     sampleMarket - (sample?.pricePerDay ?? 500),
   );
   const sampleSizes = sample?.sizes ?? ["M", "L"];
+  const heroImage = sample?.images[0] ?? "/products/jk902-1.jpg";
+  const bookHref = sample
+    ? `/catalog/${sample.slug}/#bron`
+    : "/#katalog";
 
   const localBusinessLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": `${SEO_CONFIG.siteUrl.replace(/\/$/, "")}/#business`,
     name: SEO_CONFIG.brandName,
     description: SEO_CONFIG.defaultDescription,
     url: SEO_CONFIG.siteUrl,
     telephone: SEO_CONFIG.phoneE164,
     email: SEO_CONFIG.email,
-    image: absoluteAssetUrl("/products/jk902-1.jpg"),
+    image: absoluteAssetUrl("/og.jpg"),
     address: {
       "@type": "PostalAddress",
       addressLocality: SEO_CONFIG.city,
+      addressRegion: "Воронежская область",
       addressCountry: "RU",
+      streetAddress: SEO_CONFIG.address,
     },
-    areaServed: SEO_CONFIG.city,
+    areaServed: {
+      "@type": "City",
+      name: SEO_CONFIG.city,
+    },
     priceRange: "₽₽",
+    currenciesAccepted: "RUB",
+    paymentAccepted: "Cash, Bank Transfer",
+    sameAs: [SEO_CONFIG.telegram, SEO_CONFIG.maxUrl, SEO_CONFIG.osagoUrl],
+    openingHours: "Mo-Su",
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Встреча",
+        value: "По предварительной записи",
+      },
+    ],
   };
 
   return (
     <>
+      <HeroPreload src={heroImage} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessLd) }}
       />
 
-      <section className="hero-grid relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><path d=%22M0 40L40 0H20L0 20zm40 0V20L20 40z%22 fill=%22%23ffffff%22 fill-opacity=%220.02%22/></svg>')]" />
-        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-400/90">
-            {SEO_CONFIG.brandName} · {SEO_CONFIG.city}
+      <section className="relative min-h-[min(92dvh,52rem)] overflow-hidden">
+        <div className="absolute inset-0 bg-zinc-950" aria-hidden>
+          <ProductImage
+            src={heroImage}
+            alt=""
+            priority
+            className="hero-ken object-cover object-[center_35%] opacity-70 sm:object-center sm:opacity-75"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-950/70 to-zinc-950/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/15 to-zinc-950/45" />
+          <div className="hero-grain absolute inset-0 opacity-[0.28]" />
+        </div>
+
+        <div className="relative mx-auto flex min-h-[min(92dvh,52rem)] max-w-6xl flex-col justify-end px-4 pb-14 pt-20 sm:justify-center sm:px-6 sm:pb-20 sm:pt-24">
+          <p className="reveal reveal-1 font-display text-4xl font-extrabold tracking-tight text-amber-50 sm:text-6xl lg:text-7xl">
+            {SEO_CONFIG.brandName}
           </p>
-          <h1 className="font-display mt-4 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight text-amber-50 xs:text-5xl sm:text-6xl sm:leading-[0.95] lg:text-7xl">
-            Аренда мотошлема
-            <span className="block text-amber-400">в Воронеже</span>
+          <h1 className="reveal reveal-2 mt-3 max-w-2xl text-xl font-semibold leading-snug text-amber-100/95 sm:mt-4 sm:text-2xl lg:text-3xl">
+            Аренда мотошлема {SEO_CONFIG.cityInFormat}
           </h1>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg">
+          <p className="reveal reveal-3 mt-4 max-w-lg text-base leading-relaxed text-zinc-300 sm:text-lg">
             JIEKAI JK902, размеры {sampleSizes.join(" и ")}, от{" "}
-            <strong className="text-amber-100">
+            <strong className="font-semibold text-amber-100">
               {formatRub(fromPrice)} ₽/сутки
             </strong>
-            . Считаете стоимость на сайте — бронируете по телефону или в
-            Telegram. Оплата и залог при встрече.
+            . Рассчитайте даты на сайте — бронь по телефону, в Telegram или MAX.
           </p>
-          <div className="mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
+          <div className="reveal reveal-4 mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
             <a
               href={`tel:${SEO_CONFIG.phoneE164}`}
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400 sm:w-auto"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400 sm:w-auto"
             >
               Позвонить
             </a>
@@ -75,21 +108,23 @@ export default function HomePage() {
               href={SEO_CONFIG.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-sky-500/40 bg-sky-500/10 px-5 py-3 text-center text-sm font-semibold text-sky-100 hover:bg-sky-500/20 sm:w-auto"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/50 hover:bg-amber-500/10 sm:w-auto"
             >
-              Написать в Telegram
+              Telegram
             </a>
             <a
-              href="#katalog"
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/15 px-5 py-3 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/50 sm:w-auto"
+              href={SEO_CONFIG.maxUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/15 px-5 py-3 text-center text-sm font-semibold text-zinc-200 hover:border-amber-500/40 sm:w-auto"
             >
-              Смотреть каталог
+              MAX
             </a>
           </div>
         </div>
       </section>
 
-      <section id="kak-eto-rabotaet" className="border-y border-white/5 bg-zinc-900/40">
+      <section id="kak-eto-rabotaet" className="section-wash border-y border-white/5">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">
             Как это работает
@@ -97,7 +132,7 @@ export default function HomePage() {
           <p className="mt-2 max-w-2xl text-zinc-400">
             Три шага до поездки — без онлайн-оплаты и без сюрпризов по залогу.
           </p>
-          <ol className="mt-8 grid gap-6 md:grid-cols-3">
+          <ol className="mt-10 max-w-3xl space-y-8">
             {[
               {
                 title: "Звонок или сообщение",
@@ -112,19 +147,18 @@ export default function HomePage() {
                 text: `Передаёте полную стоимость шлема (${formatRub(sampleMarket)} ₽). При возврате в надлежащем состоянии возвращаем залог (${formatRub(sampleDayDeposit)} ₽ при аренде на 1 сутки).`,
               },
             ].map((step, i) => (
-              <li
-                key={step.title}
-                className="rounded-2xl border border-white/10 bg-zinc-950/60 p-5"
-              >
-                <span className="font-display text-3xl text-amber-500/80">
-                  0{i + 1}
+              <li key={step.title} className="flex gap-4 sm:gap-5">
+                <span className="font-display w-10 shrink-0 text-2xl text-amber-500/90 sm:w-12 sm:text-3xl">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-2 text-lg font-semibold text-amber-50">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                  {step.text}
-                </p>
+                <div className="min-w-0 border-l border-amber-500/25 pl-4 sm:pl-5">
+                  <h3 className="text-lg font-semibold text-amber-50">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
+                    {step.text}
+                  </p>
+                </div>
               </li>
             ))}
           </ol>
@@ -136,11 +170,19 @@ export default function HomePage() {
           Каталог
         </h2>
         <p className="mt-2 text-zinc-400">
-          Этап 1 — мотошлемы. Каталог расширяется по мере появления техники.
+          Сейчас в прокате — закрытый модульный шлем JIEKAI JK902.
         </p>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product, index) => (
+        <div
+          className={
+            products.length === 1
+              ? "mt-8 max-w-xl"
+              : products.length === 2
+                ? "mt-8 grid gap-6 sm:grid-cols-2"
+                : "mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          }
+        >
+          {products.map((product) => (
             <article
               key={product.slug}
               className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50"
@@ -153,7 +195,6 @@ export default function HomePage() {
                       alt={product.title}
                       className="transition duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 33vw"
-                      priority={index === 0}
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center text-zinc-500">
@@ -237,7 +278,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="faq" className="border-t border-white/5 bg-zinc-900/40">
+      <section id="faq" className="section-wash border-t border-white/5">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">
             Частые вопросы
@@ -247,6 +288,34 @@ export default function HomePage() {
           </p>
           <div className="mt-8 max-w-3xl">
             <FaqSection withMoreLink limit={4} />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/5">
+        <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div>
+            <h2 className="font-display text-2xl text-amber-50 sm:text-3xl">
+              Готовы взять шлем?
+            </h2>
+            <p className="mt-2 max-w-xl text-sm text-zinc-400">
+              Посчитайте даты на карточке товара и позвоните — или напишите в
+              Telegram / MAX.
+            </p>
+          </div>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <a
+              href={`tel:${SEO_CONFIG.phoneE164}`}
+              className="focus-ring inline-flex min-h-12 items-center justify-center rounded-xl bg-amber-500 px-5 text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400"
+            >
+              Позвонить
+            </a>
+            <Link
+              href={bookHref}
+              className="focus-ring inline-flex min-h-12 items-center justify-center rounded-xl border border-white/20 px-5 text-sm font-semibold text-zinc-100 hover:border-amber-500/50"
+            >
+              К бронированию
+            </Link>
           </div>
         </div>
       </section>

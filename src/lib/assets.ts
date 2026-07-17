@@ -2,27 +2,63 @@
  * Публичные файлы из /public с учётом basePath (GitHub Pages: /motorent36).
  * NEXT_PUBLIC_BASE_PATH и NEXT_PUBLIC_SITE_URL задаются в Actions при сборке.
  */
-const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(
-  /\/$/,
-  "",
-);
 
-/** Путь к файлу из /public для <img src>. На проде — абсолютный URL с /motorent36. */
-export function assetUrl(path: string): string {
+export type AssetResolveOptions = {
+  basePath?: string;
+  siteUrl?: string;
+};
+
+/** Нормализация пути /public или passthrough для абсолютных URL. */
+export function normalizePublicPath(path: string): string {
   if (!path) return path;
   if (/^https?:\/\//i.test(path)) return path;
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  if (siteUrl && !/localhost/i.test(siteUrl)) {
-    return `${siteUrl}${normalized}`;
-  }
-  return basePath ? `${basePath}${normalized}` : normalized;
+  return path.startsWith("/") ? path : `/${path}`;
 }
 
-/** Абсолютный URL файла из /public (JSON-LD, og:image). siteUrl уже включает basePath. */
-export function absoluteAssetUrl(path: string): string {
+/**
+ * Резолв URL ассета (чистая функция — удобно тестировать).
+ * На проде с не-localhost siteUrl отдаём абсолютный URL (GH Pages + basePath в siteUrl).
+ */
+export function resolveAssetUrl(
+  path: string,
+  { basePath = "", siteUrl = "" }: AssetResolveOptions = {},
+): string {
   if (!path) return path;
   if (/^https?:\/\//i.test(path)) return path;
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${siteUrl}${normalized}`;
+
+  const normalized = normalizePublicPath(path);
+  const cleanBase = basePath.replace(/\/$/, "");
+  const cleanSite = siteUrl.replace(/\/$/, "");
+
+  if (cleanSite && !/localhost/i.test(cleanSite)) {
+    return `${cleanSite}${normalized}`;
+  }
+  return cleanBase ? `${cleanBase}${normalized}` : normalized;
+}
+
+/** Абсолютный URL для JSON-LD / Open Graph. */
+export function resolveAbsoluteAssetUrl(
+  path: string,
+  siteUrl: string,
+): string {
+  if (!path) return path;
+  if (/^https?:\/\//i.test(path)) return path;
+  const normalized = normalizePublicPath(path);
+  const cleanSite = siteUrl.replace(/\/$/, "");
+  return `${cleanSite}${normalized}`;
+}
+
+const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+).replace(/\/$/, "");
+
+/** Путь к файлу из /public для <img src>. */
+export function assetUrl(path: string): string {
+  return resolveAssetUrl(path, { basePath, siteUrl });
+}
+
+/** Абсолютный URL файла из /public (JSON-LD, og:image). */
+export function absoluteAssetUrl(path: string): string {
+  return resolveAbsoluteAssetUrl(path, siteUrl);
 }
