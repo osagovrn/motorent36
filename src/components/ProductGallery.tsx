@@ -74,6 +74,7 @@ export function ProductGallery({ images, alt }: Props) {
                 src={src}
                 alt={`${alt} — ракурс ${i + 1}`}
                 sizes="(max-width: 1024px) 50vw, 20vw"
+                className="bg-zinc-100 object-cover"
               />
             </button>
           ))}
