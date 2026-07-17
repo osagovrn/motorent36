@@ -75,12 +75,13 @@ export default function HomePage() {
             src={heroImage}
             alt=""
             priority
-            className="hero-ken object-cover object-[68%_center] opacity-90 sm:object-[72%_center] sm:opacity-95"
+            className="hero-ken bg-zinc-950 object-cover object-[center_42%] opacity-100"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-zinc-950/20 sm:to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-zinc-950/30" />
-          <div className="hero-grain absolute inset-0 opacity-[0.2]" />
+          {/* Затемнение слева под текст; справа шлем остаётся читаемым */}
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 from-15% via-zinc-950/75 via-45% to-zinc-950/15 to-75% sm:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 from-5% via-transparent to-zinc-950/50" />
+          <div className="hero-grain absolute inset-0 opacity-[0.18]" />
         </div>
 
         <div className="relative mx-auto flex min-h-[min(92dvh,52rem)] max-w-6xl flex-col justify-end px-4 pb-14 pt-20 sm:justify-center sm:px-6 sm:pb-20 sm:pt-24">
