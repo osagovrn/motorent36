@@ -10,6 +10,8 @@ export function SiteFooter() {
             {SEO_CONFIG.brandName}
           </p>
           <p className="mt-1">Контакт: {SEO_CONFIG.contactName}</p>
+          <p className="mt-1 text-amber-200/90">{SEO_CONFIG.locationLabel}</p>
+          <p className="mt-0.5 text-zinc-500">{SEO_CONFIG.street}</p>
           <p className="mt-1">Посуточная аренда {SEO_CONFIG.cityInFormat}</p>
           <p className="mt-1">
             {LEGAL_CONFIG.statusShort}

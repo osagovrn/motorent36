@@ -170,7 +170,9 @@ export function ContactPanel({
 
       <p className="mt-4 rounded-xl border border-amber-500/35 bg-amber-500/10 px-3.5 py-3 text-sm leading-snug text-amber-50">
         Онлайн-заявок пока нет. Позвоните или напишите — подтвердим размер и
-        даты. При получении передаёте{" "}
+        даты.         Встреча:{" "}
+        <strong className="font-bold">{SEO_CONFIG.address}</strong>. При
+        получении передаёте{" "}
         <strong className="font-bold">{formatRub(marketValue)} ₽</strong>{" "}
         (прокат + залог).
       </p>

@@ -9,6 +9,12 @@ const fromPrice = lowestPricePerDay();
 export const SEO_CONFIG = {
   city: "Воронеж",
   cityInFormat: "в Воронеже",
+  /** Район / микрорайон для встречи */
+  locality: "Никольское",
+  /** Ориентир рядом (форма «рядом с …») */
+  landmark: "Машметом",
+  /** Короткая подпись «где мы» */
+  locationLabel: "Воронеж, Никольское",
   brandName: "MotoRent36",
   /** Имя для связи (без фамилии на сайте) */
   contactName: "Евгений",
@@ -21,9 +27,14 @@ export const SEO_CONFIG = {
   maxE164: "+79191831407",
   maxUrl: "https://max.ru/+79191831407",
   email: "2020yvwvy2020@gmail.com",
-  address: "г. Воронеж (встреча по согласованию)",
+  /** Улица встречи (без номера дома — точку согласуем) */
+  street: "ул. Ани Максимовой",
+  address: "г. Воронеж, ул. Ани Максимовой (мкр. Никольское, рядом с Машметом)",
+  /** Координаты ул. Ани Максимовой, Воронеж */
+  mapLat: 51.581948,
+  mapLon: 39.323545,
   defaultTitle: `Аренда мотошлема в Воронеже от ${fromPrice} ₽/сутки — прокат JIEKAI JK902`,
-  defaultDescription: `Прокат мотошлема в Воронеже: JIEKAI JK902, размеры M и L, от ${fromPrice} ₽/сутки. Считаете даты на сайте — бронь по телефону, в Telegram или MAX. Оплата и залог при встрече.`,
+  defaultDescription: `Прокат мотошлема в Воронеже (Никольское, ул. Ани Максимовой, рядом с Машметом): JIEKAI JK902, размеры M и L, от ${fromPrice} ₽/сутки. Считаете даты на сайте — бронь по телефону, в Telegram или MAX. Оплата и залог при встрече.`,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   /** Сайт ОСАГО / КАСКО (кросс-реклама) */
   osagoUrl: "https://yvwvy.ru/",
@@ -61,7 +72,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: "Где проходит встреча?",
-    answer: `Встреча ${SEO_CONFIG.cityInFormat} по согласованию — удобная точка после подтверждения брони. Точный адрес и время согласовываем по телефону, в Telegram или MAX.`,
+    answer: `Мы в мкр. ${SEO_CONFIG.locality} (рядом с ${SEO_CONFIG.landmark}), адрес: ${SEO_CONFIG.city}, ${SEO_CONFIG.street}. Точку и время согласовываем по телефону, в Telegram или MAX. На главной есть карта.`,
   },
   {
     question: "Сколько платить при получении и что с залогом?",

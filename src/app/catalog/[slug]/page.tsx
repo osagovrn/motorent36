@@ -152,7 +152,7 @@ export default async function ProductPage({ params }: Props) {
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start">
         <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.2em] text-amber-500/80">
-            {product.categoryName} · {SEO_CONFIG.city}
+            {product.categoryName} · {SEO_CONFIG.locationLabel}
           </p>
           <h1 className="font-display mt-3 text-3xl font-extrabold leading-tight text-amber-50 sm:text-4xl lg:text-5xl lg:leading-none">
             {product.title}

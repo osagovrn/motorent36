@@ -10,6 +10,7 @@ import { ProductImage } from "@/components/ProductImage";
 import { FaqSection } from "@/components/FaqSection";
 import { OsagoPromo } from "@/components/OsagoPromo";
 import { HeroPreload } from "@/components/HeroPreload";
+import { LocationMap } from "@/components/LocationMap";
 
 export default function HomePage() {
   const products = getAllProducts();
@@ -36,12 +37,17 @@ export default function HomePage() {
     telephone: SEO_CONFIG.phoneE164,
     email: SEO_CONFIG.email,
     image: absoluteAssetUrl("/og.jpg"),
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: SEO_CONFIG.mapLat,
+      longitude: SEO_CONFIG.mapLon,
+    },
     address: {
       "@type": "PostalAddress",
       addressLocality: SEO_CONFIG.city,
       addressRegion: "Воронежская область",
       addressCountry: "RU",
-      streetAddress: SEO_CONFIG.address,
+      streetAddress: `${SEO_CONFIG.street} (мкр. ${SEO_CONFIG.locality})`,
     },
     areaServed: {
       "@type": "City",
@@ -56,7 +62,7 @@ export default function HomePage() {
       {
         "@type": "PropertyValue",
         name: "Встреча",
-        value: "По предварительной записи",
+        value: SEO_CONFIG.address,
       },
     ],
   };
@@ -141,7 +147,7 @@ export default function HomePage() {
               },
               {
                 title: "Встреча",
-                text: "Встречаемся в Воронеже, вы примеряете шлем. Для договора нужен паспорт или водительское удостоверение (фото документов на месте).",
+                text: `Встречаемся в мкр. ${SEO_CONFIG.locality} (рядом с ${SEO_CONFIG.landmark}), ${SEO_CONFIG.street}: примеряете шлем. Для договора нужен паспорт или водительское удостоверение (фото документов на месте).`,
               },
               {
                 title: "Оплата и залог",
@@ -165,6 +171,8 @@ export default function HomePage() {
           </ol>
         </div>
       </section>
+
+      <LocationMap />
 
       <section id="katalog" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">

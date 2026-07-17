@@ -224,3 +224,10 @@ input[type="date"]::-webkit-date-and-time-value {
     padding-right: max(1.5rem, var(--safe-right));
   }
 }
+
+/* OSM-embed в тёмной гамме сайта (инверсия + лёгкий янтарный оттенок) */
+.map-embed iframe {
+  filter: invert(0.9) hue-rotate(180deg) brightness(0.95) contrast(0.95)
+    saturate(0.55);
+}
+
