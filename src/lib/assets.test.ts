@@ -23,10 +23,10 @@ describe("resolveAssetUrl", () => {
   it("uses siteUrl on production host", () => {
     assert.equal(
       resolveAssetUrl("/products/a.jpg", {
-        basePath: "/motorent36",
-        siteUrl: "https://yvwvy.ru/motorent36",
+        basePath: "",
+        siteUrl: "https://beri36.ru",
       }),
-      "https://yvwvy.ru/motorent36/products/a.jpg",
+      "https://beri36.ru/products/a.jpg",
     );
   });
 
@@ -53,8 +53,8 @@ describe("resolveAssetUrl", () => {
   it("passes through remote urls", () => {
     assert.equal(
       resolveAssetUrl("https://cdn.example/x.png", {
-        basePath: "/motorent36",
-        siteUrl: "https://yvwvy.ru/motorent36",
+        basePath: "",
+        siteUrl: "https://beri36.ru",
       }),
       "https://cdn.example/x.png",
     );
@@ -64,11 +64,8 @@ describe("resolveAssetUrl", () => {
 describe("resolveAbsoluteAssetUrl", () => {
   it("joins siteUrl and path", () => {
     assert.equal(
-      resolveAbsoluteAssetUrl(
-        "/products/a.jpg",
-        "https://yvwvy.ru/motorent36",
-      ),
-      "https://yvwvy.ru/motorent36/products/a.jpg",
+      resolveAbsoluteAssetUrl("/products/a.jpg", "https://beri36.ru"),
+      "https://beri36.ru/products/a.jpg",
     );
   });
 });

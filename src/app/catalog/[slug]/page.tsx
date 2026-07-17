@@ -118,7 +118,7 @@ export default async function ProductPage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 pb-28 sm:px-6 sm:py-10 lg:pb-10">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 pb-28 sm:px-6 sm:py-14 lg:pb-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
@@ -128,7 +128,7 @@ export default async function ProductPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
 
-      <nav aria-label="Хлебные крошки" className="mb-5 text-sm text-zinc-500">
+      <nav aria-label="Хлебные крошки" className="mb-6 text-sm text-zinc-500">
         <ol className="flex flex-wrap items-center gap-1.5">
           <li>
             <Link href="/" className="focus-ring rounded-sm hover:text-amber-300">
@@ -149,7 +149,7 @@ export default async function ProductPage({ params }: Props) {
         </ol>
       </nav>
 
-      <div className="grid gap-6 lg:grid-cols-2 lg:items-start lg:gap-8">
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start">
         <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.2em] text-amber-500/80">
             {product.categoryName} · {SEO_CONFIG.locationLabel}

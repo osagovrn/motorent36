@@ -75,7 +75,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessLd) }}
       />
 
-      <section className="relative min-h-[min(72dvh,36rem)] overflow-hidden">
+      <section className="relative min-h-[min(92dvh,52rem)] overflow-hidden">
         <div className="absolute inset-0 bg-zinc-950" aria-hidden>
           <ProductImage
             src={heroImage}
@@ -90,24 +90,24 @@ export default function HomePage() {
           <div className="hero-grain absolute inset-0 opacity-[0.18]" />
         </div>
 
-        <div className="relative mx-auto flex min-h-[min(72dvh,36rem)] max-w-6xl flex-col justify-end px-4 pb-8 pt-14 sm:justify-center sm:px-6 sm:pb-10 sm:pt-16">
-          <p className="reveal reveal-1 font-display text-4xl font-extrabold tracking-tight text-amber-50 sm:text-5xl lg:text-6xl">
+        <div className="relative mx-auto flex min-h-[min(92dvh,52rem)] max-w-6xl flex-col justify-end px-4 pb-14 pt-20 sm:justify-center sm:px-6 sm:pb-20 sm:pt-24">
+          <p className="reveal reveal-1 font-display text-4xl font-extrabold tracking-tight text-amber-50 sm:text-6xl lg:text-7xl">
             {SEO_CONFIG.brandName}
           </p>
-          <h1 className="reveal reveal-2 mt-1.5 max-w-2xl text-lg font-semibold leading-snug text-amber-100/95 sm:mt-2 sm:text-xl lg:text-2xl">
+          <h1 className="reveal reveal-2 mt-3 max-w-2xl text-xl font-semibold leading-snug text-amber-100/95 sm:mt-4 sm:text-2xl lg:text-3xl">
             Аренда мотошлема {SEO_CONFIG.cityInFormat}
           </h1>
-          <p className="reveal reveal-3 mt-2 max-w-lg text-sm leading-relaxed text-zinc-300 sm:text-base">
+          <p className="reveal reveal-3 mt-4 max-w-lg text-base leading-relaxed text-zinc-300 sm:text-lg">
             JIEKAI JK902, размеры {sampleSizes.join(" и ")}, от{" "}
             <strong className="font-semibold text-amber-100">
               {formatRub(fromPrice)} ₽/сутки
             </strong>
             . Рассчитайте даты на сайте — удобно написать в Telegram или позвонить.
           </p>
-          <div className="reveal reveal-4 mt-4 flex w-full max-w-md flex-col gap-2 sm:max-w-none sm:flex-row sm:flex-wrap">
+          <div className="reveal reveal-4 mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
             <a
               href={`tel:${SEO_CONFIG.phoneE164}`}
-              className="focus-ring inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-2.5 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400 sm:w-auto"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400 sm:w-auto"
             >
               Позвонить
             </a>
@@ -115,7 +115,7 @@ export default function HomePage() {
               href={SEO_CONFIG.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 px-5 py-2.5 text-center text-sm font-bold uppercase tracking-wide text-amber-100 hover:border-amber-400 hover:bg-amber-500/25 sm:w-auto"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 px-5 py-3 text-center text-sm font-bold uppercase tracking-wide text-amber-100 hover:border-amber-400 hover:bg-amber-500/25 sm:w-auto"
             >
               Telegram
             </a>
@@ -123,7 +123,7 @@ export default function HomePage() {
               href={SEO_CONFIG.maxUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-white/15 px-5 py-2.5 text-center text-sm font-semibold text-zinc-200 hover:border-amber-500/40 sm:w-auto"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/15 px-5 py-3 text-center text-sm font-semibold text-zinc-200 hover:border-amber-500/40 sm:w-auto"
             >
               MAX
             </a>
@@ -132,14 +132,14 @@ export default function HomePage() {
       </section>
 
       <section id="kak-eto-rabotaet" className="section-wash border-y border-white/5">
-        <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-8">
-          <h2 className="font-display text-2xl text-amber-50 sm:text-3xl">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">
             Как это работает
           </h2>
-          <p className="mt-1.5 max-w-2xl text-sm text-zinc-400">
+          <p className="mt-2 max-w-2xl text-zinc-400">
             Три шага до поездки — без онлайн-оплаты и без сюрпризов по залогу.
           </p>
-          <ol className="mt-5 max-w-3xl space-y-3">
+          <ol className="mt-10 max-w-3xl space-y-8">
             {[
               {
                 title: "Звонок или сообщение",
@@ -154,15 +154,15 @@ export default function HomePage() {
                 text: `Передаёте полную стоимость шлема (${formatRub(sampleMarket)} ₽). При возврате в надлежащем состоянии возвращаем залог (${formatRub(sampleDayDeposit)} ₽ при аренде на 1 сутки).`,
               },
             ].map((step, i) => (
-              <li key={step.title} className="flex gap-2.5 sm:gap-3">
-                <span className="font-display w-8 shrink-0 text-xl text-amber-500/90 sm:w-9 sm:text-2xl">
+              <li key={step.title} className="flex gap-4 sm:gap-5">
+                <span className="font-display w-10 shrink-0 text-2xl text-amber-500/90 sm:w-12 sm:text-3xl">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <div className="min-w-0 border-l border-amber-500/25 pl-2.5 sm:pl-3">
-                  <h3 className="text-base font-semibold text-amber-50">
+                <div className="min-w-0 border-l border-amber-500/25 pl-4 sm:pl-5">
+                  <h3 className="text-lg font-semibold text-amber-50">
                     {step.title}
                   </h3>
-                  <p className="mt-0.5 text-sm leading-snug text-zinc-400">
+                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
                     {step.text}
                   </p>
                 </div>
@@ -174,21 +174,21 @@ export default function HomePage() {
 
       <LocationMap />
 
-      <section id="katalog" className="mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-8">
-        <h2 className="font-display text-2xl text-amber-50 sm:text-3xl">
+      <section id="katalog" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">
           Каталог
         </h2>
-        <p className="mt-1.5 text-sm text-zinc-400">
+        <p className="mt-2 text-zinc-400">
           Сейчас в прокате — закрытый модульный шлем JIEKAI JK902.
         </p>
 
         <div
           className={
             products.length === 1
-              ? "mt-4 max-w-xl"
+              ? "mt-8 max-w-xl"
               : products.length === 2
-                ? "mt-4 grid gap-4 sm:grid-cols-2"
-                : "mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+                ? "mt-8 grid gap-6 sm:grid-cols-2"
+                : "mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           }
         >
           {products.map((product) => (
@@ -197,7 +197,7 @@ export default function HomePage() {
               className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50"
             >
               <Link href={`/catalog/${product.slug}`} className="block">
-                <div className="relative aspect-[5/3] overflow-hidden bg-zinc-100">
+                <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100">
                   {product.images[0] ? (
                     <ProductImage
                       src={product.images[0]}
@@ -211,18 +211,18 @@ export default function HomePage() {
                     </div>
                   )}
                 </div>
-                <div className="p-3.5 sm:p-4">
+                <div className="p-5">
                   <p className="text-xs uppercase tracking-wider text-amber-500/80">
                     {product.categoryName}
                   </p>
-                  <h3 className="mt-0.5 text-base font-semibold text-amber-50">
+                  <h3 className="mt-1 text-lg font-semibold text-amber-50">
                     {product.title}
                   </h3>
-                  <p className="mt-1 text-sm text-zinc-400">
+                  <p className="mt-2 text-sm text-zinc-400">
                     от {formatRub(product.pricePerDay)} ₽/сутки · размеры{" "}
                     {product.sizes.join(", ") || "—"}
                   </p>
-                  <span className="mt-2 inline-block text-sm font-semibold text-amber-400 group-hover:underline">
+                  <span className="mt-4 inline-block text-sm font-semibold text-amber-400 group-hover:underline">
                     Узнать и позвонить →
                   </span>
                 </div>
@@ -233,16 +233,16 @@ export default function HomePage() {
 
         <div
           id="kogda-nuzhen"
-          className="mt-7 border-t border-white/10 pt-6"
+          className="mt-14 border-t border-white/10 pt-12"
         >
-          <h3 className="font-display text-xl text-amber-50 sm:text-2xl">
+          <h3 className="font-display text-2xl text-amber-50 sm:text-3xl">
             Когда нужна аренда шлема
           </h3>
-          <p className="mt-1.5 max-w-2xl text-sm text-zinc-400">
+          <p className="mt-2 max-w-2xl text-zinc-400">
             Посуточный прокат — когда свой шлем ещё не купили, он не подошёл
             по размеру или нужен только на короткий срок.
           </p>
-          <ol className="mt-4 max-w-3xl space-y-2.5">
+          <ol className="mt-8 max-w-3xl space-y-6">
             {[
               {
                 title: "Экзамен в ГИБДД на категорию A",
@@ -269,15 +269,15 @@ export default function HomePage() {
                 text: "Загородная дорога, фотосессия, встреча клуба — когда шлем нужен на часы или сутки, а не как постоянная покупка.",
               },
             ].map((item, i) => (
-              <li key={item.title} className="flex gap-2.5 sm:gap-3">
-                <span className="font-display w-7 shrink-0 text-lg text-amber-500/90 sm:w-8 sm:text-xl">
+              <li key={item.title} className="flex gap-4 sm:gap-5">
+                <span className="font-display w-8 shrink-0 text-xl text-amber-500/90 sm:w-10 sm:text-2xl">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <div className="min-w-0 border-l border-amber-500/25 pl-2.5 sm:pl-3">
-                  <p className="text-sm font-semibold text-amber-50 sm:text-base">
+                <div className="min-w-0 border-l border-amber-500/25 pl-4 sm:pl-5">
+                  <p className="text-base font-semibold text-amber-50 sm:text-lg">
                     {item.title}
                   </p>
-                  <p className="mt-0.5 text-sm leading-snug text-zinc-400">
+                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
                     {item.text}
                   </p>
                 </div>
@@ -288,34 +288,34 @@ export default function HomePage() {
       </section>
 
       <section id="faq" className="section-wash border-t border-white/5">
-        <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-8">
-          <h2 className="font-display text-2xl text-amber-50 sm:text-3xl">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">
             Частые вопросы
           </h2>
-          <p className="mt-1.5 max-w-2xl text-sm text-zinc-400">
+          <p className="mt-2 max-w-2xl text-zinc-400">
             Размер, залог, встреча и документы — коротко перед звонком.
           </p>
-          <div className="mt-4 max-w-3xl">
+          <div className="mt-8 max-w-3xl">
             <FaqSection withMoreLink limit={4} />
           </div>
         </div>
       </section>
 
       <section className="border-t border-white/5">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-7">
+        <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div>
-            <h2 className="font-display text-xl text-amber-50 sm:text-2xl">
+            <h2 className="font-display text-2xl text-amber-50 sm:text-3xl">
               Готовы взять шлем?
             </h2>
-            <p className="mt-1 max-w-xl text-sm text-zinc-400">
+            <p className="mt-2 max-w-xl text-sm text-zinc-400">
               Посчитайте даты на карточке товара — удобнее всего написать в
               Telegram или позвонить.
             </p>
           </div>
-          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <a
               href={`tel:${SEO_CONFIG.phoneE164}`}
-              className="focus-ring inline-flex min-h-11 items-center justify-center rounded-xl bg-amber-500 px-5 text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400"
+              className="focus-ring inline-flex min-h-12 items-center justify-center rounded-xl bg-amber-500 px-5 text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400"
             >
               Позвонить
             </a>
@@ -323,13 +323,13 @@ export default function HomePage() {
               href={SEO_CONFIG.telegram}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring flex min-h-11 w-full items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 px-5 text-center text-sm font-bold uppercase tracking-wide text-amber-100 hover:border-amber-400 hover:bg-amber-500/25 sm:w-auto"
+              className="focus-ring flex min-h-12 w-full items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 px-5 text-center text-sm font-bold uppercase tracking-wide text-amber-100 hover:border-amber-400 hover:bg-amber-500/25 sm:w-auto"
             >
               Telegram
             </a>
             <Link
               href={bookHref}
-              className="focus-ring flex min-h-11 w-full items-center justify-center rounded-xl border border-white/20 px-5 text-center text-sm font-semibold uppercase tracking-wide text-zinc-100 hover:border-amber-500/50 sm:w-auto"
+              className="focus-ring flex min-h-12 w-full items-center justify-center rounded-xl border border-white/20 px-5 text-center text-sm font-semibold uppercase tracking-wide text-zinc-100 hover:border-amber-500/50 sm:w-auto"
             >
               К бронированию
             </Link>

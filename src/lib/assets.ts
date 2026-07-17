@@ -1,6 +1,6 @@
 /**
- * Публичные файлы из /public с учётом basePath (GitHub Pages: /motorent36).
- * NEXT_PUBLIC_BASE_PATH и NEXT_PUBLIC_SITE_URL задаются в Actions при сборке.
+ * Публичные файлы из /public с учётом basePath.
+ * Прод: https://beri36.ru (BASE_PATH пустой). Variables задаются в Actions.
  */
 
 export type AssetResolveOptions = {

@@ -2,7 +2,7 @@
 
 Статический сайт (GitHub Pages): каталог, калькулятор, бронь по телефону / Telegram / MAX.
 
-**Сайт:** https://yvwvy.ru/motorent36/
+**Сайт:** https://beri36.ru/
 
 ## Запуск
 
@@ -22,7 +22,7 @@ npm run build
 ## Выкладка
 
 Push в `main` → Actions `Deploy GitHub Pages`.  
-Variable: `NEXT_PUBLIC_SITE_URL=https://yvwvy.ru/motorent36`, `NEXT_PUBLIC_BASE_PATH=/motorent36`.
+Variables: `NEXT_PUBLIC_SITE_URL=https://beri36.ru`, `NEXT_PUBLIC_BASE_PATH=` (пусто). Custom domain: `beri36.ru`.
 
 ## Структура репозитория
 

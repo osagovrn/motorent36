@@ -35,19 +35,19 @@ export function LocationMap() {
       className="border-y border-white/5"
       aria-labelledby="gde-my-title"
     >
-      <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-8">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-500/90">
               Локация
             </p>
             <h2
               id="gde-my-title"
-              className="font-display mt-1.5 text-2xl text-amber-50 sm:text-3xl"
+              className="font-display mt-2 text-3xl text-amber-50 sm:text-4xl"
             >
               Где мы
             </h2>
-            <p className="mt-1.5 text-sm text-zinc-400">
+            <p className="mt-2 text-zinc-400">
               Мкр.{" "}
               <strong className="font-semibold text-amber-100">
                 {SEO_CONFIG.locality}
@@ -64,20 +64,20 @@ export function LocationMap() {
               href={mapsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring inline-flex min-h-10 items-center justify-center rounded-xl border border-amber-500/45 bg-amber-500/10 px-4 text-center text-sm font-semibold text-amber-100 hover:border-amber-400 hover:bg-amber-500/20"
+              className="focus-ring inline-flex min-h-11 items-center justify-center rounded-xl border border-amber-500/45 bg-amber-500/10 px-4 text-center text-sm font-semibold text-amber-100 hover:border-amber-400 hover:bg-amber-500/20"
             >
               Открыть в Яндекс.Картах →
             </a>
             <a
               href={naviHref}
-              className="focus-ring inline-flex min-h-10 items-center justify-center rounded-xl border border-white/20 bg-white/5 px-4 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/45 hover:bg-amber-500/10 hover:text-amber-100"
+              className="focus-ring inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 bg-white/5 px-4 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/45 hover:bg-amber-500/10 hover:text-amber-100"
             >
               Открыть в Яндекс.Навигаторе →
             </a>
           </div>
         </div>
 
-        <div className="relative mt-4 overflow-hidden rounded-2xl border border-amber-500/30 bg-zinc-950 shadow-[0_0_0_1px_rgba(245,158,11,0.08),0_24px_60px_-36px_rgba(245,158,11,0.35)]">
+        <div className="relative mt-8 overflow-hidden rounded-2xl border border-amber-500/30 bg-zinc-950 shadow-[0_0_0_1px_rgba(245,158,11,0.08),0_24px_60px_-36px_rgba(245,158,11,0.35)]">
           <span
             className="pointer-events-none absolute inset-x-0 top-0 z-20 h-px bg-gradient-to-r from-transparent via-amber-400/70 to-transparent"
             aria-hidden
@@ -98,7 +98,7 @@ export function LocationMap() {
             <span className="text-amber-200">{SEO_CONFIG.street}</span>
           </div>
 
-          <div className="map-embed relative h-44 w-full overflow-hidden sm:h-56 lg:h-64">
+          <div className="map-embed relative h-64 w-full overflow-hidden sm:h-80 lg:h-[22rem]">
             <iframe
               title={`Карта: ${SEO_CONFIG.address}`}
               src={embedSrc}

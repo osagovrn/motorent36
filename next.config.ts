@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
 /**
- * Для project Pages нужен basePath:
- *   https://yvwvy.ru/motorent36/
- * Задаётся в Actions: NEXT_PUBLIC_BASE_PATH=/motorent36
- * Со своим доменом на корне — оставьте пустым.
+ * Прод: https://beri36.ru (BASE_PATH пустой).
+ * Старый project Pages: NEXT_PUBLIC_BASE_PATH=/motorent36
  */
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
 

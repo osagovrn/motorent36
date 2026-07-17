@@ -26,6 +26,6 @@ jobs:
         run: npx tsc --noEmit
       - name: Build
         env:
-          NEXT_PUBLIC_BASE_PATH: /motorent36
-          NEXT_PUBLIC_SITE_URL: https://yvwvy.ru/motorent36
+          NEXT_PUBLIC_BASE_PATH: ""
+          NEXT_PUBLIC_SITE_URL: https://beri36.ru
         run: npm run build

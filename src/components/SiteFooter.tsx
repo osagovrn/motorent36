@@ -1,39 +1,35 @@
 import Link from "next/link";
 import { LEGAL_CONFIG, SEO_CONFIG } from "@/config/seo";
 
-const linkClass =
-  "focus-ring block rounded-sm py-0.5 hover:text-amber-300";
-
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-white/10 bg-zinc-950 pb-[max(2rem,env(safe-area-inset-bottom))]">
-      <div className="mx-auto grid max-w-6xl gap-4 px-4 py-5 text-sm leading-snug text-zinc-400 sm:grid-cols-2 sm:items-start sm:gap-6 sm:px-6 sm:py-6">
-        <div className="space-y-1">
+    <footer className="mt-auto border-t border-white/10 bg-zinc-950 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 text-sm text-zinc-400 sm:px-6 sm:flex-row sm:justify-between">
+        <div>
           <p className="font-display text-base font-bold text-amber-50">
             {SEO_CONFIG.brandName}
           </p>
-          <p>Контакт: {SEO_CONFIG.contactName}</p>
-          <p className="text-amber-200/90">{SEO_CONFIG.locationLabel}</p>
-          <p className="text-zinc-500">{SEO_CONFIG.street}</p>
-          <p>Посуточная аренда {SEO_CONFIG.cityInFormat}</p>
-          <p>
+          <p className="mt-1">Контакт: {SEO_CONFIG.contactName}</p>
+          <p className="mt-1 text-amber-200/90">{SEO_CONFIG.locationLabel}</p>
+          <p className="mt-0.5 text-zinc-500">{SEO_CONFIG.street}</p>
+          <p className="mt-1">Посуточная аренда {SEO_CONFIG.cityInFormat}</p>
+          <p className="mt-1">
             {LEGAL_CONFIG.statusShort}
             {LEGAL_CONFIG.notVatPayer ? " · без НДС" : ""}
           </p>
         </div>
-
-        <nav
-          className="space-y-1 sm:text-right"
-          aria-label="Подвал"
-        >
-          <a href={`tel:${SEO_CONFIG.phoneE164}`} className={linkClass}>
+        <nav className="flex flex-col gap-3" aria-label="Подвал">
+          <a
+            href={`tel:${SEO_CONFIG.phoneE164}`}
+            className="focus-ring inline-flex min-h-11 items-center rounded-sm hover:text-amber-300"
+          >
             {SEO_CONFIG.phoneDisplay}
           </a>
           <a
             href={SEO_CONFIG.telegram}
             target="_blank"
             rel="noopener noreferrer"
-            className={linkClass}
+            className="focus-ring inline-flex min-h-11 items-center rounded-sm hover:text-amber-300"
           >
             Telegram
           </a>
@@ -41,24 +37,33 @@ export function SiteFooter() {
             href={SEO_CONFIG.maxUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={linkClass}
+            className="focus-ring inline-flex min-h-11 items-center rounded-sm hover:text-amber-300"
           >
             MAX {SEO_CONFIG.maxDisplay}
           </a>
-          <Link href="/faq/" className={linkClass}>
+          <Link
+            href="/faq/"
+            className="focus-ring inline-flex min-h-11 items-center rounded-sm hover:text-amber-300"
+          >
             Частые вопросы
           </Link>
-          <Link href="/offer/" className={linkClass}>
+          <Link
+            href="/offer/"
+            className="focus-ring inline-flex min-h-11 items-center rounded-sm hover:text-amber-300"
+          >
             Договор-оферта проката
           </Link>
-          <Link href="/privacy/" className={linkClass}>
+          <Link
+            href="/privacy/"
+            className="focus-ring inline-flex min-h-11 items-center rounded-sm hover:text-amber-300"
+          >
             Персональные данные
           </Link>
           <a
             href={SEO_CONFIG.osagoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`${linkClass} text-zinc-500 hover:text-amber-300`}
+            className="focus-ring inline-flex min-h-11 items-center rounded-sm text-zinc-500 hover:text-amber-300"
           >
             ОСАГО / КАСКО
           </a>
