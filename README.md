@@ -28,8 +28,7 @@ Variable: `NEXT_PUBLIC_SITE_URL=https://yvwvy.ru/motorent36`, `NEXT_PUBLIC_BASE_
 
 - `src/` — страницы и компоненты
 - `public/` — фото и иконки
-- `.github/workflows/` — деплой
+- `.github/workflows/` — CI и деплой
+- `.env.example` — только публичные переменные (без секретов)
 
-Локальные заметки, Docker, Prisma и архив API лежат в папке `ПРОЧЕЕ/` на диске и **не попадают в GitHub**.
-
-Контакты и тексты: `src/config/seo.ts` · каталог: `src/data/catalog.ts`
+Локально (не в git): папка `ПРОЧЕЕ/` — бэкапы, Docker/VPS-заготовки, секреты, заметки.

@@ -29,11 +29,14 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env (секреты только локально)
-.env*
+# env — секреты только локально / в ПРОЧЕЕ, не в git
+.env
+.env.*
 !.env.example
+**/.env
+!**/.env.example
 
-# Локальные заметки, бэкапы и заготовки VPS — не на GitHub
+# Локальные заметки, бэкапы, секреты VPS — не на GitHub
 /ПРОЧЕЕ/
 
 # typescript
