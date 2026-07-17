@@ -113,7 +113,7 @@ export function ProductImage({ src, alt, className, priority, sizes }: Props) {
 
   const base = !isRemote(src) ? jpegBase(src) : null;
   const imgClass = cn(
-    "absolute inset-0 h-full w-full bg-zinc-900 object-contain object-center",
+    "absolute inset-0 h-full w-full bg-zinc-100 object-contain object-center",
     className,
   );
 

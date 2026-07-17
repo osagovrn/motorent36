@@ -27,7 +27,7 @@ export function ProductGallery({ images, alt }: Props) {
   return (
     <div>
       <div
-        className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900"
+        className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-zinc-100"
         onTouchStart={(e) => {
           touchX.current = e.changedTouches[0]?.clientX ?? null;
         }}
@@ -64,7 +64,7 @@ export function ProductGallery({ images, alt }: Props) {
               aria-label={`Ракурс ${i + 1}`}
               aria-pressed={i === active}
               className={cn(
-                "focus-ring relative aspect-[4/3] overflow-hidden rounded-xl border bg-zinc-900 transition",
+                "focus-ring relative aspect-[4/3] overflow-hidden rounded-xl border bg-zinc-100 transition",
                 i === active
                   ? "border-amber-500 ring-1 ring-amber-500/40"
                   : "border-white/10 hover:border-amber-500/40",

@@ -75,12 +75,12 @@ export default function HomePage() {
             src={heroImage}
             alt=""
             priority
-            className="hero-ken object-cover object-[center_35%] opacity-70 sm:object-center sm:opacity-75"
+            className="hero-ken object-cover object-[68%_center] opacity-90 sm:object-[72%_center] sm:opacity-95"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-950/70 to-zinc-950/25" />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/15 to-zinc-950/45" />
-          <div className="hero-grain absolute inset-0 opacity-[0.28]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-zinc-950/20 sm:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-zinc-950/30" />
+          <div className="hero-grain absolute inset-0 opacity-[0.2]" />
         </div>
 
         <div className="relative mx-auto flex min-h-[min(92dvh,52rem)] max-w-6xl flex-col justify-end px-4 pb-14 pt-20 sm:justify-center sm:px-6 sm:pb-20 sm:pt-24">
@@ -188,12 +188,12 @@ export default function HomePage() {
               className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50"
             >
               <Link href={`/catalog/${product.slug}`} className="block">
-                <div className="relative aspect-[4/3] overflow-hidden bg-zinc-800">
+                <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100">
                   {product.images[0] ? (
                     <ProductImage
                       src={product.images[0]}
                       alt={product.title}
-                      className="transition duration-500 group-hover:scale-105"
+                      className="bg-zinc-100 transition duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : (
