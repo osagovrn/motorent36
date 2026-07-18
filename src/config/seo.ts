@@ -101,6 +101,10 @@ export const FAQ_ITEMS = [
 export const yandexVerification =
   process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || "";
 
+/** Google Search Console — content из meta google-site-verification */
+export const googleVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "";
+
 export function productMeta({
   brand,
   model,

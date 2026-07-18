@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Unbounded } from "next/font/google";
-import { SEO_CONFIG, yandexVerification } from "@/config/seo";
+import {
+  SEO_CONFIG,
+  googleVerification,
+  yandexVerification,
+} from "@/config/seo";
 import { assetUrl, absoluteAssetUrl } from "@/lib/assets";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { YandexMetrika } from "@/components/YandexMetrika";
@@ -69,9 +73,14 @@ export const metadata: Metadata = {
     description: SEO_CONFIG.defaultDescription,
     images: [ogImage],
   },
-  verification: yandexVerification
-    ? { yandex: yandexVerification }
-    : undefined,
+  ...(yandexVerification || googleVerification
+    ? {
+        verification: {
+          ...(yandexVerification ? { yandex: yandexVerification } : {}),
+          ...(googleVerification ? { google: googleVerification } : {}),
+        },
+      }
+    : {}),
   robots: { index: true, follow: true },
   manifest: manifestUrl,
   appleWebApp: {
