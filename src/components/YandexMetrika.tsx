@@ -6,6 +6,8 @@ export function YandexMetrika() {
   const id = SEO_CONFIG.yandexMetrikaId.trim();
   if (!id || !/^\d+$/.test(id)) return null;
 
+  const scriptSrc = `https://mc.yandex.ru/metrika/tag.js?id=${id}`;
+
   return (
     <>
       <Script id="yandex-metrika" strategy="afterInteractive">{`
@@ -13,12 +15,13 @@ export function YandexMetrika() {
 m[i].l=1*new Date();
 for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
 k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+(window, document, "script", ${JSON.stringify(scriptSrc)}, "ym");
 ym(${JSON.stringify(id)}, "init", {
+  ssr: true,
+  webvisor: true,
   clickmap: true,
-  trackLinks: true,
   accurateTrackBounce: true,
-  webvisor: true
+  trackLinks: true
 });
 `}</Script>
       <noscript>
