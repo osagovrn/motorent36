@@ -39,6 +39,9 @@ export const SEO_CONFIG = {
   /** Подзаголовок в шапке */
   tagline: "Прокат в Воронеже",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  /** Промо-блок ОСАГО/КАСКО (OsagoPromo) */
+  osagoLabel: "ОСАГО и КАСКО онлайн",
+  osagoUrl: "https://yvwvy.ru/",
   /** Другие проекты (блок «Ещё в Воронеже») */
   relatedProjects: [
     {
