@@ -1,4 +1,7 @@
-/** Статический каталог — без БД, для GitHub Pages / static export */
+/** Статический каталог — без БД, для GitHub Pages / static export.
+ *  categoryName: «Мотошлемы» | «Инструменты» | … — для группировки на главной.
+ *  sizes — только если применимо (шлемы); для инструмента можно [].
+ */
 
 export type CatalogProduct = {
   slug: string;

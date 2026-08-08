@@ -8,9 +8,10 @@ import { absoluteAssetUrl } from "@/lib/assets";
 import { formatRub } from "@/lib/rental";
 import { ProductImage } from "@/components/ProductImage";
 import { FaqSection } from "@/components/FaqSection";
-import { OsagoPromo } from "@/components/OsagoPromo";
+import { MoreInVoronezh } from "@/components/MoreInVoronezh";
 import { HeroPreload } from "@/components/HeroPreload";
 import { LocationMap } from "@/components/LocationMap";
+import { MobileBookBar } from "@/components/MobileBookBar";
 
 export default function HomePage() {
   const products = getAllProducts();
@@ -56,7 +57,7 @@ export default function HomePage() {
     priceRange: "₽₽",
     currenciesAccepted: "RUB",
     paymentAccepted: "Cash, Bank Transfer",
-    sameAs: [SEO_CONFIG.telegram, SEO_CONFIG.maxUrl, SEO_CONFIG.osagoUrl],
+    sameAs: [SEO_CONFIG.telegram, SEO_CONFIG.maxUrl, ...SEO_CONFIG.relatedProjects.map((x) => x.href)],
     openingHours: "Mo-Su",
     additionalProperty: [
       {
@@ -75,36 +76,37 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessLd) }}
       />
 
-      <section className="relative min-h-[min(92dvh,52rem)] overflow-hidden">
+      <section className="relative min-h-[min(42dvh,22rem)] overflow-hidden sm:min-h-[min(48dvh,26rem)]">
         <div className="absolute inset-0 bg-zinc-950" aria-hidden>
           <ProductImage
             src={heroImage}
             alt=""
             priority
-            className="hero-ken bg-zinc-950 object-cover object-[center_42%] opacity-100"
+            className="hero-ken bg-zinc-950 object-cover object-[80%_38%] opacity-75 sm:object-[75%_40%] scale-95 sm:scale-[0.92]"
             sizes="100vw"
           />
           {/* Затемнение слева под текст; справа шлем остаётся читаемым */}
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 from-15% via-zinc-950/75 via-45% to-zinc-950/15 to-75% sm:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 from-25% via-zinc-950/90 via-55% to-zinc-950/40 to-85% sm:via-zinc-950/80" />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 from-5% via-transparent to-zinc-950/50" />
           <div className="hero-grain absolute inset-0 opacity-[0.18]" />
         </div>
 
-        <div className="relative mx-auto flex min-h-[min(92dvh,52rem)] max-w-6xl flex-col justify-end px-4 pb-14 pt-20 sm:justify-center sm:px-6 sm:pb-20 sm:pt-24">
-          <p className="reveal reveal-1 font-display text-4xl font-extrabold tracking-tight text-amber-50 sm:text-6xl lg:text-7xl">
+        <div className="relative mx-auto flex min-h-[min(42dvh,22rem)] max-w-6xl flex-col justify-end px-4 pb-6 pt-12 sm:min-h-[min(48dvh,26rem)] sm:justify-center sm:px-6 sm:pb-10 sm:pt-14">
+          <p className="reveal reveal-1 font-display text-2xl font-extrabold tracking-tight text-amber-50 sm:text-3xl md:text-4xl">
             {SEO_CONFIG.brandName}
           </p>
-          <h1 className="reveal reveal-2 mt-3 max-w-2xl text-xl font-semibold leading-snug text-amber-100/95 sm:mt-4 sm:text-2xl lg:text-3xl">
-            Аренда мотошлема {SEO_CONFIG.cityInFormat}
+          <h1 className="reveal reveal-2 mt-2 max-w-2xl text-lg font-semibold leading-snug text-amber-100/95 sm:text-xl">
+            Бери напрокат {SEO_CONFIG.cityInFormat}
           </h1>
-          <p className="reveal reveal-3 mt-4 max-w-lg text-base leading-relaxed text-zinc-300 sm:text-lg">
-            JIEKAI JK902, размеры {sampleSizes.join(" и ")}, от{" "}
+          <p className="reveal reveal-3 mt-2 max-w-lg text-sm leading-snug text-zinc-300 sm:text-base">
+            Мотошлемы — сейчас в каталоге. Инструменты и другое — по мере
+            расширения. От{" "}
             <strong className="font-semibold text-amber-100">
               {formatRub(fromPrice)} ₽/сутки
             </strong>
-            . Рассчитайте даты на сайте — удобно написать в Telegram или позвонить.
+            . Даты на сайте, бронь по звонку или в мессенджере.
           </p>
-          <div className="reveal reveal-4 mt-8 flex w-full max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
+          <div className="reveal reveal-4 mt-5 flex w-full max-w-md flex-col gap-2 sm:max-w-none sm:flex-row sm:flex-wrap">
             <a
               href={`tel:${SEO_CONFIG.phoneE164}`}
               className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400 sm:w-auto"
@@ -132,37 +134,37 @@ export default function HomePage() {
       </section>
 
       <section id="kak-eto-rabotaet" className="section-wash border-y border-white/5">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+          <h2 className="font-display text-2xl text-amber-50 sm:text-3xl">
             Как это работает
           </h2>
-          <p className="mt-2 max-w-2xl text-zinc-400">
-            Три шага до поездки — без онлайн-оплаты и без сюрпризов по залогу.
+          <p className="mt-1 max-w-2xl text-sm text-zinc-400">
+            Три шага — без онлайн-оплаты и сюрпризов по залогу.
           </p>
-          <ol className="mt-10 max-w-3xl space-y-8">
+          <ol className="mt-5 max-w-3xl space-y-4">
             {[
               {
                 title: "Звонок или сообщение",
-                text: `Выбираете шлем и размер (${sampleSizes.join(" или ")}), считаете даты на сайте. Звоните или пишите в Telegram / MAX — подтвердим бронь.`,
+                text: `Выбираете позицию в каталоге, считаете даты на сайте. Звоните или пишите в Telegram / MAX — подтвердим бронь.`,
               },
               {
                 title: "Встреча",
-                text: `Встречаемся в мкр. ${SEO_CONFIG.locality} (рядом с ${SEO_CONFIG.landmark}), ${SEO_CONFIG.street}: примеряете шлем. Для договора нужен паспорт или водительское удостоверение (фото документов на месте).`,
+                text: `Встречаемся в мкр. ${SEO_CONFIG.locality} (рядом с ${SEO_CONFIG.landmark}), ${SEO_CONFIG.street}: осматриваете вещь, при необходимости примеряете. Для договора — паспорт или водительское удостоверение.`,
               },
               {
                 title: "Оплата и залог",
-                text: `Передаёте полную стоимость шлема (${formatRub(sampleMarket)} ₽). При возврате в надлежащем состоянии возвращаем залог (${formatRub(sampleDayDeposit)} ₽ при аренде на 1 сутки).`,
+                text: `Передаёте полную рыночную стоимость вещи (для текущего шлема — ${formatRub(sampleMarket)} ₽). При возврате в порядке возвращаем залог (например ${formatRub(sampleDayDeposit)} ₽ при аренде на 1 сутки).`,
               },
             ].map((step, i) => (
-              <li key={step.title} className="flex gap-4 sm:gap-5">
-                <span className="font-display w-10 shrink-0 text-2xl text-amber-500/90 sm:w-12 sm:text-3xl">
+              <li key={step.title} className="flex gap-3">
+                <span className="font-display w-7 shrink-0 text-lg text-amber-500/90">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <div className="min-w-0 border-l border-amber-500/25 pl-4 sm:pl-5">
-                  <h3 className="text-lg font-semibold text-amber-50">
+                <div className="min-w-0 border-l border-amber-500/20 pl-3">
+                  <h3 className="text-sm font-semibold text-amber-50 sm:text-base">
                     {step.title}
                   </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
+                  <p className="mt-0.5 text-sm leading-snug text-zinc-400">
                     {step.text}
                   </p>
                 </div>
@@ -174,56 +176,55 @@ export default function HomePage() {
 
       <LocationMap />
 
-      <section id="katalog" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">
+      <section id="katalog" className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+        <h2 className="font-display text-xl text-amber-50 sm:text-2xl">
           Каталог
         </h2>
-        <p className="mt-2 text-zinc-400">
-          Сейчас в прокате — закрытый модульный шлем JIEKAI JK902.
+        <p className="mt-0.5 text-sm text-zinc-400">
+          Сейчас — мотошлем; каталог будет расти.
         </p>
 
         <div
           className={
             products.length === 1
-              ? "mt-8 max-w-xl"
+              ? "mt-4 max-w-sm"
               : products.length === 2
-                ? "mt-8 grid gap-6 sm:grid-cols-2"
-                : "mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                ? "mt-4 grid gap-3 sm:grid-cols-2 max-w-2xl"
+                : "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
           }
         >
           {products.map((product) => (
             <article
               key={product.slug}
-              className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50"
+              className="group overflow-hidden rounded-lg border border-white/10 bg-zinc-900/50"
             >
               <Link href={`/catalog/${product.slug}`} className="block">
-                <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100">
+                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
                   {product.images[0] ? (
                     <ProductImage
                       src={product.images[0]}
                       alt={product.title}
-                      className="bg-zinc-100 transition duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="bg-zinc-100 object-cover object-center transition duration-300 group-hover:scale-[1.03]"
+                      sizes="(max-width: 768px) 100vw, 280px"
                     />
                   ) : (
-                    <div className="flex h-full items-center justify-center text-zinc-500">
+                    <div className="flex h-full items-center justify-center text-zinc-500 text-sm">
                       Нет фото
                     </div>
                   )}
                 </div>
-                <div className="p-5">
-                  <p className="text-xs uppercase tracking-wider text-amber-500/80">
+                <div className="px-3 py-2.5">
+                  <p className="text-[10px] uppercase tracking-wider text-amber-500/80">
                     {product.categoryName}
                   </p>
-                  <h3 className="mt-1 text-lg font-semibold text-amber-50">
+                  <h3 className="mt-0.5 text-sm font-semibold leading-snug text-amber-50 sm:text-base">
                     {product.title}
                   </h3>
-                  <p className="mt-2 text-sm text-zinc-400">
-                    от {formatRub(product.pricePerDay)} ₽/сутки · размеры{" "}
-                    {product.sizes.join(", ") || "—"}
+                  <p className="mt-1 text-xs text-zinc-400">
+                    от {formatRub(product.pricePerDay)} ₽/сутки · {product.sizes.join(", ") || "—"}
                   </p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-amber-400 group-hover:underline">
-                    Узнать и позвонить →
+                  <span className="mt-1 inline-block text-xs font-semibold text-amber-400 group-hover:underline">
+                    Подробнее →
                   </span>
                 </div>
               </Link>
@@ -233,82 +234,71 @@ export default function HomePage() {
 
         <div
           id="kogda-nuzhen"
-          className="mt-14 border-t border-white/10 pt-12"
+          className="mt-8 border-t border-white/10 pt-6"
         >
-          <h3 className="font-display text-2xl text-amber-50 sm:text-3xl">
-            Когда нужна аренда шлема
+          <h3 className="font-display text-xl text-amber-50 sm:text-2xl">
+            Когда удобен прокат
           </h3>
-          <p className="mt-2 max-w-2xl text-zinc-400">
-            Посуточный прокат — когда свой шлем ещё не купили, он не подошёл
-            по размеру или нужен только на короткий срок.
+          <p className="mt-1 max-w-2xl text-sm text-zinc-400">
+            На сутки и больше — без покупки «на один раз».
           </p>
-          <ol className="mt-8 max-w-3xl space-y-6">
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {[
               {
-                title: "Экзамен в ГИБДД на категорию A",
-                text: "На площадке и в городе требуется закрытый шлем. Аренда на день экзамена — проще и дешевле, чем покупать экипировку «на всякий случай».",
+                title: "Экзамен в ГИБДД",
+                text: "Закрытый шлем на день экзамена — проще, чем покупать.",
               },
               {
-                title: "Поездка вдвоём — шлем для пассажира",
-                text: "Выезд с девушкой, другом или родственником: у водителя свой шлем есть, а второму нужен только на эту поездку. Взяли на сутки — и оба в защите.",
+                title: "Шлем для пассажира",
+                text: "Второй шлем на поездку — взяли на сутки и оба в защите.",
               },
               {
-                title: "Первые километры без своей экипировки",
-                text: "Только получили права или сели на мотоцикл впервые. Пока выбираете модель «навсегда», удобно покататься в прокатном шлеме и понять размер.",
+                title: "Первые километры",
+                text: "Пока выбираете свой — удобно понять размер в прокате.",
               },
               {
-                title: "Гости и короткие визиты в город",
-                text: "Друзья приехали в Воронеж и хотят проехаться с вами. Не обязательно дарить им шлем — достаточно аренды на выходные.",
+                title: "Свой недоступен",
+                text: "Забыли, в ремонте или на чистке — не отменять выезд.",
               },
-              {
-                title: "Свой шлем недоступен",
-                text: "Забыли дома, отдали в чистку или ремонт, разбили визор перед выездом. Аренда выручает, чтобы не отменять запланированную поездку.",
-              },
-              {
-                title: "Однодневный выезд или мотопрогулка",
-                text: "Загородная дорога, фотосессия, встреча клуба — когда шлем нужен на часы или сутки, а не как постоянная покупка.",
-              },
-            ].map((item, i) => (
-              <li key={item.title} className="flex gap-4 sm:gap-5">
-                <span className="font-display w-8 shrink-0 text-xl text-amber-500/90 sm:w-10 sm:text-2xl">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="min-w-0 border-l border-amber-500/25 pl-4 sm:pl-5">
-                  <p className="text-base font-semibold text-amber-50 sm:text-lg">
-                    {item.title}
-                  </p>
-                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">
-                    {item.text}
-                  </p>
-                </div>
+            ].map((item) => (
+              <li
+                key={item.title}
+                className="rounded-xl border border-white/10 bg-zinc-950/40 px-3.5 py-3"
+              >
+                <p className="text-sm font-semibold text-amber-50">
+                  {item.title}
+                </p>
+                <p className="mt-0.5 text-sm leading-snug text-zinc-400">
+                  {item.text}
+                </p>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       </section>
 
       <section id="faq" className="section-wash border-t border-white/5">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <h2 className="font-display text-3xl text-amber-50 sm:text-4xl">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+          <h2 className="font-display text-2xl text-amber-50 sm:text-3xl">
             Частые вопросы
           </h2>
-          <p className="mt-2 max-w-2xl text-zinc-400">
-            Размер, залог, встреча и документы — коротко перед звонком.
+          <p className="mt-1 max-w-2xl text-sm text-zinc-400">
+            Размер, залог, встреча — коротко перед звонком.
           </p>
-          <div className="mt-8 max-w-3xl">
-            <FaqSection withMoreLink limit={4} />
+          <div className="mt-4 max-w-3xl">
+            <FaqSection withMoreLink limit={3} />
           </div>
         </div>
       </section>
 
       <section className="border-t border-white/5">
-        <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-10">
           <div>
-            <h2 className="font-display text-2xl text-amber-50 sm:text-3xl">
-              Готовы взять шлем?
+            <h2 className="font-display text-xl text-amber-50 sm:text-2xl">
+              Готовы взять напрокат?
             </h2>
-            <p className="mt-2 max-w-xl text-sm text-zinc-400">
-              Посчитайте даты на карточке товара — удобнее всего написать в
+            <p className="mt-1 max-w-xl text-sm text-zinc-400">
+              Посчитайте даты в карточке товара — удобнее всего написать в
               Telegram или позвонить.
             </p>
           </div>
@@ -337,7 +327,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <OsagoPromo />
+      <MoreInVoronezh />
+      <MobileBookBar showDates={false} />
     </>
   );
 }
+

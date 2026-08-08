@@ -34,7 +34,7 @@ export default function PrivacyPage() {
           </p>
           <p className="mt-2">
             Контакты по вопросам ПДн: {SEO_CONFIG.email},{" "}
-            {SEO_CONFIG.phoneDisplay}, Telegram {SEO_CONFIG.telegram}.
+            {SEO_CONFIG.phoneDisplay}, Telegram (кнопка на сайте).
           </p>
         </section>
 

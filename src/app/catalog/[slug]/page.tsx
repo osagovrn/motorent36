@@ -118,7 +118,7 @@ export default async function ProductPage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 pb-28 sm:px-6 sm:py-14 lg:pb-14">
+    <div className="mx-auto w-full max-w-6xl px-4 py-6 pb-28 sm:px-6 sm:py-8 lg:pb-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
@@ -149,12 +149,12 @@ export default async function ProductPage({ params }: Props) {
         </ol>
       </nav>
 
-      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start">
+      <div className="grid gap-5 lg:grid-cols-2 lg:gap-8 lg:items-start">
         <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.2em] text-amber-500/80">
             {product.categoryName} · {SEO_CONFIG.locationLabel}
           </p>
-          <h1 className="font-display mt-3 text-3xl font-extrabold leading-tight text-amber-50 sm:text-4xl lg:text-5xl lg:leading-none">
+          <h1 className="font-display mt-2 text-2xl font-extrabold leading-tight text-amber-50 sm:text-3xl">
             {product.title}
           </h1>
           <p className="mt-4 text-zinc-400">

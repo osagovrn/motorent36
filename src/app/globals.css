@@ -100,7 +100,7 @@ body {
 
 @keyframes hero-ken {
   from {
-    transform: scale(1.08);
+    transform: scale(1.04);
   }
   to {
     transform: scale(1);

@@ -15,15 +15,16 @@ export const SEO_CONFIG = {
   landmark: "Машметом",
   /** Короткая подпись «где мы» */
   locationLabel: "Воронеж, Никольское",
-  brandName: "MotoRent36",
+  brandName: "Beri36",
   /** Имя для связи (без фамилии на сайте) */
   contactName: "Евгений",
+  /** Главный номер. Формы заявки на сайте нет — только звонок / Telegram / MAX. */
   phoneDisplay: "+7 (950) 767-85-75",
   phoneE164: "+79507678575",
-  /** Личный Telegram — сюда пишут клиенты */
-  telegram: "https://t.me/+79507678575",
+  telegram: "https://t.me/yv24vy",
+  telegramHandle: "@yv24vy",
   telegramLabel: "Telegram",
-  maxDisplay: "+7 (919) 183-14-07",
+  maxDisplay: "8 (919) 183-14-07",
   maxE164: "+79191831407",
   maxUrl: "https://max.ru/+79191831407",
   email: "2020yvwvy2020@gmail.com",
@@ -33,12 +34,29 @@ export const SEO_CONFIG = {
   /** Координаты ул. Ани Максимовой, Воронеж */
   mapLat: 51.581948,
   mapLon: 39.323545,
-  defaultTitle: `Аренда мотошлема в Воронеже от ${fromPrice} ₽/сутки — прокат JIEKAI JK902`,
-  defaultDescription: `Прокат мотошлема в Воронеже (Никольское, ул. Ани Максимовой, рядом с Машметом): JIEKAI JK902, размеры M и L, от ${fromPrice} ₽/сутки. Считаете даты на сайте — бронь по телефону, в Telegram или MAX. Оплата и залог при встрече.`,
+  defaultTitle: `Beri36 — аренда в Воронеже от ${fromPrice} ₽/сутки`,
+  defaultDescription: `Прокат в Воронеже (Никольское): мотошлемы, скоро инструменты и другое. Сейчас — JIEKAI JK902 от ${fromPrice} ₽/сутки. Бронь по телефону, Telegram или MAX. Оплата и залог при встрече.`,
+  /** Подзаголовок в шапке */
+  tagline: "Прокат в Воронеже",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  /** Сайт ОСАГО / КАСКО (кросс-реклама) */
-  osagoUrl: "https://yvwvy.ru/",
-  osagoLabel: "ОСАГО и КАСКО онлайн",
+  /** Другие проекты (блок «Ещё в Воронеже») */
+  relatedProjects: [
+    {
+      href: "https://yvwvy.ru/",
+      title: "ОСАГО и КАСКО онлайн",
+      domain: "yvwvy.ru",
+    },
+    {
+      href: "https://skladvrn.ru/",
+      title: "Склад Евгения",
+      domain: "skladvrn.ru",
+    },
+    {
+      href: "https://elenaperm.ru/",
+      title: "Перманентный макияж — Елена",
+      domain: "elenaperm.ru",
+    },
+  ] as const,
   /** Яндекс.Метрика — вставьте ID когда будет счётчик */
   yandexMetrikaId: process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID || "",
 } as const;
@@ -88,7 +106,7 @@ export const FAQ_ITEMS = [
   {
     question: "Есть ли онлайн-оплата и заявка на сайте?",
     answer:
-      "Онлайн-оплаты и формы заявки нет. Бронь — по телефону, в Telegram или MAX. Оплата проката и залога только при личной встрече наличными или переводом по согласованию.",
+      "Онлайн-оплаты и формы заявки нет. Бронь только по звонку +7 (950) 767-85-75, через кнопку Telegram на сайте или MAX 8 (919) 183-14-07 (Евгений). Оплата проката и залога — при личной встрече наличными или переводом по согласованию.",
   },
   {
     question: "Что если задержу возврат?",

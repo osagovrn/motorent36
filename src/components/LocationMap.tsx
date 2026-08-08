@@ -35,15 +35,15 @@ export function LocationMap() {
       className="border-y border-white/5"
       aria-labelledby="gde-my-title"
     >
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-500/90">
               Локация
             </p>
             <h2
               id="gde-my-title"
-              className="font-display mt-2 text-3xl text-amber-50 sm:text-4xl"
+              className="font-display mt-1 text-2xl text-amber-50 sm:text-3xl"
             >
               Где мы
             </h2>
@@ -98,11 +98,11 @@ export function LocationMap() {
             <span className="text-amber-200">{SEO_CONFIG.street}</span>
           </div>
 
-          <div className="map-embed relative h-64 w-full overflow-hidden sm:h-80 lg:h-[22rem]">
+          <div className="map-embed relative h-48 w-full overflow-hidden sm:h-56 lg:h-64">
             <iframe
               title={`Карта: ${SEO_CONFIG.address}`}
               src={embedSrc}
-              className="absolute inset-0 h-[calc(100%+4.5rem)] w-full -translate-y-10 border-0"
+              className="absolute inset-0 h-[calc(100%+6rem)] w-[calc(100%+2rem)] -translate-x-4 -translate-y-12 border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />

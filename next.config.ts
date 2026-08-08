@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 /**
  * Прод: https://beri36.ru (BASE_PATH пустой).
- * Старый project Pages: NEXT_PUBLIC_BASE_PATH=/motorent36
+ * Старый project Pages: NEXT_PUBLIC_BASE_PATH=/beri36
  */
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
 

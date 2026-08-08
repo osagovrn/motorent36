@@ -5,11 +5,11 @@ import { HelmetSizeChart } from "@/components/HelmetSizeChart";
 import { FAQ_ITEMS, SEO_CONFIG } from "@/config/seo";
 
 export const metadata: Metadata = {
-  title: "Частые вопросы об аренде мотошлемов",
-  description: `Ответы про размеры, залог, встречу и бронирование проката шлемов ${SEO_CONFIG.cityInFormat} — ${SEO_CONFIG.brandName}.`,
+  title: "Частые вопросы о прокате",
+  description: `Ответы про размеры, залог, встречу и бронирование проката ${SEO_CONFIG.cityInFormat} — ${SEO_CONFIG.brandName}.`,
   alternates: { canonical: "/faq/" },
   openGraph: {
-    title: `FAQ — аренда мотошлемов ${SEO_CONFIG.cityInFormat}`,
+    title: `FAQ — прокат ${SEO_CONFIG.cityInFormat}`,
     description: `Размеры, залог, встреча, документы. ${SEO_CONFIG.brandName}.`,
     url: "/faq/",
   },
@@ -39,11 +39,11 @@ export default function FaqPage() {
       <Link href="/" className="text-sm text-amber-400 hover:underline">
         ← На главную
       </Link>
-      <h1 className="font-display mt-4 text-3xl font-extrabold text-amber-50 sm:text-4xl">
+      <h1 className="font-display mt-4 text-2xl font-extrabold text-amber-50 sm:text-3xl">
         Частые вопросы
       </h1>
       <p className="mt-2 text-sm text-zinc-500">
-        Аренда мотошлемов {SEO_CONFIG.cityInFormat} · {SEO_CONFIG.brandName}
+        Прокат {SEO_CONFIG.cityInFormat} · {SEO_CONFIG.brandName}
       </p>
 
       <div className="mt-8">

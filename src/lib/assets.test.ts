@@ -33,10 +33,10 @@ describe("resolveAssetUrl", () => {
   it("uses basePath on localhost", () => {
     assert.equal(
       resolveAssetUrl("/icon.svg", {
-        basePath: "/motorent36",
+        basePath: "/beri36",
         siteUrl: "http://localhost:3000",
       }),
-      "/motorent36/icon.svg",
+      "/beri36/icon.svg",
     );
   });
 

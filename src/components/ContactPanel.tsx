@@ -157,7 +157,7 @@ export function ContactPanel({
   return (
     <section
       id="bron"
-      className="rounded-2xl border border-white/10 bg-zinc-900/80 p-5 backdrop-blur sm:p-6"
+      className="rounded-2xl border border-white/10 bg-zinc-900/80 p-5 backdrop-blur sm:p-4"
       aria-labelledby="bron-title"
     >
       <h2
@@ -169,15 +169,22 @@ export function ContactPanel({
       <p className="mt-1 text-sm text-zinc-400">{productTitle}</p>
 
       <p className="mt-4 rounded-xl border border-amber-500/35 bg-amber-500/10 px-3.5 py-3 text-sm leading-snug text-amber-50">
-        Онлайн-заявок пока нет. Позвоните или напишите — подтвердим размер и
-        даты.         Встреча:{" "}
+        Формы заявки на сайте нет. Бронь — по звонку{" "}
+        <a href={`tel:${SEO_CONFIG.phoneE164}`} className="font-semibold text-amber-200 underline-offset-2 hover:underline">
+          {SEO_CONFIG.phoneDisplay}
+        </a>
+        , в{" "}
+        <a href={SEO_CONFIG.telegram} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-200 underline-offset-2 hover:underline">
+          Telegram
+        </a>
+        {" "}или MAX. Подтвердим размер и даты. Встреча:{" "}
         <strong className="font-bold">{SEO_CONFIG.address}</strong>. При
         получении передаёте{" "}
         <strong className="font-bold">{formatRub(marketValue)} ₽</strong>{" "}
         (прокат + залог).
       </p>
 
-      <div className="mt-5">
+      <div className="mt-3">
         <p
           id="size-label"
           className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500"
@@ -222,7 +229,7 @@ export function ContactPanel({
         />
       </div>
 
-      <div className="mt-5">
+      <div className="mt-3">
         <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500">
           Быстрый срок
         </p>

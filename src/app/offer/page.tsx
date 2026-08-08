@@ -177,7 +177,7 @@ export default function OfferPage() {
             <br />
             Email: {SEO_CONFIG.email}
             <br />
-            Telegram: {SEO_CONFIG.telegram}
+            Telegram: через кнопку на сайте
             <br />
             MAX: {SEO_CONFIG.maxDisplay} ({SEO_CONFIG.maxUrl})
             <br />

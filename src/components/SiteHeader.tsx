@@ -89,7 +89,7 @@ export function SiteHeader() {
                 {SEO_CONFIG.brandName}
               </span>
               <span className="block truncate text-[10px] uppercase tracking-[0.16em] text-zinc-500 sm:text-[11px] sm:tracking-[0.2em]">
-                {SEO_CONFIG.locationLabel}
+                {SEO_CONFIG.tagline}
               </span>
             </span>
           </Link>
