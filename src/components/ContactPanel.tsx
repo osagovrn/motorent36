@@ -11,12 +11,16 @@ import {
 import { HELMET_SIZE_OPTIONS, SEO_CONFIG, telegramWriteUrl } from "@/config/seo";
 import { HelmetSizeChart } from "@/components/HelmetSizeChart";
 import { cn } from "@/lib/utils";
+import { localePath, type Locale } from "@/i18n/locales";
+import type { ContactPanelLabels } from "@/i18n/resolve";
 
 type Props = {
   productTitle: string;
   pricePerDay: number;
   marketValue: number;
   availableSizes: string[];
+  locale: Locale;
+  labels: ContactPanelLabels;
 };
 
 type DateRange = { today: string; start: string; end: string };
@@ -55,6 +59,8 @@ export function ContactPanel({
   pricePerDay,
   marketValue,
   availableSizes,
+  locale,
+  labels,
 }: Props) {
   const [todayIso, setTodayIso] = useState("");
   const [start, setStart] = useState("");
@@ -144,10 +150,10 @@ export function ContactPanel({
   }
 
   const prefill = [
-    `Здравствуйте! Хочу арендовать: ${productTitle}`,
-    size ? `Размер: ${size}` : null,
-    datesReady ? `Даты: ${start} — ${end}` : null,
-    `По калькулятору: прокат ${calc.totalRentalPrice} ₽, залог ${calc.refundableDeposit} ₽, итого при встрече ${calc.totalDueAtPickup} ₽`,
+    `${productTitle}`,
+    size ? `${labels.sizeLabel}: ${size}` : null,
+    datesReady ? `${start} — ${end}` : null,
+    `${formatRub(calc.totalRentalPrice)} ₽ + ${formatRub(calc.refundableDeposit)} ₽ = ${formatRub(calc.totalDueAtPickup)} ₽`,
   ]
     .filter(Boolean)
     .join(". ");
@@ -164,24 +170,21 @@ export function ContactPanel({
         id="bron-title"
         className="font-display text-xl text-amber-50 sm:text-2xl"
       >
-        Забронировать
+        {labels.bookTitle}
       </h2>
       <p className="mt-1 text-sm text-zinc-400">{productTitle}</p>
 
       <p className="mt-4 rounded-xl border border-amber-500/35 bg-amber-500/10 px-3.5 py-3 text-sm leading-snug text-amber-50">
-        Формы заявки на сайте нет. Бронь — по звонку{" "}
+        {labels.noOnlineForm}{" "}
         <a href={`tel:${SEO_CONFIG.phoneE164}`} className="font-semibold text-amber-200 underline-offset-2 hover:underline">
           {SEO_CONFIG.phoneDisplay}
         </a>
-        , в{" "}
+        ,{" "}
         <a href={SEO_CONFIG.telegram} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-200 underline-offset-2 hover:underline">
           Telegram
-        </a>
-        {" "}или MAX. Подтвердим размер и даты. Встреча:{" "}
-        <strong className="font-bold">{SEO_CONFIG.address}</strong>. При
-        получении передаёте{" "}
-        <strong className="font-bold">{formatRub(marketValue)} ₽</strong>{" "}
-        (прокат + залог).
+        </a>{" "}
+        / MAX. <strong className="font-bold">{SEO_CONFIG.address}</strong>.{" "}
+        {labels.atPickup}.
       </p>
 
       <div className="mt-3">
@@ -189,7 +192,7 @@ export function ContactPanel({
           id="size-label"
           className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500"
         >
-          Размер
+          {labels.sizeLabel}
         </p>
         <div
           className="flex flex-wrap gap-2"
@@ -220,7 +223,7 @@ export function ContactPanel({
           ))}
         </div>
         <p className="mt-2 text-xs text-zinc-500">
-          В наличии: {availableSizes.join(", ") || "нет"}
+          {labels.inStock}
         </p>
         <HelmetSizeChart
           inStock={availableSizes}
@@ -231,14 +234,14 @@ export function ContactPanel({
 
       <div className="mt-3">
         <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500">
-          Быстрый срок
+          {labels.quickTerm}
         </p>
         <div className="flex flex-wrap gap-2">
           {(
             [
-              ["1day", "1 сутки"],
-              ["weekend", "Выходные"],
-              ["3days", "3 суток"],
+              ["1day", labels.day1],
+              ["weekend", labels.weekend],
+              ["3days", labels.days3],
             ] as const
           ).map(([kind, label]) => (
             <button
@@ -256,7 +259,7 @@ export function ContactPanel({
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         <label className="block text-sm">
-          <span className="mb-1 block text-zinc-400">Начало аренды</span>
+          <span className="mb-1 block text-zinc-400">{labels.startLabel}</span>
           <input
             type="date"
             min={todayIso || undefined}
@@ -267,7 +270,7 @@ export function ContactPanel({
           />
         </label>
         <label className="block text-sm">
-          <span className="mb-1 block text-zinc-400">Окончание / возврат</span>
+          <span className="mb-1 block text-zinc-400">{labels.endLabel}</span>
           <input
             type="date"
             min={start || undefined}
@@ -284,19 +287,19 @@ export function ContactPanel({
         aria-live="polite"
       >
         <div className="flex flex-col gap-1 text-zinc-300 sm:flex-row sm:justify-between sm:gap-3">
-          <span>Стоимость проката</span>
+          <span>{labels.rentalCost}</span>
           <span className="shrink-0 font-medium text-amber-50">
             {formatRub(calc.totalRentalPrice)} ₽ ({formatDaysLabel(calc.days)})
           </span>
         </div>
         <div className="flex flex-col gap-1 text-zinc-300 sm:flex-row sm:justify-between sm:gap-3">
-          <span>Возвратный залог</span>
+          <span>{labels.deposit}</span>
           <span className="shrink-0 font-medium text-amber-50">
             {formatRub(calc.refundableDeposit)} ₽
           </span>
         </div>
         <div className="flex flex-col gap-1 border-t border-amber-500/20 pt-2 text-base font-semibold text-amber-100 sm:flex-row sm:justify-between sm:gap-3">
-          <span>Итого при получении</span>
+          <span>{labels.totalAtPickup}</span>
           <span className="shrink-0">
             {formatRub(calc.totalDueAtPickup)} ₽
           </span>
@@ -304,8 +307,7 @@ export function ContactPanel({
       </div>
 
       <p className="mt-3 text-xs leading-relaxed text-zinc-500">
-        Минимальный срок — 1 сутки. Калькулятор ориентировочный; бронь
-        подтверждает {SEO_CONFIG.contactName} по телефону или в мессенджере.
+        {labels.minTermNote}
       </p>
 
       <div className="mt-6 flex flex-col gap-3">
@@ -313,7 +315,7 @@ export function ContactPanel({
           href={`tel:${SEO_CONFIG.phoneE164}`}
           className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-amber-500 px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-amber-400"
         >
-          Позвонить {SEO_CONFIG.phoneDisplay}
+          {labels.callBtn}
         </a>
         <a
           href={telegramHref}
@@ -321,7 +323,7 @@ export function ContactPanel({
           rel="noopener noreferrer"
           className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-amber-500/55 bg-amber-500/15 px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-amber-100 hover:border-amber-400 hover:bg-amber-500/25"
         >
-          Написать в Telegram
+          {labels.telegramBtn}
         </a>
         <a
           href={SEO_CONFIG.maxUrl}
@@ -329,24 +331,24 @@ export function ContactPanel({
           rel="noopener noreferrer"
           className="focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/15 px-4 py-3 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/50"
         >
-          MAX {SEO_CONFIG.maxDisplay}
+          {labels.maxBtn}
         </a>
       </div>
 
       <p className="mt-4 text-center text-xs text-zinc-500">
-        Условия:{" "}
+        {labels.terms}{" "}
         <Link
-          href="/offer/"
+          href={localePath(locale, "/offer/")}
           className="focus-ring rounded-sm text-amber-400 hover:underline"
         >
-          оферта
+          {labels.offer}
         </Link>
         {" · "}
         <Link
-          href="/privacy/"
+          href={localePath(locale, "/privacy/")}
           className="focus-ring rounded-sm text-amber-400 hover:underline"
         >
-          персональные данные
+          {labels.privacy}
         </Link>
       </p>
     </section>

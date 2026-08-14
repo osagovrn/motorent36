@@ -1,4 +1,6 @@
 import { SEO_CONFIG } from "@/config/seo";
+import { PLACE_NAMES, type Locale } from "@/i18n/locales";
+import type { Dict } from "@/i18n/types";
 
 function yandexMapsUrl() {
   const { mapLat, mapLon, street, city } = SEO_CONFIG;
@@ -24,7 +26,8 @@ function osmEmbedUrl() {
 }
 
 /** Кусок карты: Никольское у Машмета, ул. Ани Максимовой */
-export function LocationMap() {
+export function LocationMap({ dict, locale }: { dict: Dict; locale: Locale }) {
+  const places = PLACE_NAMES[locale];
   const mapsHref = yandexMapsUrl();
   const naviHref = yandexNaviUrl();
   const embedSrc = osmEmbedUrl();
@@ -39,24 +42,19 @@ export function LocationMap() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-500/90">
-              Локация
+              {dict.location.label}
             </p>
             <h2
               id="gde-my-title"
               className="font-display mt-1 text-2xl text-amber-50 sm:text-3xl"
             >
-              Где мы
+              {dict.location.title}
             </h2>
             <p className="mt-2 text-zinc-400">
-              Мкр.{" "}
               <strong className="font-semibold text-amber-100">
-                {SEO_CONFIG.locality}
-              </strong>
-              , рядом с {SEO_CONFIG.landmark}. Адрес:{" "}
-              <strong className="font-semibold text-amber-100">
-                {SEO_CONFIG.city}, {SEO_CONFIG.street}
-              </strong>
-              . Точную точку и время согласуем при брони.
+                {places.locality}
+              </strong>{" "}
+              {dict.location.description(places.city, places.street)}
             </p>
           </div>
           <div className="flex w-full flex-col gap-2 self-start sm:w-auto sm:flex-row sm:flex-wrap">
@@ -66,13 +64,13 @@ export function LocationMap() {
               rel="noopener noreferrer"
               className="focus-ring inline-flex min-h-11 items-center justify-center rounded-xl border border-amber-500/45 bg-amber-500/10 px-4 text-center text-sm font-semibold text-amber-100 hover:border-amber-400 hover:bg-amber-500/20"
             >
-              Открыть в Яндекс.Картах →
+              {dict.location.openMaps}
             </a>
             <a
               href={naviHref}
               className="focus-ring inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 bg-white/5 px-4 text-center text-sm font-semibold text-zinc-100 hover:border-amber-500/45 hover:bg-amber-500/10 hover:text-amber-100"
             >
-              Открыть в Яндекс.Навигаторе →
+              {dict.location.openNavi}
             </a>
           </div>
         </div>
@@ -89,13 +87,12 @@ export function LocationMap() {
                 className="h-2 w-2 shrink-0 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.8)]"
                 aria-hidden
               />
-              {SEO_CONFIG.street}
+              {places.street}
             </span>
           </div>
 
           <div className="pointer-events-none absolute bottom-3 left-3 z-20 max-w-[16rem] rounded-lg border border-white/10 bg-zinc-950/85 px-3 py-2 text-[11px] leading-snug text-zinc-300 backdrop-blur-md sm:bottom-4 sm:left-4 sm:max-w-sm sm:text-xs">
-            {SEO_CONFIG.locality} · рядом с {SEO_CONFIG.landmark} · метка на{" "}
-            <span className="text-amber-200">{SEO_CONFIG.street}</span>
+            {places.locality} · {places.landmark} · {places.street}
           </div>
 
           <div className="map-embed relative h-48 w-full overflow-hidden sm:h-56 lg:h-64">
