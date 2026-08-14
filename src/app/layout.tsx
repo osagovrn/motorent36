@@ -6,8 +6,8 @@ import {
   yandexVerification,
 } from "@/config/seo";
 import { assetUrl, absoluteAssetUrl } from "@/lib/assets";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { YandexMetrika } from "@/components/YandexMetrika";
-import { buildAlternates } from "@/i18n/alternates";
 import "./globals.css";
 
 const body = Manrope({
@@ -41,7 +41,6 @@ export const metadata: Metadata = {
   applicationName: SEO_CONFIG.brandName,
   alternates: {
     canonical: "/",
-    languages: buildAlternates("/"),
   },
   keywords: [
     "аренда Воронеж",
@@ -116,14 +115,6 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-/**
- * Корневой layout — единственный на всё приложение (ru + [locale]).
- * <html lang> здесь всегда "ru": Next.js не позволяет вложенным
- * layout'ам переопределить <html>/<body>. Для не-ru страниц атрибут
- * lang исправляется постобработкой статики в scripts/fix-html-lang.mjs
- * (см. package.json → build). Шапка/подвал — в дочерних layout'ах
- * (ru) и [locale], каждый со своим языком.
- */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -135,7 +126,14 @@ export default function RootLayout({
       className={`${body.variable} ${display.variable} h-full`}
     >
       <body className="flex min-h-dvh flex-col antialiased">
-        {children}
+        <a href="#main-content" className="skip-link">
+          Перейти к содержимому
+        </a>
+        <SiteHeader />
+        <main id="main-content" className="flex-1 w-full min-w-0">
+          {children}
+        </main>
+        <SiteFooter />
         <YandexMetrika />
       </body>
     </html>
