@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { LEGAL_CONFIG, SEO_CONFIG } from "@/config/seo";
+import { localePath, type Locale } from "@/i18n/locales";
+import type { Dict } from "@/i18n/types";
 
-export function SiteFooter() {
+type Props = { locale: Locale; dict: Dict };
+
+export function SiteFooter({ locale, dict }: Props) {
   return (
     <footer className="mt-auto border-t border-white/10 bg-zinc-950 pb-[max(6.5rem,calc(env(safe-area-inset-bottom)+5rem))] lg:pb-[max(1.5rem,env(safe-area-inset-bottom))]">
       <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-zinc-400 sm:px-6">
@@ -15,13 +19,13 @@ export function SiteFooter() {
             </p>
             <p className="mt-0.5 text-xs text-zinc-500">
               {SEO_CONFIG.street} · {LEGAL_CONFIG.statusShort}
-              {LEGAL_CONFIG.notVatPayer ? " · без НДС" : ""}
+              {LEGAL_CONFIG.notVatPayer ? ` · ${dict.footer.noVat}` : ""}
             </p>
           </div>
 
           <nav
-            className="flex flex-wrap gap-x-4 gap-y-1.5 text-sm"
-            aria-label="Подвал"
+            className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm"
+            aria-label="Footer"
           >
             <a
               href={`tel:${SEO_CONFIG.phoneE164}`}
@@ -45,14 +49,14 @@ export function SiteFooter() {
             >
               MAX
             </a>
-            <Link href="/faq/" className="focus-ring rounded-sm hover:text-amber-300">
-              FAQ
+            <Link href={localePath(locale, "/faq/")} className="focus-ring rounded-sm hover:text-amber-300">
+              {dict.nav.faq}
             </Link>
-            <Link href="/offer/" className="focus-ring rounded-sm hover:text-amber-300">
-              Оферта
+            <Link href={localePath(locale, "/offer/")} className="focus-ring rounded-sm hover:text-amber-300">
+              {dict.footer.offer}
             </Link>
-            <Link href="/privacy/" className="focus-ring rounded-sm hover:text-amber-300">
-              ПДн
+            <Link href={localePath(locale, "/privacy/")} className="focus-ring rounded-sm hover:text-amber-300">
+              {dict.footer.privacy}
             </Link>
             {SEO_CONFIG.relatedProjects.map((proj) => (
               <a

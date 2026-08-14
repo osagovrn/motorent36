@@ -1,18 +1,22 @@
 import Link from "next/link";
-import { FAQ_ITEMS } from "@/config/seo";
+import type { FaqItem } from "@/i18n/types";
+import { localePath, type Locale } from "@/i18n/locales";
 
 type Props = {
+  items: FaqItem[];
   withMoreLink?: boolean;
   limit?: number;
+  locale: Locale;
+  moreLabel: string;
 };
 
-export function FaqSection({ withMoreLink, limit }: Props) {
-  const items = limit ? FAQ_ITEMS.slice(0, limit) : FAQ_ITEMS;
+export function FaqSection({ items, withMoreLink, limit, locale, moreLabel }: Props) {
+  const shown = limit ? items.slice(0, limit) : items;
 
   return (
     <div>
       <div className="space-y-2">
-        {items.map((item) => (
+        {shown.map((item) => (
           <details
             key={item.question}
             className="group rounded-xl border border-white/10 bg-zinc-950/50 open:border-amber-500/25"
@@ -34,13 +38,13 @@ export function FaqSection({ withMoreLink, limit }: Props) {
           </details>
         ))}
       </div>
-      {withMoreLink && limit && FAQ_ITEMS.length > limit && (
+      {withMoreLink && limit && items.length > limit && (
         <p className="mt-3">
           <Link
-            href="/faq/"
+            href={localePath(locale, "/faq/")}
             className="focus-ring rounded-sm text-sm font-semibold text-amber-400 hover:underline"
           >
-            Все вопросы →
+            {moreLabel}
           </Link>
         </p>
       )}
