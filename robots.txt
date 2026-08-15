@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: beri36.ru
+Sitemap: https://beri36.ru/sitemap.xml
