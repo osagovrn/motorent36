@@ -1,0 +1,166 @@
+/**
+ * Публичные константы сайта.
+ * ФИО и реквизиты на сайте не публикуются — указываются при заключении договора / в акте передачи.
+ */
+import { lowestPricePerDay } from "@/data/catalog";
+
+const fromPrice = lowestPricePerDay();
+
+export const SEO_CONFIG = {
+  city: "Воронеж",
+  cityInFormat: "в Воронеже",
+  /** Район / микрорайон для встречи */
+  locality: "Никольское",
+  /** Ориентир рядом (форма «рядом с …») */
+  landmark: "Машметом",
+  /** Короткая подпись «где мы» */
+  locationLabel: "Воронеж, Никольское",
+  brandName: "Beri36",
+  /** Имя для связи (без фамилии на сайте) */
+  contactName: "Евгений",
+  /** Главный номер. Формы заявки на сайте нет — только звонок / Telegram / MAX. */
+  phoneDisplay: "+7 (950) 767-85-75",
+  phoneE164: "+79507678575",
+  telegram: "https://t.me/yv24vy",
+  telegramHandle: "@yv24vy",
+  telegramLabel: "Telegram",
+  maxDisplay: "8 (919) 183-14-07",
+  maxE164: "+79191831407",
+  maxUrl: "https://max.ru/+79191831407",
+  email: "2020yvwvy2020@gmail.com",
+  /** Улица встречи (без номера дома — точку согласуем) */
+  street: "ул. Ани Максимовой",
+  address: "г. Воронеж, ул. Ани Максимовой (мкр. Никольское, рядом с Машметом)",
+  /** Координаты ул. Ани Максимовой, Воронеж */
+  mapLat: 51.581948,
+  mapLon: 39.323545,
+  defaultTitle: `Beri36 — аренда в Воронеже от ${fromPrice} ₽/сутки`,
+  defaultDescription: `Прокат в Воронеже (Никольское): мотошлемы, скоро инструменты и другое. Сейчас — JIEKAI JK902 от ${fromPrice} ₽/сутки. Бронь по телефону, Telegram или MAX. Оплата и залог при встрече.`,
+  /** Подзаголовок в шапке */
+  tagline: "Прокат в Воронеже",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  /** Промо-блок ОСАГО/КАСКО (OsagoPromo) */
+  osagoLabel: "ОСАГО и КАСКО онлайн",
+  osagoUrl: "https://yvwvy.ru/",
+  /** Другие проекты (блок «Ещё в Воронеже») */
+  relatedProjects: [
+    {
+      href: "https://yvwvy.ru/",
+      title: "ОСАГО и КАСКО онлайн",
+      domain: "yvwvy.ru",
+    },
+    {
+      href: "https://skladvrn.ru/",
+      title: "Склад Евгения",
+      domain: "skladvrn.ru",
+    },
+    {
+      href: "https://elenaperm.ru/",
+      title: "Перманентный макияж — Елена",
+      domain: "elenaperm.ru",
+    },
+  ] as const,
+  /** Яндекс.Метрика — вставьте ID когда будет счётчик */
+  yandexMetrikaId: process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID || "",
+} as const;
+
+/** Публичный юридический статус (без ФИО и реквизитов на сайте) */
+export const LEGAL_CONFIG = {
+  statusLabel:
+    "плательщик налога на профессиональный доход (самозанятый)",
+  statusShort: "Плательщик НПД (самозанятый)",
+  notVatPayer: true,
+  offerRevision: "17.07.2026",
+  privacyRevision: "17.07.2026",
+} as const;
+
+export const HELMET_SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"] as const;
+
+/** Типовая сетка модульных шлемов (см обхвата; уточняйте по примерке). */
+export const HELMET_SIZE_CHART = [
+  { size: "XS", cm: "53–54" },
+  { size: "S", cm: "55–56" },
+  { size: "M", cm: "57–58" },
+  { size: "L", cm: "59–60" },
+  { size: "XL", cm: "61–62" },
+  { size: "XXL", cm: "63–64" },
+] as const;
+
+export const FAQ_ITEMS = [
+  {
+    question: "Как выбрать размер шлема?",
+    answer:
+      "Измерьте обхват головы сантиметром над бровями и ушами. Сверьте с таблицей размеров на сайте. При пограничном значении обычно берут меньший размер — подкладка со временем слегка разнашивается. На встрече можно примерить перед оплатой.",
+  },
+  {
+    question: "Где проходит встреча?",
+    answer: `Мы в мкр. ${SEO_CONFIG.locality} (рядом с ${SEO_CONFIG.landmark}), адрес: ${SEO_CONFIG.city}, ${SEO_CONFIG.street}. Точку и время согласовываем по телефону, в Telegram или MAX. На главной есть карта.`,
+  },
+  {
+    question: "Сколько платить при получении и что с залогом?",
+    answer:
+      "При выдаче всегда передаёте полную рыночную стоимость шлема. Из этой суммы вычитается стоимость проката за выбранные сутки, остаток — возвратный залог. Залог возвращаем сразу при возврате шлема в надлежащем состоянии.",
+  },
+  {
+    question: "Нужны ли документы?",
+    answer:
+      "Да. Для договора проката при встрече нужны паспорт или водительское удостоверение (можно фото/копия на месте). ФИО и реквизиты самозанятого указываются в акте при передаче, на сайте не публикуются. Арендатор — с 18 лет.",
+  },
+  {
+    question: "Есть ли онлайн-оплата и заявка на сайте?",
+    answer:
+      "Онлайн-оплаты и формы заявки нет. Бронь только по звонку +7 (950) 767-85-75, через кнопку Telegram на сайте или MAX 8 (919) 183-14-07 (Евгений). Оплата проката и залога — при личной встрече наличными или переводом по согласованию.",
+  },
+  {
+    question: "Что если задержу возврат?",
+    answer:
+      "Задержка возврата автоматически начисляет следующие сутки проката по тарифу выбранного шлема. Согласуйте продление заранее — так проще и для вас, и для нас.",
+  },
+] as const;
+
+/** Verification Яндекс.Вебмастера — meta content из кабинета */
+export const yandexVerification =
+  process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || "";
+
+/** Google Search Console — content из meta google-site-verification */
+export const googleVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "";
+
+export function productMeta({
+  brand,
+  model,
+  size,
+  price,
+  sizes,
+}: {
+  brand: string;
+  model: string;
+  size?: string;
+  price: number;
+  sizes?: string[];
+}) {
+  const sizePart = size ? ` (размер ${size})` : "";
+  const sizesText =
+    sizes && sizes.length > 0
+      ? `Размеры ${sizes.join(" и ")}.`
+      : "";
+  return {
+    title: `Аренда мотошлема ${brand} ${model}${sizePart} ${SEO_CONFIG.cityInFormat} — от ${price} ₽/сутки`,
+    description: `Взять напрокат шлем ${brand} ${model} ${SEO_CONFIG.cityInFormat}: ${price} ₽/сутки, возвратный залог, бронь по телефону, в Telegram или MAX. ${sizesText}`.trim(),
+  };
+}
+
+/** Ссылка «написать в Telegram», опционально с готовым текстом */
+export function telegramWriteUrl(prefill?: string): string {
+  const base = SEO_CONFIG.telegram;
+  if (!prefill?.trim()) return base;
+  const sep = base.includes("?") ? "&" : "?";
+  return `${base}${sep}text=${encodeURIComponent(prefill.trim())}`;
+}
+
+/** Canonical path with trailing slash (static export). */
+export function canonicalPath(path: string): string {
+  if (!path || path === "/") return "/";
+  const withSlash = path.endsWith("/") ? path : `${path}/`;
+  return withSlash.startsWith("/") ? withSlash : `/${withSlash}`;
+}
