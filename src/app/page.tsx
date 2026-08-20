@@ -240,7 +240,8 @@ export default function HomePage() {
             Когда удобен прокат
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-zinc-400">
-            На сутки и больше — без покупки «на один раз».
+            На сутки и больше — без покупки «на один раз». Чаще всего берут
+            шлем в таких случаях:
           </p>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {[
@@ -274,6 +275,62 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+
+          <details
+            className="group mt-4 rounded-xl border border-white/10 bg-zinc-950/50 open:border-amber-500/25"
+          >
+            <summary className="focus-ring cursor-pointer list-none rounded-xl px-3 py-2.5 text-sm font-semibold text-amber-50 marker:content-none [&::-webkit-details-marker]:hidden">
+              <span className="flex items-start justify-between gap-2">
+                <span>Ещё поводы взять напрокат</span>
+                <span
+                  aria-hidden
+                  className="mt-0.5 shrink-0 text-amber-500/80 transition group-open:rotate-45"
+                >
+                  +
+                </span>
+              </span>
+            </summary>
+            <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+              {[
+                {
+                  title: "Гость из другого города",
+                  text: "Приехали без экипировки — шлем на время поездки по Воронежу.",
+                },
+                {
+                  title: "Пробная поездка перед покупкой",
+                  text: "Понять, какой размер и посадка подходят, до покупки своего.",
+                },
+                {
+                  title: "Мотопробег или встреча клуба",
+                  text: "Нужен запасной шлем для друга или второго участника.",
+                },
+                {
+                  title: "Фото- и видеосъёмка",
+                  text: "Шлем для кадра или съёмки без покупки реквизита.",
+                },
+                {
+                  title: "Подарок или сюрприз",
+                  text: "Попробовать мотоцикл в подарок — без обязательств.",
+                },
+                {
+                  title: "Короткий выезд на выходные",
+                  text: "Прокат на 1–3 суток дешевле, чем покупать «на один раз».",
+                },
+              ].map((item) => (
+                <li
+                  key={item.title}
+                  className="rounded-xl border border-white/10 bg-zinc-950/40 px-3.5 py-3"
+                >
+                  <p className="text-sm font-semibold text-amber-50">
+                    {item.title}
+                  </p>
+                  <p className="mt-0.5 text-sm leading-snug text-zinc-400">
+                    {item.text}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </details>
         </div>
       </section>
 

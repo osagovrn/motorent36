@@ -12,7 +12,7 @@ const PROJECTS: Project[] = [
     href: "https://yvwvy.ru/",
     title: "ОСАГО и КАСКО онлайн",
     description:
-      "Оформление и продление полиса по России · ≈ 60 минут · официальные страховые",
+      "Оформление и подключение полиса ОСАГО и КАСКО по России · 1 час · официальные страховые",
     domain: "yvwvy.ru",
   },
   {
@@ -31,14 +31,32 @@ const PROJECTS: Project[] = [
   },
 ];
 
-/** Блок «Ещё в Воронеже» — другие проекты */
+/** Блок «Ещё в Воронеже» — другие проекты (реклама, помечена для поисковиков). */
 export function MoreInVoronezh() {
+  const relatedLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Другие проекты",
+    description:
+      "Смежные сервисы тех же владельцев: ОСАГО и КАСКО, склад стройматериалов, перманентный макияж.",
+    itemListElement: PROJECTS.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: p.title,
+      url: p.href,
+    })),
+  };
+
   return (
     <aside
       data-nosnippet
-      className="relative overflow-hidden border-y border-amber-500/20"
-      aria-label="Ещё в Воронеже"
+      className="relative border-y border-amber-500/20"
+      aria-label="Другие проекты и реклама"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(relatedLd) }}
+      />
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(245,158,11,0.12),transparent_55%)]"
         aria-hidden
