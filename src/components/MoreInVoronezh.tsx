@@ -35,6 +35,7 @@ const PROJECTS: Project[] = [
 export function MoreInVoronezh() {
   return (
     <aside
+      data-nosnippet
       className="relative overflow-hidden border-y border-amber-500/20"
       aria-label="Ещё в Воронеже"
     >
@@ -62,7 +63,7 @@ export function MoreInVoronezh() {
               <a
                 href={p.href}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="sponsored nofollow noopener noreferrer"
                 className="group focus-ring relative flex h-full flex-col overflow-hidden rounded-xl border border-amber-500/25 bg-gradient-to-br from-amber-500/[0.08] via-zinc-950 to-zinc-950 p-4 transition hover:border-amber-400/45"
               >
                 <span
