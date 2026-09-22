@@ -1,5 +1,3 @@
-import { SEO_CONFIG } from "@/config/seo";
-
 type Project = {
   href: string;
   title: string;

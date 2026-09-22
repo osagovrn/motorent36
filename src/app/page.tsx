@@ -22,7 +22,6 @@ export default function HomePage() {
     0,
     sampleMarket - (sample?.pricePerDay ?? 500),
   );
-  const sampleSizes = sample?.sizes ?? ["M", "L"];
   const heroImage = sample?.images[0] ?? "/products/jk902-1.jpg";
   const bookHref = sample
     ? `/catalog/${sample.slug}/#bron`
