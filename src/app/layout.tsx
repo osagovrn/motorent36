@@ -102,8 +102,30 @@ export const metadata: Metadata = {
   },
   other: {
     "mobile-web-app-capable": "yes",
+    // Referrer-Policy работает и как meta-тег (в отличие от HSTS/frame-ancestors).
+    referrer: "strict-origin-when-cross-origin",
   },
 };
+
+/**
+ * CSP через meta-тег — работает на GitHub Pages (HTTP-заголовки там задать нельзя).
+ * Разрешены только реально используемые источники: Яндекс.Метрика и карта OpenStreetMap.
+ * Полный набор заголовков (HSTS, frame-ancestors, X-Frame-Options) — в public/_headers
+ * для хостингов, которые его поддерживают (Cloudflare Pages / Netlify).
+ */
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://www.openstreetmap.org",
+  "style-src 'self' 'unsafe-inline' https://www.openstreetmap.org",
+  "img-src 'self' data: https://mc.yandex.ru https://tile.openstreetmap.org https://www.openstreetmap.org",
+  "font-src 'self' data:",
+  "connect-src 'self' https://mc.yandex.ru https://hdrc.yandex.net https://mdd.yandex.net https://tile.openstreetmap.org",
+  "frame-src https://www.openstreetmap.org",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
 
 export const viewport: Viewport = {
   themeColor: [
@@ -126,6 +148,7 @@ export default function RootLayout({
       className={`${body.variable} ${display.variable} h-full`}
     >
       <body className="flex min-h-dvh flex-col antialiased">
+        <meta httpEquiv="Content-Security-Policy" content={CSP} />
         <a href="#main-content" className="skip-link">
           Перейти к содержимому
         </a>
